@@ -17,11 +17,11 @@
 	<img src="https://img.shields.io/badge/Notion-181717?style=flat&logo=Notion&logoColor=white" />
 </div>
 <br>
-<h4 align="center">📝Rules📝</h4>
+<h4 align="center" >📝Rules📝</h4>
 <div align="center">  
-  <li>아! 금지</li>
-  <li>응? 금지</li>
-  <li>읭? 가능</li>
+  <p>아! 금지</p>
+  <p>응? 금지</p>
+  <p>읭? 가능</p>
 </div>
 
 
