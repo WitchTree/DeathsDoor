@@ -1,0 +1,200 @@
+//////////////////////////////////////////
+//
+// NOTE: This is *not* a valid shader file
+//
+///////////////////////////////////////////
+Shader "Toon/Lit Shine World Z" {
+Properties {
+_Color ("Main Color", Color) = (0.5,0.5,0.5,1)
+_MainTex ("Base (RGB)", 2D) = "white" { }
+_Ramp ("Toon Ramp (RGB)", 2D) = "gray" { }
+_Noise ("Shine (RGB)", 2D) = "white" { }
+[PropertyBlock] _ShineOffset ("Shine Offset", Float) = 0
+[PropertyBlock] _SourcePoint ("Source Pos", Vector) = (0,0,0,0)
+_ShineColor ("Shine Color", Color) = (0.5,0.5,0.5,1)
+_ShineGlow ("Shine Glow", Range(1, 10)) = 1
+_MaxDist ("Max Dist", Float) = 0
+_MinDist ("Min Dist", Float) = 0
+}
+SubShader {
+ LOD 200
+ Tags { "QUEUE" = "Geometry" "RenderType" = "Opaque" }
+ Pass {
+  Name "FORWARD"
+  LOD 200
+  Tags { "LIGHTMODE" = "FORWARDBASE" "QUEUE" = "Geometry" "RenderType" = "Opaque" "SHADOWSUPPORT" = "true" }
+  Cull Off
+  GpuProgramID 63874
+Program "vp" {
+SubProgram "d3d11 " {
+Keywords { "DIRECTIONAL" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "DIRECTIONAL" "LIGHTPROBE_SH" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "DIRECTIONAL" "SHADOWS_SCREEN" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "DIRECTIONAL" "LIGHTPROBE_SH" "SHADOWS_SCREEN" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "DIRECTIONAL" "VERTEXLIGHT_ON" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "DIRECTIONAL" "LIGHTPROBE_SH" "VERTEXLIGHT_ON" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "DIRECTIONAL" "SHADOWS_SCREEN" "VERTEXLIGHT_ON" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "DIRECTIONAL" "LIGHTPROBE_SH" "SHADOWS_SCREEN" "VERTEXLIGHT_ON" }
+"// shader disassembly not supported on DXBC"
+}
+}
+Program "fp" {
+SubProgram "d3d11 " {
+Keywords { "DIRECTIONAL" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "DIRECTIONAL" "LIGHTPROBE_SH" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "DIRECTIONAL" "SHADOWS_SCREEN" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "DIRECTIONAL" "LIGHTPROBE_SH" "SHADOWS_SCREEN" }
+"// shader disassembly not supported on DXBC"
+}
+}
+}
+ Pass {
+  Name "FORWARD"
+  LOD 200
+  Tags { "LIGHTMODE" = "FORWARDADD" "QUEUE" = "Geometry" "RenderType" = "Opaque" "SHADOWSUPPORT" = "true" }
+  Blend One One, One One
+  ZWrite Off
+  Cull Off
+  GpuProgramID 109059
+Program "vp" {
+SubProgram "d3d11 " {
+Keywords { "POINT" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "DIRECTIONAL" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "SPOT" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "POINT_COOKIE" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "DIRECTIONAL_COOKIE" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "SHADOWS_DEPTH" "SPOT" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "SHADOWS_DEPTH" "SHADOWS_SOFT" "SPOT" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "DIRECTIONAL" "SHADOWS_SCREEN" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "DIRECTIONAL_COOKIE" "SHADOWS_SCREEN" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "POINT" "SHADOWS_CUBE" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "POINT" "SHADOWS_CUBE" "SHADOWS_SOFT" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "POINT_COOKIE" "SHADOWS_CUBE" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "POINT_COOKIE" "SHADOWS_CUBE" "SHADOWS_SOFT" }
+"// shader disassembly not supported on DXBC"
+}
+}
+Program "fp" {
+SubProgram "d3d11 " {
+Keywords { "POINT" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "DIRECTIONAL" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "SPOT" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "POINT_COOKIE" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "DIRECTIONAL_COOKIE" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "SHADOWS_DEPTH" "SPOT" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "SHADOWS_DEPTH" "SHADOWS_SOFT" "SPOT" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "DIRECTIONAL" "SHADOWS_SCREEN" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "DIRECTIONAL_COOKIE" "SHADOWS_SCREEN" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "POINT" "SHADOWS_CUBE" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "POINT" "SHADOWS_CUBE" "SHADOWS_SOFT" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "POINT_COOKIE" "SHADOWS_CUBE" }
+"// shader disassembly not supported on DXBC"
+}
+SubProgram "d3d11 " {
+Keywords { "POINT_COOKIE" "SHADOWS_CUBE" "SHADOWS_SOFT" }
+"// shader disassembly not supported on DXBC"
+}
+}
+}
+}
+Fallback "Diffuse"
+}
