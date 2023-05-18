@@ -12,10 +12,11 @@ public class Enemy : MonoBehaviour
 
     //player detect
     public bool isAttracted = false;
+    public bool isResetPos = false;
     public float attractRadius = 4f;
-    public float moveRadius = 6f;
+    public float moveRadius = 8f;
 
-    [SerializeField]PlayerController playerController;
+    protected PlayerController playerController;
 
     protected virtual void Start()
     {
@@ -24,7 +25,7 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Update()
     {
-        DetectPlayer();
+        //DetectPlayer();
     }
 
     protected virtual void Move()
@@ -32,6 +33,7 @@ public class Enemy : MonoBehaviour
 
     }
 
+    /*
     protected virtual void DetectPlayer()
     {
         Vector3 offsetPlayer = transform.position - playerController.gameObject.transform.position;
@@ -41,4 +43,5 @@ public class Enemy : MonoBehaviour
             isAttracted = true;
         }
     }
+    */
 }

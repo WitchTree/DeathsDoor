@@ -1,22 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Bat : Enemy
 {
-    [SerializeField] Vector3 center;
+    Vector3 destination;
+    [SerializeField] Transform player, patrol;
+    [SerializeField] NavMeshAgent agent;
+    float searchTime = 15f;
 
     protected override void Start()
     {
         SetBat();
-        center = transform.position;
         base.Start();
     }
 
     protected override void Update()
     {
-        //Move();
         base.Update();
+        if(!isAttracted)
+        {
+            destination = patrol.position;
+            agent.destination = destination;
+        }
+        else
+        {
+            destination = player.position;
+            agent.destination = destination;
+        }
     }
 
     void SetBat()
@@ -25,8 +37,28 @@ public class Bat : Enemy
         this.sprit = 2;
     }
 
-    protected override void Move()
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("move");
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("Chasing");
+            isAttracted = true;
+        }
+    }
+
+    /*
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isAttracted = false;
+        }
+    }
+    */
+
+    IEnumerator SearchPlayer()
+    {
+        yield return new WaitForSeconds(searchTime);
+        isAttracted = false;
     }
 }
