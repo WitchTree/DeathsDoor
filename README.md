@@ -5,7 +5,7 @@
 
   
   <h4 align="center">📕Notion📕</h4>
-  <a href=https://www.notion.so/rravely/Witch-Tree-7576314c6ca14d03916dc20da620a59b>https://www.notion.so/rravely</a>
+  <a href=https://witchtree.notion.site/Home-a19c28eb70674e0da5c42f920067717e>https://www.notion.so/witchTree</a>
 
 </div>
 
@@ -18,7 +18,7 @@
 </div>
 <br>
 <h4 align="center" >📝Rules📝</h4>
-<div align="center">  
+<div align="left">  
   <p>[Feat]</p>
   <p>새로운 기능 추가</p>
   <p>[Fix]</p>
