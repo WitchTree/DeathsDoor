@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class Bat : Enemy
 {
+    //Move
     Vector3 destination;
     [SerializeField] Transform player, patrol;
     [SerializeField] NavMeshAgent agent;
@@ -23,11 +24,13 @@ public class Bat : Enemy
         {
             destination = patrol.position;
             agent.destination = destination;
+            agent.speed = 20f;
         }
         else
         {
             destination = player.position;
             agent.destination = destination;
+            agent.speed = 30f;
         }
     }
 

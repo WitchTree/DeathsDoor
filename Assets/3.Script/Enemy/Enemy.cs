@@ -16,32 +16,13 @@ public class Enemy : MonoBehaviour
     public float attractRadius = 4f;
     public float moveRadius = 8f;
 
-    protected PlayerController playerController;
-
     protected virtual void Start()
     {
-        playerController = FindObjectOfType<PlayerController>();
+        
     }
 
     protected virtual void Update()
     {
         //DetectPlayer();
     }
-
-    protected virtual void Move()
-    {
-
-    }
-
-    /*
-    protected virtual void DetectPlayer()
-    {
-        Vector3 offsetPlayer = transform.position - playerController.gameObject.transform.position;
-        if (offsetPlayer.sqrMagnitude < attractRadius)
-        {
-            Debug.Log("Find Player");
-            isAttracted = true;
-        }
-    }
-    */
 }
