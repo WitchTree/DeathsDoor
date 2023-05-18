@@ -11,6 +11,14 @@ public class Bat : Enemy
     [SerializeField] NavMeshAgent agent;
     float searchTime = 15f;
 
+    //Animator
+    Animator batAni;
+
+    //Attack
+    float attackBetTime = 5f;
+    float attackTime = 0f;
+    bool isAttack = false;
+
     protected override void Start()
     {
         SetBat();
@@ -32,19 +40,22 @@ public class Bat : Enemy
             agent.destination = destination;
             agent.speed = 30f;
         }
+        Attack();
     }
 
     void SetBat()
     {
         this.hp = 1;
         this.sprit = 2;
+
+        batAni = GetComponent<Animator>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Chasing");
+            batAni.SetTrigger("Shock");
             isAttracted = true;
         }
     }
@@ -63,5 +74,29 @@ public class Bat : Enemy
     {
         yield return new WaitForSeconds(searchTime);
         isAttracted = false;
+    }
+
+    void Attack()
+    {
+        //bat => bite
+        if (attackTime >= attackBetTime && !isAttack && isAttracted)
+        {
+            isAttack = true;
+            batAni.SetTrigger("Bite");
+            StartCoroutine(BiteTime_co());
+
+            //isAttack == true 이고 collider 충돌하면 player hp 닳게 만들기
+        }
+        attackTime += Time.deltaTime;
+    }
+
+    IEnumerator BiteTime_co()
+    {
+        while (attackTime > attackBetTime + 1.967f)
+        {
+            yield return null;
+        }
+        isAttack = false;
+        attackTime = 0f;
     }
 }
