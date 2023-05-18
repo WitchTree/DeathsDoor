@@ -7,6 +7,7 @@ public class Bat : Enemy
 {
     //Move
     Vector3 destination;
+    Vector3 currPos;
     [SerializeField] Transform player, patrol;
     [SerializeField] NavMeshAgent agent;
     float searchTime = 15f;
@@ -28,17 +29,21 @@ public class Bat : Enemy
     protected override void Update()
     {
         base.Update();
-        if(!isAttracted)
+        if(!isAttracted && !isAttack)
         {
             destination = patrol.position;
             agent.destination = destination;
             agent.speed = 20f;
         }
-        else
+        else if (isAttracted && !isAttack)
         {
             destination = player.position;
             agent.destination = destination;
             agent.speed = 30f;
+        }
+        else
+        {
+            agent.speed = 0f;
         }
         Attack();
     }
@@ -83,6 +88,7 @@ public class Bat : Enemy
         {
             isAttack = true;
             batAni.SetTrigger("Bite");
+            destination = currPos;
             StartCoroutine(BiteTime_co());
 
             //isAttack == true 이고 collider 충돌하면 player hp 닳게 만들기
@@ -92,8 +98,10 @@ public class Bat : Enemy
 
     IEnumerator BiteTime_co()
     {
-        while (attackTime > attackBetTime + 1.967f)
+        float time = 0f;
+        while (time < 3f)
         {
+            time += Time.deltaTime;
             yield return null;
         }
         isAttack = false;
