@@ -5,7 +5,7 @@
 
   
   <h4 align="center">📕Notion📕</h4>
-  <a href=https://www.notion.so/rravely/Witch-Tree-7576314c6ca14d03916dc20da620a59b>https://www.notion.so/rravely</a>
+  <a href=https://witchtree.notion.site/Home-a19c28eb70674e0da5c42f920067717e>https://www.notion.so/witchTree</a>
 
 </div>
 
@@ -19,9 +19,14 @@
 <br>
 <h4 align="center" >📝Rules📝</h4>
 <div align="center">  
-  <p>아! 금지</p>
-  <p>응? 금지</p>
-  <p>읭? 가능</p>
+  <p>[Feat] 새로운 기능 추가</p>
+  <p>[Fix] 버그 및 기능의 수정</p>
+  <p>[Set] 프로젝트 설정 등 / 유니티 자체의 설정 변경</p>
+  <p>[Refactor] 기능에 영향을 주지 않는 / 범위의 코드 수정</p>
+  <p>[Test] 테스트에 관련된 작업</p>
+  <p>[Docs] 문서 파일 수정</p>
+  <p>[Create] 프로젝트 및 씬 / 스크립트 / 오브젝트 / 프리팹</p>
+  <p>[Add] 리소스 및 에셋 등, 스크립트 / 오브젝트 외적인 파일</p>
 </div>
 
 
