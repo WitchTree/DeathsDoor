@@ -18,28 +18,26 @@ public class Bat : Enemy
     //Attack
     float attackBetTime = 5f;
     float attackTime = 0f;
-    bool isAttack = false;
+    float biteTime = 3f;
 
-    protected override void Start()
+    void Start()
     {
         SetBat();
-        base.Start();
     }
 
-    protected override void Update()
+    void Update()
     {
-        base.Update();
-        if(!isAttracted && !isAttack)
+        if(!isAttracted && !isAttacking)
         {
             destination = patrol.position;
             agent.destination = destination;
-            agent.speed = 20f;
+            agent.speed = 15f;
         }
-        else if (isAttracted && !isAttack)
+        else if (isAttracted && !isAttacking)
         {
             destination = player.position;
             agent.destination = destination;
-            agent.speed = 30f;
+            agent.speed = 20f;
         }
         else
         {
@@ -65,16 +63,6 @@ public class Bat : Enemy
         }
     }
 
-    /*
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            isAttracted = false;
-        }
-    }
-    */
-
     IEnumerator SearchPlayer()
     {
         yield return new WaitForSeconds(searchTime);
@@ -84,11 +72,11 @@ public class Bat : Enemy
     void Attack()
     {
         //bat => bite
-        if (attackTime >= attackBetTime && !isAttack && isAttracted)
+        if (attackTime >= attackBetTime && !isAttacking && isAttracted)
         {
-            isAttack = true;
+            isAttacking = true;
             batAni.SetTrigger("Bite");
-            destination = currPos;
+            //destination = currPos;
             StartCoroutine(BiteTime_co());
 
             //isAttack == true 이고 collider 충돌하면 player hp 닳게 만들기
@@ -99,12 +87,12 @@ public class Bat : Enemy
     IEnumerator BiteTime_co()
     {
         float time = 0f;
-        while (time < 3f)
+        while (time < biteTime)
         {
             time += Time.deltaTime;
             yield return null;
         }
-        isAttack = false;
+        isAttacking = false;
         attackTime = 0f;
     }
 }

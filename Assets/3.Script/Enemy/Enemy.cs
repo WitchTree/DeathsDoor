@@ -9,20 +9,11 @@ public class Enemy : MonoBehaviour
     public float hp;
     public int sprit;
     public bool isDead = false;
+    public bool isAttacking = false;
 
     //player detect
     public bool isAttracted = false;
     public bool isResetPos = false;
     public float attractRadius = 4f;
     public float moveRadius = 8f;
-
-    protected virtual void Start()
-    {
-        
-    }
-
-    protected virtual void Update()
-    {
-        //DetectPlayer();
-    }
 }
