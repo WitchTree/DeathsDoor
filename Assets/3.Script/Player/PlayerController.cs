@@ -24,8 +24,6 @@ public class PlayerController : MonoBehaviour
     public bool isIdle = false;
     public bool isAtk = false;
 
-
-
     //public GameObject Tester;
 
     void Start()
@@ -39,7 +37,7 @@ public class PlayerController : MonoBehaviour
         Run();
         Roll();
         Lookat();
-        Attack();
+
     }
 
     private void Run()
@@ -98,27 +96,14 @@ public class PlayerController : MonoBehaviour
                 hitpoint = h.point;
             }
 
-            if (playerInput.isLight || playerInput.isStrong || playerInput.isBow)//조건 공격 만들때 수정할게요~~
+            if (playerInput.isLight || playerInput.isStrong || playerInput.isSkill_start)//조건 공격 만들때 수정할게요~~
             {
                 transform.LookAt(hitpoint);
             }
         }
     }
 
-    public void Attack()
-    {
-        //if (Input.GetKeyDown(KeyCode.Mouse1))
-        if(Input.GetKey(KeyCode.Q))
-        {
-            isAtk = true;
-            ani.SetBool("Bow", isAtk);         
-        }
-        if (Input.GetKeyUp(KeyCode.Q))
-        {
-            isAtk = false;
-            ani.SetBool("Bow", isAtk);
-        }
-    }
+
 
     
 

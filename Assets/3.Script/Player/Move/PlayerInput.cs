@@ -8,7 +8,7 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private string RotateAxisName = "Horizontal";
     [SerializeField] private string Roll = "Jump";
     [SerializeField] private string lightSword = "Fire1";//마우스 inputmanager가면 이해 가능
-    [SerializeField] private string Bow = "Fire2";
+    [SerializeField] private string skill = "Fire2";
     [SerializeField] private string strongSword = "Fire3";
 
     //Get Axis -> return  float 자료형
@@ -19,7 +19,8 @@ public class PlayerInput : MonoBehaviour
     public bool isRoll { get; private set; }
     public bool isLight { get; private set; }
     public bool isStrong { get; private set; }
-    public bool isBow { get; private set; }
+    public bool isSkill_start { get; private set; }
+    public bool isSkill_end { get; private set; }
     
 
     // Update is called once per frame
@@ -31,7 +32,7 @@ public class PlayerInput : MonoBehaviour
         isRoll = Input.GetKeyDown(KeyCode.Space);
         isLight = Input.GetButton(lightSword);
         isStrong = Input.GetButton(strongSword);
-        isStrong = Input.GetButton(strongSword);
-        isBow = Input.GetButton(Bow);
+        isSkill_start = Input.GetButtonDown(skill);
+        isSkill_end = Input.GetButtonUp(skill);
     }
 }
