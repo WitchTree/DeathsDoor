@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] Camera main;
+    [SerializeField] PlayerInput playerInput;
+
     public float speed = 2f; //이동속도
     public float roll_Dis = 10f;//구르는 거리
     public float selDelay = 1f;
@@ -21,6 +24,10 @@ public class PlayerController : MonoBehaviour
     public bool isIdle = false;
     public bool isAtk = false;
 
+
+
+    //public GameObject Tester;
+
     void Start()
     {
         player_R = GetComponent<Rigidbody>();
@@ -31,19 +38,18 @@ public class PlayerController : MonoBehaviour
     {
         Run();
         Roll();
-        RayRotate();
+        Lookat();
+        Attack();
     }
 
     private void Run()
     {
-        float inputX = Input.GetAxis("Horizontal");
-        float inputZ = Input.GetAxis("Vertical");
 
         isRun = false;
 
-        if ((inputX != 0 || inputZ != 0) && !isRoll && !isAtk)//구르기 x,공격x
+        if ((playerInput.Move_Value != 0 || playerInput.Rotate_Value != 0) && !isRoll && !isAtk)//구르기 x,공격x
         {
-            Vector3 velocity = new Vector3(inputX, 0, inputZ);
+            Vector3 velocity = new Vector3(playerInput.Rotate_Value, 0, playerInput.Move_Value);
             velocity *= speed;
             player_R.velocity = velocity;
             isRun = true;
@@ -55,7 +61,7 @@ public class PlayerController : MonoBehaviour
 
     public void Roll()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isRoll && !isAtk)
+        if (playerInput.isRoll && !isRoll && !isAtk)
         {
             StartCoroutine("Roll_co");
         }
@@ -65,6 +71,7 @@ public class PlayerController : MonoBehaviour
     {
         delay = selDelay;
         isRoll = true;
+
         Vector3 roll_Dir = transform.forward;
 
         player_R.velocity = Vector3.zero;
@@ -80,41 +87,42 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void RayRotate()
+    public void Lookat()
     {
         if (!isRoll)
         {
-            Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Plane GroupPlane = new Plane(Vector3.up, Vector3.zero);
-            float rayLength;
-            if (GroupPlane.Raycast(cameraRay, out rayLength))
+            Ray cameraRay = main.ScreenPointToRay(Input.mousePosition);
+            Vector3 hitpoint = Vector3.zero;
+            if (Physics.Raycast(cameraRay, out RaycastHit h))
             {
-                Vector3 pointTolook = cameraRay.GetPoint(rayLength);
+                hitpoint = h.point;
+            }
 
-                if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Mouse1) || Input.GetKey(KeyCode.Mouse2))
-                {
-                    isAtk = true;
-                    player_R.velocity = Vector3.zero;
-                    transform.LookAt(new Vector3(pointTolook.x, transform.position.y, pointTolook.z));
-                }
-                else
-                {
-                    isAtk = false; // 나중에 공격을 만들면 가져갈게요~~ _0517
-                }
+            if (playerInput.isLight || playerInput.isStrong || playerInput.isBow)//조건 공격 만들때 수정할게요~~
+            {
+                transform.LookAt(hitpoint);
             }
         }
-
     }
 
     public void Attack()
     {
-        if (Input.GetKey(KeyCode.Mouse0))
+        //if (Input.GetKeyDown(KeyCode.Mouse1))
+        if(Input.GetKey(KeyCode.Q))
         {
             isAtk = true;
-            ani.SetBool("Attack", isAtk);         
+            ani.SetBool("Bow", isAtk);         
+        }
+        if (Input.GetKeyUp(KeyCode.Q))
+        {
+            isAtk = false;
+            ani.SetBool("Bow", isAtk);
         }
     }
 
+    
+
+    
 
 }
 

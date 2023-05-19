@@ -4,19 +4,17 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    public GameObject sword;
+
     [SerializeField] private Animator playerAni;
-
-    public Transform gunPivot;
-    public Transform leftHandMount;
-    public Transform rightHandMount;
-
+    public Transform swordPivot;
 
     void Start()
     {
         TryGetComponent(out playerAni);
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         
@@ -24,6 +22,6 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnAnimatorIK(int layerIndex)
     {
-       
+
     }
 }
