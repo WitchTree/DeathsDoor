@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
     public float selDelay = 1f;
     private float delay = 0f;
     public int skill = 4; // 스킬 수
-    public int life = 4; 
+    public int life = 4;
+    public int seed = 2;//씨앗 
 
     private Rigidbody player_R;
     private Animator ani;
@@ -18,6 +19,15 @@ public class PlayerController : MonoBehaviour
     public bool isRun = false;
     public bool isRoll = false;
     public bool isIdle = false;
+    public bool isAtk = false;
+
+    [SerializeField] private GameObject cursor;
+    public Transform swordPivot;
+    public Transform leftHandMount;
+
+
+
+    //public GameObject Tester;
 
     void Start()
     {
@@ -29,7 +39,7 @@ public class PlayerController : MonoBehaviour
     {
         Run();
         Roll();
-        RayRotate();
+        Lookat();
     }
 
     private void Run()
@@ -39,7 +49,7 @@ public class PlayerController : MonoBehaviour
 
         isRun = false;
 
-        if ((inputX != 0 || inputZ != 0) && !isRoll)
+        if ((inputX != 0 || inputZ != 0) && !isRoll && !isAtk)//구르기 x,공격x
         {
             Vector3 velocity = new Vector3(inputX, 0, inputZ);
             velocity *= speed;
@@ -53,7 +63,7 @@ public class PlayerController : MonoBehaviour
 
     public void Roll()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isRoll)
+        if (Input.GetKeyDown(KeyCode.Space) && !isRoll && !isAtk)
         {
             StartCoroutine("Roll_co");
         }
@@ -78,19 +88,46 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void RayRotate()
+    private void OnAnimatorIK(int layerIndex)
     {
-        Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Plane GroupPlane = new Plane(Vector3.up, Vector3.zero);
-        float rayLength;
-        if (GroupPlane.Raycast(cameraRay, out rayLength))
-        {
-            Vector3 pointTolook = cameraRay.GetPoint(rayLength);
+        swordPivot.position = ani.GetIKHintPosition(AvatarIKHint.LeftElbow);
 
-            if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Mouse1) || Input.GetKey(KeyCode.Mouse2))
+
+        ani.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1.0f);
+        ani.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1.0f);
+       
+        ani.SetIKPosition(AvatarIKGoal.LeftHand, leftHandMount.position);
+        ani.SetIKRotation(AvatarIKGoal.LeftHand, leftHandMount.rotation);
+    }
+
+    public void Lookat()
+    {
+        if (!isRoll)
+        {
+            Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Vector3 hitpoint = Vector3.zero;            
+
+            if (Physics.Raycast(cameraRay, out RaycastHit h))
             {
-                transform.LookAt(new Vector3(pointTolook.x, transform.position.y, pointTolook.z));
+                hitpoint = h.point;
+                cursor.transform.position = new Vector3(hitpoint.x, hitpoint.y + 0.1f,hitpoint.z);
+                
             }
+            //gb.transform.position = hitpoint;
+
+            if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Mouse1) || Input.GetKey(KeyCode.Mouse2))//조건 공격 만들때 수정할게요~~
+            {
+                transform.LookAt(hitpoint);
+            }
+        }
+    }
+
+    public void Attack()
+    {
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+            isAtk = true;
+            ani.SetBool("Attack", isAtk);
         }
     }
 
