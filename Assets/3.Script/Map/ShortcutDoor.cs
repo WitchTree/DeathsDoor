@@ -6,6 +6,11 @@ public class ShortcutDoor : MonoBehaviour
 {
     [SerializeField] Transform centerPos;
 
+    public void InitOpen()
+    {
+        transform.RotateAround(centerPos.position, Vector3.up, 90f);
+    }
+
     public void OpenInward()
     {
         StartCoroutine(OpenInward_co());
@@ -29,7 +34,7 @@ public class ShortcutDoor : MonoBehaviour
     {
         while (transform.eulerAngles.y > 180f)
         {
-            transform.RotateAround(centerPos.position, Vector3.up, -50 * Time.deltaTime);
+            transform.RotateAround(centerPos.position, Vector3.up, -100 * Time.deltaTime);
             yield return null;
         }
     }

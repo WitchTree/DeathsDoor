@@ -6,16 +6,31 @@ using UnityEngine.SceneManagement;
 
 public class SceneChange : MonoBehaviour
 {
-    float fadeTime = 1.5f;
+    float fadeInTime = 1f;
+    float fadeOutTime = 1.5f;
     float timeFadeIn = 0f;
     float timeFadeOut = 0f;
 
     [SerializeField] string sceneName = "";
     [SerializeField] Image sceneLoadingImg;
 
+    [SerializeField] Transform player;
+    [SerializeField] Transform PEndPos;
+    [SerializeField] Transform PStartPos;
+    [SerializeField] ShortcutDoor shortcutDoor;
+
+    public Animator playerAni;
+
+    bool isWalk = true;
+     
+
     private void Start()
     {
+        playerAni = player.GetComponent<Animator>();
+
         StartCoroutine(FadeIn());
+        StartCoroutine(PlayerAppear());
+        shortcutDoor.InitOpen();
     }
 
     public void ChangeScene()
@@ -47,7 +62,7 @@ public class SceneChange : MonoBehaviour
 
         while (imgColor.a < 1f)
         {
-            timeFadeOut += Time.deltaTime / fadeTime;
+            timeFadeOut += Time.deltaTime / fadeOutTime;
             imgColor.a = Mathf.Lerp(0f, 1f, timeFadeOut);
             sceneLoadingImg.color = imgColor;
             yield return null;
@@ -64,12 +79,31 @@ public class SceneChange : MonoBehaviour
 
         while (imgColor.a > 0f)
         {
-            timeFadeIn += Time.deltaTime / fadeTime;
+            timeFadeIn += Time.deltaTime / fadeInTime;
             imgColor.a = Mathf.Lerp(1f, 0f, timeFadeIn);
             sceneLoadingImg.color = imgColor;
             yield return null;
         }
         sceneLoadingImg.enabled = false;
+
+        shortcutDoor.CloseFromInward();
+    }
+
+    IEnumerator PlayerAppear()
+    {
+        player.position = PEndPos.position;
+        player.LookAt(PStartPos);
+
+        //플레이어 애니메이션 재생
+        while (player.position.z > PStartPos.position.z)
+        {
+            playerAni.SetBool("Run", true);
+            player.position += new Vector3(0f, 0f, -0.02f);
+            yield return null;
+        }
+
+        player.position = PStartPos.position;
+        player.GetComponent<Animator>().SetBool("Run", false);
     }
 
     //timeFadeIn, timeFadeOut에 초기화 없어서 여러번 하면 오류날수도
