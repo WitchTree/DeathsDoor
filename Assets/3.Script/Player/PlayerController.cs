@@ -22,10 +22,7 @@ public class PlayerController : MonoBehaviour
     public bool isAtk = false;
 
     [SerializeField] private GameObject cursor;
-    public Transform swordPivot;
-    public Transform leftHandMount;
-
-
+   
 
     //public GameObject Tester;
 
@@ -41,6 +38,7 @@ public class PlayerController : MonoBehaviour
         Roll();
         Lookat();
     }
+
 
     private void Run()
     {
@@ -88,30 +86,18 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void OnAnimatorIK(int layerIndex)
-    {
-        swordPivot.position = ani.GetIKHintPosition(AvatarIKHint.LeftElbow);
-
-
-        ani.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1.0f);
-        ani.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1.0f);
-       
-        ani.SetIKPosition(AvatarIKGoal.LeftHand, leftHandMount.position);
-        ani.SetIKRotation(AvatarIKGoal.LeftHand, leftHandMount.rotation);
-    }
-
     public void Lookat()
     {
         if (!isRoll)
         {
             Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Vector3 hitpoint = Vector3.zero;            
+            Vector3 hitpoint = Vector3.zero;
 
             if (Physics.Raycast(cameraRay, out RaycastHit h))
             {
                 hitpoint = h.point;
-                cursor.transform.position = new Vector3(hitpoint.x, hitpoint.y + 0.1f,hitpoint.z);
-                
+                cursor.transform.position = new Vector3(hitpoint.x, hitpoint.y + 0.1f, hitpoint.z);
+
             }
             //gb.transform.position = hitpoint;
 
