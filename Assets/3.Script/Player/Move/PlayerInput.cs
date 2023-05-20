@@ -32,7 +32,7 @@ public class PlayerInput : MonoBehaviour
         isRoll = Input.GetKeyDown(KeyCode.Space);
         isLight = Input.GetButton(lightSword);
         isStrong = Input.GetButton(strongSword);
-        isSkill_start = Input.GetButtonDown(skill);
+        isSkill_start = Input.GetButton(skill);
         isSkill_end = Input.GetButtonUp(skill);
     }
 }

@@ -11,9 +11,7 @@ public class PlayerController : MonoBehaviour
     public float roll_Dis = 10f;//±¸¸£´Â °Å¸®
     public float selDelay = 1f;
     private float delay = 0f;
-    public int skill = 4; // ½ºÅ³ ¼ö
-    public int life = 4;
-    public int seed = 2;//¾¾¾Ñ 
+    
 
     private Rigidbody player_R;
     private Animator ani;
