@@ -94,6 +94,8 @@ public class SceneChange : MonoBehaviour
         player.position = PEndPos.position;
         player.LookAt(PStartPos);
 
+        //플레이어 입력 금지
+
         //플레이어 애니메이션 재생
         while (player.position.z > PStartPos.position.z)
         {

@@ -4,25 +4,30 @@ using UnityEngine;
 
 public class ForestMother : MonoBehaviour
 {
-    //Legs
-    [SerializeField] Transform vines;
-    [SerializeField] Transform body;
+    //Player
+    [SerializeField] GameObject player;
 
-    float rotateSpeed = 30f;
+    //Animator
+    Animator forestMotherAni;
 
 
-    public void Spin()
+    private void Awake()
     {
-        StartCoroutine(RotateVines_co());
+        forestMotherAni = GetComponent<Animator>();
     }
 
-    IEnumerator RotateVines_co()
+    public void StartAttack() 
     {
-        while (true)
-        {
-            vines.RotateAround(body.position, Vector3.up, rotateSpeed * Time.deltaTime);
-            yield return null;
-        }
+        StartSpin();
     }
 
+    void StartSpin()
+    {
+        forestMotherAni.SetTrigger("StartSpin");
+    }
+
+    public void SlamSlow()
+    {
+        forestMotherAni.SetTrigger("SlamSlow");
+    }
 }
