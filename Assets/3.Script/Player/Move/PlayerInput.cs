@@ -7,7 +7,7 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private string MoveAxisName = "Vertical";
     [SerializeField] private string RotateAxisName = "Horizontal";
     [SerializeField] private string Roll = "Jump";
-    [SerializeField] private string lightSword = "Fire1";//마우스 inputmanager가면 이해 가능
+    [SerializeField] private string lightSword = "Fire1";
     [SerializeField] private string skill = "Fire2";
     [SerializeField] private string strongSword = "Fire3";
 

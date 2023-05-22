@@ -46,7 +46,7 @@ public class Heal_Plant : MonoBehaviour
 
             isCheck = true;//¾¾¾ÑÀ» ½ÉÀ½
             ani.SetBool("Seed", isSeed);
-            ani.SetTrigger("SeedTest");
+            //ani.SetTrigger("SeedTest");
             //isCheck = true;
             Debug.Log("¾¾¾Ñ ½É¾ú´ç");
             Debug.Log(playerState.seed);

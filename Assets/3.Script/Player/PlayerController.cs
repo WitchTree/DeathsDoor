@@ -35,12 +35,10 @@ public class PlayerController : MonoBehaviour
         Run();
         Roll();
         Lookat();
-
     }
 
     private void Run()
     {
-
         isRun = false;
 
         if ((playerInput.Move_Value != 0 || playerInput.Rotate_Value != 0) && !isRoll && !isAtk)//구르기 x,공격x
@@ -100,12 +98,5 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
-
-
-    
-
-    
-
 }
 

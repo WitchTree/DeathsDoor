@@ -13,8 +13,6 @@ public class Player_skill : MonoBehaviour
 
     public GameObject arrow;
 
-    PlayerController player;
-
     public bool isSkill = false;
 
     void Start()
@@ -29,6 +27,7 @@ public class Player_skill : MonoBehaviour
     {
         if (playerInput.isSkill_start  && !isSkill)
         {
+
             isSkill = true;
             ani.SetBool("Bow", isSkill);
             StartCoroutine("Wait_co");     
