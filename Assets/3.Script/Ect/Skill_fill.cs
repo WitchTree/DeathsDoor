@@ -4,27 +4,28 @@ using UnityEngine;
 
 public class Skill_fill : MonoBehaviour
 {
-    public PlayerInput player;
-    public Player_State player_state;
+    public PlayerInput playerInput;
+    public Player_State playerState;
     private float delay = 3f;
     private MeshRenderer meshRenderer;
-
 
     private void Awake()
     {
         TryGetComponent(out meshRenderer);
+        playerInput = FindObjectOfType<PlayerInput>();
+        playerState = FindObjectOfType<Player_State>();
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && player.isLight)// 나중에 물리공격 완성하면 그 공격 범위내에 있어야 사라지도록 수정
+        if (other.CompareTag("Player") && playerInput.isLight)// 나중에 물리공격 완성하면 그 공격 범위내에 있어야 사라지도록 수정
         {
-            player_state.skill++;
-            if (player_state.skill > 4)
+            playerState.skill++;
+            if (playerState.skill > 4)
             {
-                player_state.skill = 4;
+                playerState.skill = 4;
             }
-            Debug.Log(player_state.skill);
+            Debug.Log(playerState.skill);
 
             StartCoroutine(Skill_Fill_co());
         }

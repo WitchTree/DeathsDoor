@@ -6,13 +6,17 @@ using UnityEngine;
 // µü ÇÑ ¹ø¿¡ ½É°í ¸ÔÀ» ¼ö ÀÖÀ½
 public class Heal_Plant : MonoBehaviour
 {
-    public Player_State player;
+    public Player_State playerState;
     private bool isSeed = false;
     private bool isCheck = false;
     private int seedCount = 1;
 
     private Animator ani;
 
+    private void Awake()
+    {
+        playerState = FindObjectOfType<Player_State>();
+    }
     void Start()
     {
         ani = GetComponent<Animator>();
@@ -20,7 +24,7 @@ public class Heal_Plant : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && player.seed > 0 && !isCheck)//È­ºÐ ¹üÀ§ ¾È¿¡ ÀÖ°í ÇÃ·¹ÀÌ¾î°¡ ¾¾¾ÑÀÌ ÀÖ°í ¾¾¾ÑÀ» ½ÉÀº ÀûÀÌ ¾ø´Ù¸é
+        if (other.CompareTag("Player") && playerState.seed > 0 && !isCheck)//È­ºÐ ¹üÀ§ ¾È¿¡ ÀÖ°í ÇÃ·¹ÀÌ¾î°¡ ¾¾¾ÑÀÌ ÀÖ°í ¾¾¾ÑÀ» ½ÉÀº ÀûÀÌ ¾ø´Ù¸é
         {
             isSeed = true;//¾¾¾ÑÀÌ ÀÖÀ½);
         }
@@ -37,7 +41,7 @@ public class Heal_Plant : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.E) && isSeed && seedCount == 1)//¾¾¾Ñ ½É±â
         {
-            player.seed--;//¾¾¾ÑÀÌ »ç¶óÁü
+            playerState.seed--;//¾¾¾ÑÀÌ »ç¶óÁü
             seedCount--;
 
             isCheck = true;//¾¾¾ÑÀ» ½ÉÀ½
@@ -45,14 +49,14 @@ public class Heal_Plant : MonoBehaviour
             ani.SetTrigger("SeedTest");
             //isCheck = true;
             Debug.Log("¾¾¾Ñ ½É¾ú´ç");
-            Debug.Log( player.seed);
+            Debug.Log(playerState.seed);
         }
         else if (Input.GetKeyDown(KeyCode.E) && !isSeed && isCheck)//¾¾¾Ñ ¸Ô±â
         {
-            player.life += 3;
-            if (player.life > 4)
+            playerState.life += 3;
+            if (playerState.life > 4)
             {
-                player.life = 4;
+                playerState.life = 4;
             }
             ani.SetBool("Seed", isSeed);
 
