@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 2f; //ÀÌµ¿¼Óµµ
-    public float roll_Dis = 10f;//±¸¸£´Â °Å¸®
+    public float speed = 2f; //ï¿½Ìµï¿½ï¿½Óµï¿½
+    public float roll_Dis = 10f;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½
     public float selDelay = 1f;
     private float delay = 0f;
-    public int skill = 4; // ½ºÅ³ ¼ö
+    public int skill = 4; // ï¿½ï¿½Å³ ï¿½ï¿½
     public int life = 4;
-    public int seed = 2;//¾¾¾Ñ 
+    public int seed = 2;//ï¿½ï¿½ï¿½ï¿½ 
 
     private Rigidbody player_R;
     private Animator ani;
 
-    //Çàµ¿
+    //ï¿½àµ¿
     public bool isRun = false;
     public bool isRoll = false;
     public bool isIdle = false;
@@ -39,6 +39,22 @@ public class PlayerController : MonoBehaviour
         Lookat();
     }
 
+    private Vector3 AdjustVelocityToSlope(Vector3 velocity)
+    {
+        var ray=new Ray(transform.position,Vector3.down);
+        if(Physics.Raycast(ray,out RaycastHit hitInfo,0.2f))
+        {
+            var slopeRotation=Quaternion.FromToRotation(Vector3.down,hitInfo.normal);
+            var adjustedVelocity=slopeRotation*velocity;
+
+            if(adjustedVelocity.y<0)
+            {
+                return adjustedVelocity;
+            }
+        }
+        return velocity;
+    }
+
 
     private void Run()
     {
@@ -47,11 +63,11 @@ public class PlayerController : MonoBehaviour
 
         isRun = false;
 
-        if ((inputX != 0 || inputZ != 0) && !isRoll && !isAtk)//±¸¸£±â x,°ø°Ýx
+        if ((inputX != 0 || inputZ != 0) && !isRoll && !isAtk)//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ x,ï¿½ï¿½ï¿½ï¿½x
         {
             Vector3 velocity = new Vector3(inputX, 0, inputZ);
             velocity *= speed;
-            player_R.velocity = velocity;
+            player_R.velocity = AdjustVelocityToSlope(velocity);;
             isRun = true;
 
             transform.LookAt(transform.position + velocity);
@@ -101,7 +117,7 @@ public class PlayerController : MonoBehaviour
             }
             //gb.transform.position = hitpoint;
 
-            if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Mouse1) || Input.GetKey(KeyCode.Mouse2))//Á¶°Ç °ø°Ý ¸¸µé¶§ ¼öÁ¤ÇÒ°Ô¿ä~~
+            if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Mouse1) || Input.GetKey(KeyCode.Mouse2))//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½é¶§ ï¿½ï¿½ï¿½ï¿½ï¿½Ò°Ô¿ï¿½~~
             {
                 transform.LookAt(hitpoint);
             }
