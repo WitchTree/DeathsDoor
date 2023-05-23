@@ -6,28 +6,34 @@ public class Player_skill : MonoBehaviour
 {
     [SerializeField] PlayerInput playerInput;
     private Animator ani;
+    
 
     public Transform weaponPivot; //다른 클래스에서 불러올 수 있음
     public GameObject arrow_prefab;//프리팹한 화살
     public GameObject setparent_player;//setparent 즉 플레이어 받기
 
     public GameObject arrow;
+    public GameObject bow;
 
     public bool isSkill = false;
+
 
     void Start()
     {
         ani = GetComponent<Animator>();
+        bow = GetComponent<GameObject>();
+        
     }
     private void Update()
     {
+        
         Skill();
     }
     public void Skill()
     {
         if (playerInput.isSkill_start  && !isSkill)
         {
-
+            
             isSkill = true;
             ani.SetBool("Bow", isSkill);
             StartCoroutine("Wait_co");     

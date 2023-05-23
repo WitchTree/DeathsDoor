@@ -5,15 +5,16 @@ using UnityEngine;
 public class Weapon_Bow : MonoBehaviour
 {
     [SerializeField] PlayerInput playerInput;
-    [SerializeField] private int speed = 100;
+    [SerializeField] private int speed = 2;
     private bool isShoot = false;
 
-    private Player_skill player;
+    public Enemy enemy;
 
     private void Awake()
     {
-        player = FindObjectOfType<Player_skill>();
+        enemy = FindObjectOfType<Enemy>();
     }
+
     void Update()
     {
         Shoot();
@@ -37,6 +38,7 @@ public class Weapon_Bow : MonoBehaviour
     {
         if (other.CompareTag("ETC"))
         {
+            Enemy.hp;
             Destroy(gameObject);
         }
     }

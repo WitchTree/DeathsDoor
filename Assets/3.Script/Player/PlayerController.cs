@@ -6,10 +6,13 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] Camera main;
     [SerializeField] PlayerInput playerInput;
+    Player_State playerState;
 
-    public float speed = 2f; //이동속도
+    Vector3 velocity;
+    public float speed = 1.5f; //이동속도
     public float roll_Dis = 10f;//구르는 거리
     public float selDelay = 1f;
+    public float fallSpeed = 5f;
     private float delay = 0f;
     
 
@@ -28,6 +31,7 @@ public class PlayerController : MonoBehaviour
     {
         player_R = GetComponent<Rigidbody>();
         ani = GetComponent<Animator>();
+        playerState = FindObjectOfType<Player_State>();
     }
 
     void Update()
@@ -40,22 +44,24 @@ public class PlayerController : MonoBehaviour
     private void Run()
     {
         isRun = false;
-
-        if ((playerInput.Move_Value != 0 || playerInput.Rotate_Value != 0) && !isRoll && !isAtk)//구르기 x,공격x
+        if ((playerInput.Move_Value != 0 || playerInput.Rotate_Value != 0) && !isRoll && !isAtk && !playerState.isSuffer)//구르기 x,공격x, 피격X
         {
-            Vector3 velocity = new Vector3(playerInput.Rotate_Value, 0, playerInput.Move_Value);
-            velocity *= speed;
-            player_R.velocity = velocity;
+            Vector3 velocity = new Vector3(playerInput.Rotate_Value, 0, playerInput.Move_Value).normalized;
+
+            transform.position += velocity * speed * Time.deltaTime;
+
+
             isRun = true;
 
             transform.LookAt(transform.position + velocity);
+
         }
         ani.SetBool("Run", isRun);
     }
 
     public void Roll()
     {
-        if (playerInput.isRoll && !isRoll && !isAtk)
+        if (playerInput.isRoll && !isRoll && !isAtk && !playerState.isSuffer )
         {
             StartCoroutine("Roll_co");
         }
