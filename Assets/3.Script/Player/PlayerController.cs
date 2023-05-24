@@ -39,22 +39,6 @@ public class PlayerController : MonoBehaviour
         Lookat();
     }
 
-    private Vector3 AdjustVelocityToSlope(Vector3 velocity)
-    {
-        var ray=new Ray(transform.position,Vector3.down);
-        if(Physics.Raycast(ray,out RaycastHit hitInfo,0.2f))
-        {
-            var slopeRotation=Quaternion.FromToRotation(Vector3.down,hitInfo.normal);
-            var adjustedVelocity=slopeRotation*velocity;
-
-            if(adjustedVelocity.y<0)
-            {
-                return adjustedVelocity;
-            }
-        }
-        return velocity;
-    }
-
 
     private void Run()
     {
@@ -67,7 +51,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 velocity = new Vector3(inputX, 0, inputZ);
             velocity *= speed;
-            player_R.velocity = AdjustVelocityToSlope(velocity);;
+            player_R.velocity = velocity;
             isRun = true;
 
             transform.LookAt(transform.position + velocity);
