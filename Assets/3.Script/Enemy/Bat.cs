@@ -27,6 +27,7 @@ public class Bat : Enemy
 
     void Update()
     {
+        /*
         if(!isAttracted && !isAttacking)
         {
             destination = patrol.position;
@@ -43,6 +44,7 @@ public class Bat : Enemy
         {
             agent.speed = 0f;
         }
+        */
         Attack();
     }
 
@@ -94,5 +96,13 @@ public class Bat : Enemy
         }
         isAttacking = false;
         attackTime = 0f;
+    }
+
+    public void Dead()
+    {
+        //Dead animation ½ÇÇà
+        batAni.SetTrigger("Dead");
+
+        //gameObject.SetActive(false);
     }
 }
