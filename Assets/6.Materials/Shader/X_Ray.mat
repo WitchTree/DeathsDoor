@@ -37,7 +37,7 @@ Material:
     - NoisePower: 3
     - NoiseScale: 10
     m_Colors:
-    - Color_e26be83ac613462faf8f4f04b011f1b9: {r: 0.2313726, g: 0.227451, b: 0.2352941, a: 1}
+    - Color_e26be83ac613462faf8f4f04b011f1b9: {r: 0.050980393, g: 0.050980393, b: 0.050980393, a: 1}
     - NoiseTiling: {r: 0.5, g: 30, b: 0, a: 0}
     - Vector2_f8830726160f4c8fb698cab59ef20250: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
