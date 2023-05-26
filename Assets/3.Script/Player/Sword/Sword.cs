@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Sword : MonoBehaviour
 {
-    [Header("ÇÊ¿äÇÑ °Íµé ³Ö¾îÁÖ¼¼¿ä~~~")]
-    [SerializeField] GameObject lightAtk; //ÀÏ¹Ý
-    [SerializeField] GameObject heavyAtk; // Â÷Â¡
-    [SerializeField] GameObject Player; //ÇÃ·¹ÀÌ¾î
-    [SerializeField] public GameObject swordBack; //µîµÚÀÇ Ä®
-    [SerializeField] public GameObject swordRighthand; //¿À¸¥¼ÕÀÇ Ä®
-    [SerializeField] public GameObject swordLefthand; //¿Þ¼ÕÀÇ Ä®
+    [Header("ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½Íµï¿½ ï¿½Ö¾ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½~~~")]
+    [SerializeField] GameObject lightAtk; //ï¿½Ï¹ï¿½
+    [SerializeField] GameObject heavyAtk; // ï¿½ï¿½Â¡
+    [SerializeField] GameObject Player; //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½
+    [SerializeField] public GameObject swordBack; //ï¿½ï¿½ï¿½ï¿½ï¿½ Ä®
+    [SerializeField] public GameObject swordRighthand; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä®
+    [SerializeField] public GameObject swordLefthand; //ï¿½Þ¼ï¿½ï¿½ï¿½ Ä®
     [SerializeField] private PlayerInput playerinput;
 
     public enum Hand
@@ -20,12 +20,12 @@ public class Sword : MonoBehaviour
     }
 
     public Hand hand { get; private set; }
-    private int atkCnt;//1,2,3Å¸¸¦ À§ÇÑ º¯¼ö
+    private int atkCnt;//1,2,3Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private bool isAtk = false;
     private bool isClick = false;
 
     Animator ani;
-    public Sword_Data data; // ¼Òµå µ¥ÀÌÅÍ
+    public Sword_Data data; // ï¿½Òµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
     private void Awake()
     {
@@ -41,7 +41,7 @@ public class Sword : MonoBehaviour
     }
     private void Atk()
     {
-        if (atkCnt > 3)// °ø°Ý 3Å¸ ÀÌ»ó, ¾Ö´Ï¸ÞÀÌ¼Ç ³¡³­ ÈÄ
+        if (atkCnt > 3)// ï¿½ï¿½ï¿½ï¿½ 3Å¸ ï¿½Ì»ï¿½, ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
         {
             atkCnt = 0;
             isAtk = false;
@@ -52,26 +52,33 @@ public class Sword : MonoBehaviour
         }
         else if (playerinput.isLight&&!isClick)
         {
-            Debug.Log("°ø°Ý ½ºÅ¸¶Ç");
-            if (!isAtk)// °ø°ÝÁß X
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½");
+            if (!isAtk)// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ X
             {
                 isAtk = true;
                 atkCnt++;
                 hand = SetHand(hand);
             }
 
-            else if (isAtk && ani.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f && atkCnt < 3)//°ø°Ý Áß, ¾Ö´Ï¸ÞÀÌ¼Ç ³¡³ª±â Àü, 3Å¸ Àü±îÁö
+            else if (isAtk && ani.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f && atkCnt < 3)//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, 3Å¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             {
                 atkCnt++;
                 isClick = true;
                 Debug.Log(atkCnt);
-                Debug.Log("Áö±ÝÀº ¿¬¼ÓÅ¸°ÝÀÌ¿¡¿ä");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½Ì¿ï¿½ï¿½ï¿½");
                 hand = SetHand(hand);
                 isClick = false;
+                lightAtk.SetActive(true);
+                Invoke(nameof(ResetLight),0.2f);
             }
 
 
         }
+    }
+
+    private void ResetLight()
+    {
+        lightAtk.SetActive(false);
     }
 
 
