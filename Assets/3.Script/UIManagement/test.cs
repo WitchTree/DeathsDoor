@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class MainMenuUIManagement : MonoBehaviour
+public class test : MonoBehaviour
 {
+    //메인메뉴 활성화하고 메뉴 열릴거임 
     public GameObject[] Buttons;
 
     [SerializeField] int selectedButton = 0;
@@ -18,10 +19,7 @@ public class MainMenuUIManagement : MonoBehaviour
 
     bool buttonPressed = false;
 
-    GameObject MainUI;
     GameObject firstButton;
-
-    private bool isMenuAct = false;
 
     //뭔지몰라도 일단 위에 올려둠
     Vector3 btn_pos;
@@ -30,36 +28,14 @@ public class MainMenuUIManagement : MonoBehaviour
 
     private void Start()
     {
-        MainUI = transform.GetChild(0).gameObject; //활성화 될 자식오브젝트 찾기
-        //MainUI = transform.Find("MainUI").gameObject; //활성화 될 오브젝트 찾기
-        //마우스 커서 비활성화 넣을거임
+        //Cursor.visible = false; -> 마우스 커서 안보이기(비활성화x 걍 안보이기만할뿐...)
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            switch (isMenuAct)
-            {
-                case true:
-                    isMenuAct = false;
-                    MainUI.SetActive(false);
-                    //UI 켜져있을 땐 까마귀 안움직이게
-                    break;
-                    
-                case false:
-                    isMenuAct = true;
-                    MainUI.SetActive(true);
-                    SetMenuUI();
-                    break;
-            }
-        }
-
-        if (isMenuAct)
-        {
-            UIKeyboardInput();
-        }
+        SetMenuUI();
+        UIKeyboardInput();
     }
 
     private void SetMenuUI()
@@ -96,18 +72,16 @@ public class MainMenuUIManagement : MonoBehaviour
         }
         EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
     }
-
     private void UIKeyboardInput()
     {
-
         //if a closer diffenece in positions for buttons is true, this will be overwriten
         //버튼에 대한 위치 차이가 더 가까울 경우, 9999 수치를 overwriten
         new_horizontal = 9999;
         new_vertical = 9999;
 
-        if (Input.GetKeyDown(KeyCode.Z) && !buttonPressed)
+        if (Input.GetKeyDown(KeyCode.W) && !buttonPressed)
         {
-            Debug.Log("Z키 누름");
+            Debug.Log("W");
             buttonPressed = true;
 
             if (selectedButton == 0)
@@ -123,9 +97,9 @@ public class MainMenuUIManagement : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.X) && !buttonPressed)
+        if (Input.GetKeyDown(KeyCode.S) && !buttonPressed)
         {
-            Debug.Log("X키 누름");
+            Debug.Log("S");
             buttonPressed = true;
 
 
@@ -152,4 +126,5 @@ public class MainMenuUIManagement : MonoBehaviour
             buttonPressed = false;
         }
     }
+
 }
