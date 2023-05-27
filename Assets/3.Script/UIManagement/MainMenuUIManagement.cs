@@ -8,7 +8,10 @@ public class MainMenuUIManagement : MonoBehaviour
 {
     public GameObject[] Buttons;
 
-    int selectedButton = 0;
+    [SerializeField] int selectedButton = 0;
+
+    float new_horizontal = 0;
+    float new_vertical = 0;
 
     float horizontal;
     float vertical;
@@ -18,41 +21,54 @@ public class MainMenuUIManagement : MonoBehaviour
     GameObject MainUI;
     GameObject firstButton;
 
-    private bool isStateMenuAct = false;
+    private bool isMenuAct = false;
 
+    //뭔지몰라도 일단 위에 올려둠
+    Vector3 btn_pos;
+    float[] horizontalDifference;
+    float[] verticallDifference;
 
     private void Start()
     {
-        MainUI = transform.Find("MainUI").gameObject; //활성화 될 오브젝트 찾기
-       
+        MainUI = transform.GetChild(0).gameObject; //활성화 될 자식오브젝트 찾기
+        //MainUI = transform.Find("MainUI").gameObject; //활성화 될 오브젝트 찾기
         //마우스 커서 비활성화 넣을거임
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !isStateMenuAct)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            isStateMenuAct = true;
-            MainUI.SetActive(true);
+            switch (isMenuAct)
+            {
+                case true:
+                    isMenuAct = false;
+                    MainUI.SetActive(false);
+                    break;
 
-            MainMenuKeyboardSelected();
+                case false:
+                    isMenuAct = true;
+                    MainUI.SetActive(true);
+                    SetMenuUI();
+                    break;
+            }
         }
 
-        else if (Input.GetKeyDown(KeyCode.Escape) && isStateMenuAct)
+        if (isMenuAct)
         {
-            isStateMenuAct = false;
-            MainUI.SetActive(false);
+            UIKeyboardInput();
         }
     }
 
-    private void MainMenuKeyboardSelected()
+    private void SetMenuUI()
     {
+        //'Button' 태그가 붙은 모든 버튼의 배열 만들기 
         Buttons = GameObject.FindGameObjectsWithTag("Button");
 
         if (Buttons.Length > 0)
         {
-
+            //panel이 활성화 되어있는 지 확인하고, 변경되었을 경우 첫번째 버튼 활성화
             if (firstButton != Buttons[0])
             {
                 selectedButton = 0;
@@ -60,13 +76,14 @@ public class MainMenuUIManagement : MonoBehaviour
             firstButton = Buttons[0];
         }
 
-        Vector3 btn_pos = Buttons[selectedButton].GetComponent<RectTransform>().position;
+        //활성화 된 버튼의 위치 가져오기
+        btn_pos = Buttons[selectedButton].GetComponent<RectTransform>().position;
 
+        //버튼 위치 차이를 나타내는 배열
+        horizontalDifference = new float[Buttons.Length];
+        verticallDifference = new float[Buttons.Length];
 
-        float[] horizontalDifference = new float[Buttons.Length];
-        float[] verticallDifference = new float[Buttons.Length];
-
-
+        //버튼 위치 차이를 계산
         for (int i = 0; i < Buttons.Length; i++)
         {
             if (i != selectedButton)
@@ -76,74 +93,62 @@ public class MainMenuUIManagement : MonoBehaviour
                 verticallDifference[i] = btn_pos.y - btn_pos2.y;
             }
         }
+        EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
+    }
 
-        float new_horizontal = 9999;
-        float new_vertical = 9999;
+    private void UIKeyboardInput()
+    {
+
+        //if a closer diffenece in positions for buttons is true, this will be overwriten
+        //버튼에 대한 위치 차이가 더 가까울 경우, 9999 수치를 overwriten
+        new_horizontal = 9999;
+        new_vertical = 9999;
 
         if (Input.GetKeyDown(KeyCode.Z) && !buttonPressed)
         {
-
+            Debug.Log("Z키 누름");
             buttonPressed = true;
 
-            for (int i = 0; i < Buttons.Length; i++)
+            if (selectedButton == 0)
             {
-                if (i != selectedButton)
-                {
-                    if (horizontalDifference[i] > 0)
-                    {
-                        if (Mathf.Abs(verticallDifference[i]) < Mathf.Abs(new_vertical))
-                        {
-                            new_vertical = verticallDifference[i];
-                            if (Mathf.Abs(horizontalDifference[i]) < new_horizontal)
-                            {
-                                new_horizontal = horizontalDifference[i];
-                                selectedButton = i;
-                            }
-                            else
-                            {
-                                selectedButton = i;
-                            }
-                        }
-                    }
-                }
+                selectedButton = Buttons.Length - 1;
+                EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
             }
+            else
+            {
+                selectedButton--;
+                EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
+            }
+
         }
+
         if (Input.GetKeyDown(KeyCode.X) && !buttonPressed)
         {
-
+            Debug.Log("X키 누름");
             buttonPressed = true;
 
-            for (int i = 0; i < Buttons.Length; i++)
+
+            if (selectedButton == Buttons.Length - 1)
             {
-                if (i != selectedButton)
-                {
-                    if (horizontalDifference[i] < 0)
-                    {
-                        if (Mathf.Abs(verticallDifference[i]) < Mathf.Abs(new_vertical))
-                        {
-                            new_vertical = verticallDifference[i];
-                            if (Mathf.Abs(horizontalDifference[i]) < new_horizontal)
-                            {
-                                new_horizontal = horizontalDifference[i];
-                                selectedButton = i;
-                            }
-                            else
-                            {
-                                selectedButton = i;
-                            }
-                        }
-                    }
-                }
+                selectedButton -= Buttons.Length - 1;
+                EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
             }
+            else
+            {
+                selectedButton++;
+                EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
+            }
+
         }
 
-        if (horizontal == 0 && vertical == 0)
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Debug.Log("E키 선택!");
+        }
+
+        if (buttonPressed)
         {
             buttonPressed = false;
-        }
-        else
-        {
-            selectedButton = 0;
         }
     }
 }
