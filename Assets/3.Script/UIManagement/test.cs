@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class test : MonoBehaviour
 {
-    //메인메뉴 활성화하고 메뉴 열릴거임 
+    //메인메뉴 inventory panel 변경
     public GameObject[] Buttons;
 
     [SerializeField] int selectedButton = 0;
@@ -100,6 +100,43 @@ public class test : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S) && !buttonPressed)
         {
             Debug.Log("S");
+            buttonPressed = true;
+
+
+            if (selectedButton == Buttons.Length - 1)
+            {
+                selectedButton -= Buttons.Length - 1;
+                EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
+            }
+            else
+            {
+                selectedButton++;
+                EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
+            }
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.A) && !buttonPressed)
+        {
+            Debug.Log("A키 누름");
+            buttonPressed = true;
+
+            if (selectedButton == 0)
+            {
+                selectedButton = Buttons.Length - 1;
+                EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
+            }
+            else
+            {
+                selectedButton--;
+                EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
+            }
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.D) && !buttonPressed)
+        {
+            Debug.Log("D키 누름");
             buttonPressed = true;
 
 

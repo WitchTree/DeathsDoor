@@ -19,6 +19,7 @@ public class MainMenuUIManagement : MonoBehaviour
     bool buttonPressed = false;
 
     GameObject MainUI;
+    GameObject Hud;
     GameObject firstButton;
 
     private bool isMenuAct = false;
@@ -31,8 +32,7 @@ public class MainMenuUIManagement : MonoBehaviour
     private void Start()
     {
         MainUI = transform.GetChild(0).gameObject; //활성화 될 자식오브젝트 찾기
-        //MainUI = transform.Find("MainUI").gameObject; //활성화 될 오브젝트 찾기
-        //마우스 커서 비활성화 넣을거임
+        Hud = transform.Find("HudUI").gameObject; 
     }
 
     // Update is called once per frame
@@ -45,12 +45,14 @@ public class MainMenuUIManagement : MonoBehaviour
                 case true:
                     isMenuAct = false;
                     MainUI.SetActive(false);
-                    //UI 켜져있을 땐 까마귀 안움직이게
+                    Hud.SetActive(true);
+                    //UI 켜져있을 땐 까마귀 안움직이게하기
                     break;
                     
                 case false:
                     isMenuAct = true;
                     MainUI.SetActive(true);
+                    Hud.SetActive(false);
                     SetMenuUI();
                     break;
             }
@@ -152,4 +154,31 @@ public class MainMenuUIManagement : MonoBehaviour
             buttonPressed = false;
         }
     }
+
+    public void MainMenuOpen()
+    {
+        if (Buttons[0])
+        {
+            Debug.Log("Inventory 열림 나머지 끔");
+        }
+        else if (Buttons[1])
+        {
+            Debug.Log("Weapon 열림 나머지 끔");
+        }
+        else if (Buttons[2])
+        {
+            Debug.Log("Trinkets 열림 나머지 끔");
+        }
+        else if (Buttons[3])
+        {
+            Debug.Log("Controls 열림 나머지 끔");
+        }
+        else if (Buttons[4])
+        {
+            Debug.Log("Option 열림 나머지 끔");
+        }
+
+    }
+
+
 }
