@@ -20,6 +20,7 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
     bool buttonPressed = false;
 
     GameObject UpgradeUI;
+    GameObject Hud;
     GameObject firstButton;
 
     private bool isMenuAct = false;
@@ -32,8 +33,7 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
     private void Start()
     {
         UpgradeUI = transform.GetChild(1).gameObject; //활성화 될 자식오브젝트 찾기
-        //UpgradeUI = transform.Find("UpgradeUI").gameObject; //활성화 될 오브젝트 찾기
-        //마우스 커서 비활성화 넣을거임
+        Hud = transform.Find("HudUI").gameObject;
     }
 
     // Update is called once per frame
@@ -46,11 +46,14 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
                 case true:
                     isMenuAct = false;
                     UpgradeUI.SetActive(false);
+                    Hud.SetActive(true);
+                    //UI 켜져있을 땐 까마귀 안움직이게하기
                     break;
 
                 case false:
                     isMenuAct = true;
                     UpgradeUI.SetActive(true);
+                    Hud.SetActive(false);
                     SetMenuUI();
                     break;
             }

@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 public class NPCDialogue : MonoBehaviour
 {
-    public GameObject DialogueUICanvas;
+    public GameObject DialogueUI;
     public Text Txt_Dialogue;
 
     public string[] Dialogue;
-
     private int index; //which will help us find position in the string 문자열의 위치 찾는데 도움
 
     public float wordSpeed;
     public bool playerIsClose;
+    public bool isDialoguePanelActive;
     int num;
 
     // Start is called before the first frame update
@@ -27,22 +27,30 @@ public class NPCDialogue : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.E) && playerIsClose)
         {
-            Debug.Log("플레이어가 말을 걸었음");
-            if (DialogueUICanvas.activeInHierarchy)
+            if (DialogueUI.activeInHierarchy)
             {
+            Debug.Log("플레이어가 말을 걸었음");
                 zeroText();
             }
             else
             {
-                DialogueUICanvas.SetActive(true);
+                DialogueUI.SetActive(true);
                 StartCoroutine(Typing());
+            }
+        }
+
+        if(Txt_Dialogue.text ==Dialogue[index])
+        {
+            if(Input.GetKeyDown(KeyCode.E) && !isDialoguePanelActive)
+            {
+                isDialoguePanelActive = true;
+                NextLine();
             }
         }
     }
 
     public void NextLine()
     {
-        
         /*
          * End dialogue
         if (dialogue[dialogue.Length - 1] == "다이얼로그string" && num == 인덱스넘버 )
@@ -52,27 +60,28 @@ public class NPCDialogue : MonoBehaviour
             return;
         }
         */
-
+        isDialoguePanelActive = true;
         num++;
-        //E키를 눌러서 넘어가게 만들기 
-
-        if(index<Dialogue.Length - 1)
-        {
-            index++;
-            Txt_Dialogue.text = "";
-            StartCoroutine(Typing());
-        }
-        else
-        {
-            zeroText();
-        }
+            //E키를 눌러서 넘어가게 만들기 
+          
+            if(index<Dialogue.Length - 1)
+            {
+                index++;
+                Txt_Dialogue.text = "";
+                StartCoroutine(Typing());
+            }
+            else
+            {
+                zeroText();
+            }
+  
     }
 
     public void zeroText() //text 초기화
     {
         Txt_Dialogue.text = "";
         index = 0;
-        DialogueUICanvas.SetActive(true);
+        DialogueUI.SetActive(true);
     }
 
     private void OnTriggerEnter(Collider other)
