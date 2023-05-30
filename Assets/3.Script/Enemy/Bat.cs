@@ -51,7 +51,8 @@ public class Bat : Enemy
     void SetBat()
     {
         this.hp = 1;
-        this.sprit = 2;
+        this.maxHp = 1;
+        this.spirit = 2;
 
         batAni = GetComponent<Animator>();
     }
@@ -81,7 +82,7 @@ public class Bat : Enemy
             //destination = currPos;
             StartCoroutine(BiteTime_co());
 
-            //isAttack == true ÀÌ°í collider Ãæµ¹ÇÏ¸é player hp ´â°Ô ¸¸µé±â
+            //isAttack == true ï¿½Ì°ï¿½ collider ï¿½æµ¹ï¿½Ï¸ï¿½ player hp ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
         }
         attackTime += Time.deltaTime;
     }
@@ -100,9 +101,11 @@ public class Bat : Enemy
 
     public void Dead()
     {
-        //Dead animation ½ÇÇà
+        //Dead animation ï¿½ï¿½ï¿½ï¿½
         batAni.SetTrigger("Dead");
 
         //gameObject.SetActive(false);
+
+        //í”Œë ˆì´ì–´ spirit íšë“
     }
 }

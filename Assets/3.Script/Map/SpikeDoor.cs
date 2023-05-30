@@ -6,11 +6,11 @@ public class SpikeDoor : MonoBehaviour
 {
     [SerializeField] float yPos = -0.066f;
     Vector3[] childPos = new Vector3[7];
+    public bool isUnlock = true;
 
     private void Awake()
     {
-        //원래 위치 저장
-        for (int i = 2; i < transform.childCount; i++)
+        for (int i = 2; i < 9; i++) //transform.childCount
         {
             childPos[i - 2] = transform.GetChild(i).localPosition;
         }
@@ -18,10 +18,14 @@ public class SpikeDoor : MonoBehaviour
 
     public void OpenSpikeDoor()
     {
-        for (int i = 2; i < transform.childCount; i++)
+        if (isUnlock) 
         {
-            StartCoroutine(OpenSpike_co(transform.GetChild(i)));
+            for (int i = 2; i < 9; i++)
+            {
+                StartCoroutine(OpenSpike_co(transform.GetChild(i)));
+            }
         }
+        
     }
 
     IEnumerator OpenSpike_co(Transform spike)
