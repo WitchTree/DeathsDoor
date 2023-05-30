@@ -40,7 +40,6 @@ public class NPCDialogue : MonoBehaviour
 
         if (Txt_Dialogue.text == Dialogue[index])
         {
-
             NextLine();
         }
     }

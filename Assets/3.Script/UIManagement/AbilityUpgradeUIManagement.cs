@@ -23,6 +23,8 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
     GameObject Hud;
     GameObject firstButton;
 
+    GameObject Arrow;
+
     private bool isMenuAct = false;
 
     //뭔지몰라도 일단 위에 올려둠
@@ -36,6 +38,7 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
     {
         UpgradeUI = transform.GetChild(1).gameObject; //활성화 될 자식오브젝트 찾기
         Hud = GameObject.FindWithTag("HudUI");
+        Arrow = GameObject.Find("Arrow");
     }
 
     // Update is called once per frame
@@ -50,6 +53,7 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
                     isMenuAct = false;
                     UpgradeUI.SetActive(false);
                     Hud.SetActive(true);
+                    Arrow.SetActive(true);
                     break;
 
                 case false:
@@ -57,6 +61,7 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
                     isMenuAct = true;
                     UpgradeUI.SetActive(true);
                     Hud.SetActive(false);
+                    Arrow.SetActive(false);
                     SetMenuUI();
                     break;
             }
