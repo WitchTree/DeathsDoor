@@ -56,6 +56,7 @@ public class MainMenuUIManagement : MonoBehaviour
             switch (isMenuAct)
             {
                 case true:
+                    Time.timeScale = 1f;
                     isMenuAct = false;
                     MainUI.SetActive(false);
                     Hud.SetActive(true);
