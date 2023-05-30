@@ -41,7 +41,7 @@ public class Mage : Enemy
             agent.destination = destination;
             agent.speed = 0.1f;
         }
-        else if (!isAttacking && !isTeleporting) //°ø°ÝÁß ¾Æ´Ò ¶§
+        else if (!isAttacking && !isTeleporting) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½
         {
             agent.speed = 0f;
             Attack();
@@ -62,12 +62,13 @@ public class Mage : Enemy
     void SetMage()
     {
         this.hp = 7;
-        this.sprit = 2;
+        this.maxHp = 7;
+        this.spirit = 2;
 
         mageAni = GetComponent<Animator>();
     }
 
-    //MageÀÇ Trigger´Â ¿øÀ¸·Î ¾È¿¡ µé¾î¿À¸é ¾î±×·Î ²ø¸®°í ¹þ¾î³ª¸é ÇÃ·¹ÀÌ¾î ±ÙÃ³·Î ÅÚ·¹Æ÷Æ®ÇÔ
+    //Mageï¿½ï¿½ Triggerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½×·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³ªï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½Ú·ï¿½ï¿½ï¿½Æ®ï¿½ï¿½
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -82,7 +83,7 @@ public class Mage : Enemy
     {
         if (collision.transform.tag.Equals("player"))
         {
-            Debug.Log("Player¿Í Ãæµ¹");
+            Debug.Log("Playerï¿½ï¿½ ï¿½æµ¹");
             hp -= 1;
             isAttacked = true;
             //StartCoroutine(Teleport_co());
@@ -93,7 +94,7 @@ public class Mage : Enemy
     {
         if (other.CompareTag("Player") && !isTeleportLock)
         {
-            //shootingÇÏ´Â Áß°£¿¡ ³ª°¡¸é ½ÇÇà ¾ÈµÊ ¤Ð
+            //shootingï¿½Ï´ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Èµï¿½ ï¿½ï¿½
             StartCoroutine(Teleport_co());
         }
     }
@@ -115,13 +116,13 @@ public class Mage : Enemy
     void Attack()
     {
         //Mage -> shoot
-        if (attackTime >= attackBetTime) //°ø°Ý °¡´ÉÇÏ¸é
+        if (attackTime >= attackBetTime) //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½
         {
             isAttacking = true;
             playerPos = player.position;
             StartCoroutine(Shoot_co());
             
-            //isAttacking == true ÀÌ°í collider Ãæµ¹ÇÏ¸é player hp ´â°Ô ¸¸µé±â
+            //isAttacking == true ï¿½Ì°ï¿½ collider ï¿½æµ¹ï¿½Ï¸ï¿½ player hp ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
         }
         attackTime += Time.deltaTime;
     }
@@ -156,7 +157,7 @@ public class Mage : Enemy
             mageAni.SetBool("isTeleporting", isTeleporting);
             yield return new WaitForSeconds(2.35f);
 
-            transform.position = RandomNavmeshLocation(teleportDist); //·£´ýÇÑ À§Ä¡¿¡ »ý¼º
+            transform.position = RandomNavmeshLocation(teleportDist); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             transform.LookAt(player);
             yield return null;
 
@@ -169,7 +170,7 @@ public class Mage : Enemy
         isTeleportLock = false;
     }
 
-    //NavMesh ³» ·£´ýÇÑ À§Ä¡ »ý¼º
+    //NavMesh ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
     Vector3 RandomNavmeshLocation(float radius)
     {
         Vector3 randomDirection = Random.insideUnitSphere * radius;

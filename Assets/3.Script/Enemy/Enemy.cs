@@ -6,8 +6,9 @@ public class Enemy : MonoBehaviour
 {
     //default
     public int attack = 1;
-    public float hp;
-    public int sprit;
+    public int hp;
+    public int maxHp;
+    public int spirit;
     public bool isDead = false;
     public bool isAttacking = false;
 
