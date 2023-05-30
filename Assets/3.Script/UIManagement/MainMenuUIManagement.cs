@@ -32,7 +32,7 @@ public class MainMenuUIManagement : MonoBehaviour
     private void Start()
     {
         MainUI = transform.GetChild(0).gameObject; //활성화 될 자식오브젝트 찾기
-        Hud = transform.Find("HudUI").gameObject; 
+        Hud = GameObject.FindWithTag("HudUI");
     }
 
     // Update is called once per frame

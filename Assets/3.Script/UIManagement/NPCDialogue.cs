@@ -13,7 +13,6 @@ public class NPCDialogue : MonoBehaviour
 
     public float wordSpeed;
     public bool playerIsClose;
-    public bool isDialoguePanelActive;
     int num;
 
     // Start is called before the first frame update
@@ -39,13 +38,10 @@ public class NPCDialogue : MonoBehaviour
             }
         }
 
-        if(Txt_Dialogue.text ==Dialogue[index])
+        if (Txt_Dialogue.text == Dialogue[index])
         {
-            if(Input.GetKeyDown(KeyCode.E) && !isDialoguePanelActive)
-            {
-                isDialoguePanelActive = true;
-                NextLine();
-            }
+
+            NextLine();
         }
     }
 
@@ -60,7 +56,6 @@ public class NPCDialogue : MonoBehaviour
             return;
         }
         */
-        isDialoguePanelActive = true;
         num++;
             //E키를 눌러서 넘어가게 만들기 
           

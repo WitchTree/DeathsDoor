@@ -33,7 +33,7 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
     private void Start()
     {
         UpgradeUI = transform.GetChild(1).gameObject; //활성화 될 자식오브젝트 찾기
-        Hud = transform.Find("HudUI").gameObject;
+        Hud = GameObject.FindWithTag("HudUI");
     }
 
     // Update is called once per frame
