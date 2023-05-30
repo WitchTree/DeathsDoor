@@ -4,9 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class test : MonoBehaviour
+public class test : MonoBehaviour //메인메뉴 inventory panel변경 테스트
 {
-    //메인메뉴 inventory panel 변경
     public GameObject[] Buttons;
 
     [SerializeField] int selectedButton = 0;
@@ -26,8 +25,11 @@ public class test : MonoBehaviour
     float[] horizontalDifference;
     float[] verticallDifference;
 
+    MainMenuUIManagement MenuButtons;
+
     private void Start()
     {
+        MenuButtons = GetComponent<MainMenuUIManagement>();
         //Cursor.visible = false; -> 마우스 커서 안보이기(비활성화x 걍 안보이기만할뿐...)
     }
 
@@ -164,4 +166,44 @@ public class test : MonoBehaviour
         }
     }
 
+    public void MainMenuOpen()
+    {
+        if (Buttons[selectedButton] == Buttons[0])
+        {
+            Debug.Log("Inventory 열림 나머지 끔");
+            //Inventory 활성화
+            //WASD키보드 입력값으로 셀렉
+            //입력값에 따라 Inof_Txt 변경
+
+        }
+        else if (Buttons[selectedButton] == Buttons[1])
+        {
+            Debug.Log("Weapon 열림 나머지 끔");
+            //Weapon 활성화
+            //WASD키보드 입력값으로 셀렉
+            //입력값에 따라 Inof_Txt 변경
+            //E키로 무기 변경
+        }
+        else if (Buttons[selectedButton] == Buttons[2])
+        {
+            Debug.Log("Trinkets 열림 나머지 끔");
+            //Trinkets 활성화
+            //WASD키보드 입력값으로 셀렉
+            //입력값에 따라 Inof_Txt 변경
+            //E키로 선택된 Trinkets 확대
+        }
+        else if (Buttons[selectedButton] == Buttons[3])
+        {
+            Debug.Log("Controls 열림 나머지 끔");
+
+            //걍 시간있을때 contorl 창만 형식상 만들어두자
+
+        }
+        else if (Buttons[selectedButton] == Buttons[4])
+        {
+            Debug.Log("Option 열림 나머지 끔");
+            //이것두
+        }
+
+    }
 }

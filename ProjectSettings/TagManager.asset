@@ -8,6 +8,8 @@ TagManager:
   - Button
   - MainUIPanel
   - Enemy
+  - ETC
+  - HudUI
   layers:
   - Default
   - TransparentFX

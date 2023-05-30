@@ -28,7 +28,7 @@ public class NPCDialogue : MonoBehaviour
         {
             if (DialogueUI.activeInHierarchy)
             {
-            Debug.Log("플레이어가 말을 걸었음");
+                Debug.Log("플레이어가 말을 걸었음");
                 zeroText();
             }
             else

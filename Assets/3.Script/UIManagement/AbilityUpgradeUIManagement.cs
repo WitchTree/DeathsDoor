@@ -101,14 +101,7 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
     }
     private void UIKeyboardInput()
     {
-        /*
-        if (Input.GetKeyDown(KeyCode.W) && Input.GetKeyDown(KeyCode.A) && Input.GetKeyDown(KeyCode.Z) && Input.GetKeyDown(KeyCode.X))
-        {
-            return;
-        }
-        */
-
-
+      
         //if a closer diffenece in positions for buttons is true, this will be overwriten
         //버튼에 대한 위치 차이가 더 가까울 경우, 9999 수치를 overwriten
         new_horizontal = 9999;
@@ -161,14 +154,6 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
             buttonPressed = false;
         }
     }
-
-    /*
-     0번째 배열에 있는 버튼 활성화 인벤토리
-     1번째 배열에 있는 버튼 활성화 무기
-     2번째 배열에 있는 버튼 활성화 빛나는 물건
-     3번째 배열에 있는 버튼 활성화 컨트롤러
-     4번째 배열에 있는 버튼 활성화 옵션
-     */
 
 
 
