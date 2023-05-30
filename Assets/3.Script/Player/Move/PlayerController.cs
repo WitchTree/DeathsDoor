@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour
             if(Physics.Raycast(cameraRay, out RaycastHit h))
             {
                 hitpoint = h.point;
-                cursor.transform.position = new Vector3(hitpoint.x, hitpoint.y + 0.1f, hitpoint.z);
+                //cursor.transform.position = new Vector3(hitpoint.x, hitpoint.y + 0.1f, hitpoint.z);
             }
             //gb.transform.position = hitpoint;
 
