@@ -20,6 +20,7 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
     bool buttonPressed = false;
 
     GameObject UpgradeUI;
+    GameObject Hud;
     GameObject firstButton;
 
     private bool isMenuAct = false;
@@ -29,11 +30,12 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
     float[] horizontalDifference;
     float[] verticallDifference;
 
+    public float timeScale;
+
     private void Start()
     {
         UpgradeUI = transform.GetChild(1).gameObject; //활성화 될 자식오브젝트 찾기
-        //UpgradeUI = transform.Find("UpgradeUI").gameObject; //활성화 될 오브젝트 찾기
-        //마우스 커서 비활성화 넣을거임
+        Hud = GameObject.FindWithTag("HudUI");
     }
 
     // Update is called once per frame
@@ -44,13 +46,17 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
             switch (isMenuAct)
             {
                 case true:
+                    Time.timeScale = 1f;
                     isMenuAct = false;
                     UpgradeUI.SetActive(false);
+                    Hud.SetActive(true);
                     break;
 
                 case false:
+                    Time.timeScale = timeScale;
                     isMenuAct = true;
                     UpgradeUI.SetActive(true);
+                    Hud.SetActive(false);
                     SetMenuUI();
                     break;
             }
@@ -98,14 +104,7 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
     }
     private void UIKeyboardInput()
     {
-        /*
-        if (Input.GetKeyDown(KeyCode.W) && Input.GetKeyDown(KeyCode.A) && Input.GetKeyDown(KeyCode.Z) && Input.GetKeyDown(KeyCode.X))
-        {
-            return;
-        }
-        */
-
-
+      
         //if a closer diffenece in positions for buttons is true, this will be overwriten
         //버튼에 대한 위치 차이가 더 가까울 경우, 9999 수치를 overwriten
         new_horizontal = 9999;
@@ -158,14 +157,6 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
             buttonPressed = false;
         }
     }
-
-    /*
-     0번째 배열에 있는 버튼 활성화 인벤토리
-     1번째 배열에 있는 버튼 활성화 무기
-     2번째 배열에 있는 버튼 활성화 빛나는 물건
-     3번째 배열에 있는 버튼 활성화 컨트롤러
-     4번째 배열에 있는 버튼 활성화 옵션
-     */
 
 
 

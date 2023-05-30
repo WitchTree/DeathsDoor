@@ -7,9 +7,10 @@ using UnityEngine.EventSystems;
 public class MainMenuUIManagement : MonoBehaviour
 {
     public GameObject[] Buttons;
+    public GameObject[] MenuPanel;
 
     [SerializeField] int selectedButton = 0;
-
+    [SerializeField] int panelSelected = 0;
     float new_horizontal = 0;
     float new_vertical = 0;
 
@@ -19,7 +20,13 @@ public class MainMenuUIManagement : MonoBehaviour
     bool buttonPressed = false;
 
     GameObject MainUI;
+    GameObject Hud;
     GameObject firstButton;
+
+    //MainUI가 켜졌을 때 활성화될 메뉴창
+    GameObject Inventory;
+    GameObject Weapon;
+    GameObject Trinkets;
 
     private bool isMenuAct = false;
 
@@ -28,11 +35,17 @@ public class MainMenuUIManagement : MonoBehaviour
     float[] horizontalDifference;
     float[] verticallDifference;
 
-    private void Start()
+    public float timeScale;
+
+
+    private void Awake()
     {
         MainUI = transform.GetChild(0).gameObject; //활성화 될 자식오브젝트 찾기
-        //MainUI = transform.Find("MainUI").gameObject; //활성화 될 오브젝트 찾기
-        //마우스 커서 비활성화 넣을거임
+        Hud = GameObject.FindWithTag("HudUI");
+
+        Inventory = GameObject.Find("Inventory");
+        Weapon = GameObject.Find("Weapon");
+        Trinkets = GameObject.Find("Trinkets");
     }
 
     // Update is called once per frame
@@ -43,15 +56,20 @@ public class MainMenuUIManagement : MonoBehaviour
             switch (isMenuAct)
             {
                 case true:
+                    Time.timeScale = 1f;
                     isMenuAct = false;
                     MainUI.SetActive(false);
-                    //UI 켜져있을 땐 까마귀 안움직이게
+                    Hud.SetActive(true);
                     break;
                     
                 case false:
+                    Time.timeScale = timeScale;
                     isMenuAct = true;
                     MainUI.SetActive(true);
+                    Hud.SetActive(false);
                     SetMenuUI();
+                    //여기에 Main Panel Open
+                    //UI 켜져있을 땐 까마귀 안움직이게하기 timescale
                     break;
             }
         }
@@ -61,6 +79,7 @@ public class MainMenuUIManagement : MonoBehaviour
             UIKeyboardInput();
         }
     }
+
 
     private void SetMenuUI()
     {
@@ -142,6 +161,7 @@ public class MainMenuUIManagement : MonoBehaviour
 
         }
 
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             Debug.Log("E키 선택!");
@@ -152,4 +172,74 @@ public class MainMenuUIManagement : MonoBehaviour
             buttonPressed = false;
         }
     }
+
+    public void MainMenuOpen()
+    {
+        MenuPanel = GameObject.FindGameObjectsWithTag("MainUIPanel");
+
+        if (MenuPanel.Length > 0)
+        {
+  
+
+            if (Buttons[selectedButton] == Buttons[0])
+            {
+                if (MenuPanel[0])
+                {
+                    Debug.Log("Inventory 열림 나머지 끔");
+                    //Inventory 활성화
+                    //WASD키보드 입력값으로 셀렉
+                    //입력값에 따라 Inof_Txt 변경
+                }
+                else
+                {
+                }
+
+            }
+
+            else if (Buttons[selectedButton] == Buttons[1])
+            {
+                if (MenuPanel[1])
+                {
+                Debug.Log("Weapon 열림 나머지 끔");
+                //Weapon 활성화
+                //WASD키보드 입력값으로 셀렉
+                //입력값에 따라 Inof_Txt 변경
+                //E키로 무기 변경
+                }
+                else
+                {
+                }
+            }
+
+            else if (Buttons[selectedButton] == Buttons[2])
+            {
+                if (MenuPanel[2])
+                {
+                    Debug.Log("Trinkets 열림 나머지 끔");
+                    //Trinkets 활성화
+                    //WASD키보드 입력값으로 셀렉
+                    //입력값에 따라 Inof_Txt 변경
+                    //E키로 선택된 Trinkets 확대
+                }
+                else
+                {
+                }
+            }
+            else if (Buttons[selectedButton] == Buttons[3])
+            {
+                Debug.Log("Controls 열림 나머지 끔");
+                
+                //걍 시간있을때 contorl 창만 형식상 만들어두자
+
+            }
+            else if (Buttons[selectedButton] == Buttons[4])
+            {
+                Debug.Log("Option 열림 나머지 끔");
+                //이것두
+            }
+
+        }
+    }
+
+
 }

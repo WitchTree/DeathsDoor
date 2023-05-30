@@ -24,7 +24,7 @@ public class NPCDialogue : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && playerIsClose)
+        if(Input.GetKeyDown(KeyCode.E) && playerIsClose)
         {
             if (DialogueUI.activeInHierarchy)
             {
@@ -57,19 +57,19 @@ public class NPCDialogue : MonoBehaviour
         }
         */
         num++;
-        //E키를 눌러서 넘어가게 만들기 
-
-        if (index < Dialogue.Length - 1)
-        {
-            index++;
-            Txt_Dialogue.text = "";
-            StartCoroutine(Typing());
-        }
-        else
-        {
-            zeroText();
-        }
-
+            //E키를 눌러서 넘어가게 만들기 
+          
+            if(index<Dialogue.Length - 1)
+            {
+                index++;
+                Txt_Dialogue.text = "";
+                StartCoroutine(Typing());
+            }
+            else
+            {
+                zeroText();
+            }
+  
     }
 
     public void zeroText() //text 초기화
