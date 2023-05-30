@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     public int skill = 4; // 스킬 수
     public int life = 4;
 
+    private float closeDistance = 1.0f;
+
     private Rigidbody player_R;
     private Animator ani;
     Sword sword;
@@ -20,9 +22,6 @@ public class PlayerController : MonoBehaviour
     public bool isRoll = false;
     public bool isIdle = false;
     public bool isAtk = false;
-
-    [SerializeField] private GameObject cursor;
-
 
     [SerializeField] PlayerInput playerinput;
     [SerializeField] Camera main;
@@ -90,20 +89,20 @@ public class PlayerController : MonoBehaviour
         if (!isRoll)
         {
             Ray cameraRay = main.ScreenPointToRay(Input.mousePosition);
-            Vector3 hitpoint=Vector3.zero;
-            if(Physics.Raycast(cameraRay, out RaycastHit h))
+            Vector3 hitpoint = Vector3.zero;
+            if (Physics.Raycast(cameraRay, out RaycastHit h))
             {
                 hitpoint = h.point;
-                //cursor.transform.position = new Vector3(hitpoint.x, hitpoint.y + 0.1f, hitpoint.z);
+              
             }
-            //gb.transform.position = hitpoint;
-
-            if ((playerinput.AtkLook || playerinput.isStrong || playerinput.isBow)&&!isRun)//조건 공격 만들때 수정할게요~~
+            Vector3 offset = hitpoint - transform.position;
+            float sqrLen = offset.sqrMagnitude;
+            if ((playerinput.AtkLook || playerinput.isStrong || playerinput.isBow) && !isRun && (sqrLen > closeDistance * closeDistance))//조건 공격 만들때 수정할게요~~
             {
                 transform.LookAt(hitpoint);
             }
         }
     }
-   
+
 
 }
