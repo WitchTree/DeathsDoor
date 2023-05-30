@@ -69,6 +69,7 @@ public class MainMenuUIManagement : MonoBehaviour
                     Hud.SetActive(false);
                     SetMenuUI();
                     //여기에 Main Panel Open
+                    //UI 켜져있을 땐 까마귀 안움직이게하기 timescale
                     break;
             }
         }
@@ -178,6 +179,7 @@ public class MainMenuUIManagement : MonoBehaviour
 
         if (MenuPanel.Length > 0)
         {
+  
 
             if (Buttons[selectedButton] == Buttons[0])
             {
