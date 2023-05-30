@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class POT_Mimic_Melee : Enemy
 {
+    Animator potAni;
+
+    [SerializeField] Rigidbody[] smashed = new Rigidbody[14];
+    [SerializeField] GameObject[] bodyParts = new GameObject[3];
+    [SerializeField] Collider spinCollider;
+
     [SerializeField] SpikeDoor spikeDoor;
 
     bool isMove = false;
@@ -18,15 +24,16 @@ public class POT_Mimic_Melee : Enemy
         this.hp = 3;
         this.maxHp = 3;
         this.spirit = 1;
+
+        potAni = GetComponent<Animator>();
     }
 
     void OnTriggerEnter(Collider other) 
     {
         if (other.CompareTag("Weapon") && !isMove) //첫 공격 맞고 깨어나기
-        {   
+        {
             //무기에 맞으면 움직이기 시작
-            isMove = true;
-            StartCoroutine(StartMove_co());
+            StartMove();
         }
         else if (other.CompareTag("Weapon")) // 첫 공격 이후 데미지 입기
         {
@@ -36,27 +43,95 @@ public class POT_Mimic_Melee : Enemy
             switch (hp) 
             {
                 case 2:
-                    //pot 회전 멈추기
-                    StopCoroutine(StartMove_co());
+                    StopMove();
                     break;
                 case 1:
-                    //항아리의 하체 조각 떨어지고 아래로 내려 앉기
+                    Drop();
                     break;
                 case 0:
-                    isDead = true;
-                    //플레이어에게 spirit 추가 
-                    StartCoroutine(SpikeDoorUnlock_co());
+                    Drop();
                     break;
                 
             }
         }
     }
 
-    IEnumerator StartMove_co() 
+    public void StartMove()
     {
-        while (hp.Equals(maxHp)) 
+        isMove = true;
+
+        //rigidbody 사용을 위해 약간 띄우기
+        transform.localPosition += new Vector3(0f, 0.001f, 0f);
+        //겉 body 비활성화
+        bodyParts[0].SetActive(false);
+        bodyParts[1].SetActive(false);
+
+        //tap 위로 띄우기
+        smashed[13].AddForce(Vector3.up * 350f);
+
+        potAni.SetBool("isAttacked", true);
+        StartCoroutine(SetTap_co());
+
+        //회전
+        potAni.SetBool("Spin", true);
+    }
+
+    public void StartSpin()
+    {
+        spinCollider.enabled = true;
+    }
+
+    public void EndSpin()
+    {
+        spinCollider.enabled = false;
+    }
+
+    public void StopMove()
+    {
+        //pot 회전 멈추기
+        potAni.SetBool("Spin", false);
+
+        //멈추기
+        StopCoroutine(SetTap_co());
+    }
+
+    public void Drop()
+    {
+        //항아리의 하체 조각 떨어지고 아래로 내려 앉기
+        potAni.SetTrigger("Drop");
+
+        //tap 비활성화
+        smashed[13].gameObject.SetActive(false);
+
+        //깨지기
+        for (int i = 0; i < smashed.Length - 1; i++)
         {
-            //회전하며 플레이어에게 다가가기
+            smashed[i].isKinematic = false;
+        }
+    }
+
+    public void Dead()
+    {
+        isDead = true;
+
+        bodyParts[2].SetActive(false);
+
+        //플레이어에게 spirit 추가 
+        StartCoroutine(SpikeDoorUnlock_co());
+    }
+
+    IEnumerator SetTap_co() 
+    {
+        float time = 0f;
+        while (time < 6f) 
+        {
+            
+            if (time > 1f && smashed[13].transform.localPosition.y < 0.01791f)
+            {
+                smashed[13].transform.localPosition = new Vector3(-0.00001f, 0.0179f, -0.0012f);
+            }
+            
+            time += Time.deltaTime;
             yield return null;
         }
     }

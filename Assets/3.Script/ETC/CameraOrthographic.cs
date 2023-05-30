@@ -8,7 +8,7 @@ public class CameraOrthographic : MonoBehaviour
     public CinemachineVirtualCamera vcam; 
     void Start()
     {        
-        vcam.m_Lens.OrthographicSize = 3;
+        vcam.m_Lens.OrthographicSize = 5;
     }
 
 }
