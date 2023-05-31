@@ -32,7 +32,7 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
     float[] horizontalDifference;
     float[] verticallDifference;
 
-    public float timeScale;
+    private float timeScale;
 
     private void Start()
     {

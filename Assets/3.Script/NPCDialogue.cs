@@ -8,32 +8,53 @@ public class NPCDialogue : MonoBehaviour
     public GameObject DialogueUI;
     public Text Txt_Dialogue;
 
+    GameObject Hud;
+
     public string[] Dialogue;
-    private int index; //which will help us find position in the string 문자열의 위치 찾는데 도움
+    private int index; //string의 위치 찾는데 필요
 
     public float wordSpeed;
     public bool playerIsClose;
+    public bool panelIsOpen =false;
     int num;
+
+
+    bool talking = false;
+
 
     // Start is called before the first frame update
     void Start()
     {
         num = 0;
+        Hud = GameObject.FindWithTag("HudUI");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E) && playerIsClose)
+        Conversation();
+    }
+
+    private void Conversation()
+    {
+        if(Input.GetKeyDown(KeyCode.E) && playerIsClose && !talking)
         {
-            if (DialogueUI.activeInHierarchy)
+            //Dialogue 배열이 다 출력될때까지 딱 한번만 E키가 먹히게 하고싶음 
+            //또는 배열이 다 출력되지 않았을 때 anykey를 누르면 출력 초기화
+            //어케해야 됨? 
+            if (DialogueUI.activeInHierarchy && !talking)
             {
-                Debug.Log("플레이어가 말을 걸었음");
+                Hud.SetActive(true);
                 zeroText();
+                Debug.Log("ㅇㅋ");
+
             }
             else
             {
+                Debug.Log("대화중");
+                talking = true;
                 DialogueUI.SetActive(true);
+                Hud.SetActive(false);
                 StartCoroutine(Typing());
             }
         }
@@ -42,10 +63,12 @@ public class NPCDialogue : MonoBehaviour
         {
             NextLine();
         }
+
     }
 
     public void NextLine()
     {
+        #region banker에게 말걸었을때 upgradeUI 활성화
         /*
          * End dialogue
         if (dialogue[dialogue.Length - 1] == "다이얼로그string" && num == 인덱스넘버 )
@@ -55,19 +78,26 @@ public class NPCDialogue : MonoBehaviour
             return;
         }
         */
-        num++;
-            //E키를 눌러서 넘어가게 만들기 
-          
-            if(index<Dialogue.Length - 1)
+        #endregion
+
+        //num++;
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (index < Dialogue.Length - 1)
             {
                 index++;
                 Txt_Dialogue.text = "";
                 StartCoroutine(Typing());
+                Debug.Log("npc가 말하는중임");
             }
+
             else
             {
                 zeroText();
+                DialogueUI.SetActive(false);
+                talking = false;
             }
+        }
   
     }
 
@@ -84,15 +114,20 @@ public class NPCDialogue : MonoBehaviour
         {
             playerIsClose = true;
         }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
+        else
         {
             playerIsClose = false;
             zeroText();
         }
     }
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.CompareTag("Player"))
+    //    {
+    //        playerIsClose = false;
+    //        zeroText();
+    //    }
+    //}
 
     IEnumerator Typing()
     {

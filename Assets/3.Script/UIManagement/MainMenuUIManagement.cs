@@ -7,26 +7,15 @@ using UnityEngine.EventSystems;
 public class MainMenuUIManagement : MonoBehaviour
 {
     public GameObject[] Buttons;
-    public GameObject[] MenuPanel;
+    public GameObject[] MenuPanel; //메뉴 패널
 
     [SerializeField] int selectedButton = 0;
-    [SerializeField] int panelSelected = 0;
-    float new_horizontal = 0;
-    float new_vertical = 0;
-
-    float horizontal;
-    float vertical;
 
     bool buttonPressed = false;
 
     GameObject MainUI;
     GameObject Hud;
     GameObject firstButton;
-
-    //MainUI가 켜졌을 때 활성화될 메뉴창
-    GameObject Inventory;
-    GameObject Weapon;
-    GameObject Trinkets;
 
     GameObject Arrow;
 
@@ -37,13 +26,12 @@ public class MainMenuUIManagement : MonoBehaviour
     float[] horizontalDifference;
     float[] verticallDifference;
 
-    public float timeScale;
+    private float timeScale;
 
 
-    //나중에 아래의 인스턴스 선언 가지고 panel 키보드 입력값 받으렴~ 0530
+    //나중에 아래의 인스턴스 선언 가지고 panel 키보드 입력값 받는걸로 고치렴~ 0530
     #region instance 선언
     private static MainMenuUIManagement Instance;
-
     public static MainMenuUIManagement instance
     {
         get
@@ -64,9 +52,6 @@ public class MainMenuUIManagement : MonoBehaviour
         Hud = GameObject.FindWithTag("HudUI");
         Arrow = GameObject.Find("Arrow");
 
-        Inventory = GameObject.Find("Inventory");
-        Weapon = GameObject.Find("Weapon");
-        Trinkets = GameObject.Find("Trinkets");
     }
 
     // Update is called once per frame
@@ -99,16 +84,13 @@ public class MainMenuUIManagement : MonoBehaviour
 
         if (isMenuAct)
         {
-            UIKeyboardInput();
+            MainUIHeaderKeyboardInput();
         }
     }
 
 
     private void SetMenuUI()
     {
-        //'Button' 태그가 붙은 모든 버튼의 배열 만들기 
-        //Buttons = GameObject.FindGameObjectsWithTag("Button");
-
         if (Buttons.Length > 0)
         {
             //panel이 활성화 되어있는 지 확인하고, 변경되었을 경우 첫번째 버튼 활성화
@@ -139,14 +121,8 @@ public class MainMenuUIManagement : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
     }
 
-    private void UIKeyboardInput()
+    private void MainUIHeaderKeyboardInput()
     {
-
-        //if a closer diffenece in positions for buttons is true, this will be overwriten
-        //버튼에 대한 위치 차이가 더 가까울 경우, 9999 수치를 overwriten
-        new_horizontal = 9999;
-        new_vertical = 9999;
-
         if (Input.GetKeyDown(KeyCode.Z) && !buttonPressed)
         {
             Debug.Log("Z키 누름");
@@ -202,7 +178,6 @@ public class MainMenuUIManagement : MonoBehaviour
                 selectedButton++;
                 EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
                 Debug.Log(Buttons[selectedButton].name);
-                Debug.Log(selectedButton);
             }
 
             if(selectedButton==0)
@@ -225,13 +200,6 @@ public class MainMenuUIManagement : MonoBehaviour
                 MenuPanel[1].SetActive(false);
                 MenuPanel[2].SetActive(true);
             }
-
-
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Debug.Log("E키 선택!");
         }
 
         if (buttonPressed)
@@ -240,57 +208,5 @@ public class MainMenuUIManagement : MonoBehaviour
         }
     }
 
-    //public void MainMenuOpen()
-    //{
 
-    //    if (MenuPanel.Length > 0)
-    //    {
-
-    //        if (Buttons[selectedButton] == Buttons[0])
-    //        {
-    //            Debug.Log("Inventory 열림 나머지 끔");
-    //            MenuPanel[0].SetActive(true);
-    //                //Inventory.SetActive(true);
-    //                //Inventory 활성화
-    //                //WASD키보드 입력값으로 셀렉
-    //                //입력값에 따라 Inof_Txt 변경
-    //        }
-
-    //        if (Buttons[selectedButton] == Buttons[1])
-    //        {
-    //            MenuPanel[1].SetActive(true);
-    //                Debug.Log("Weapon 열림 나머지 끔");
-    //                //Weapon 활성화
-    //                //WASD키보드 입력값으로 셀렉
-    //                //입력값에 따라 Inof_Txt 변경
-    //                //E키로 무기 변경
-           
-    //        }
-
-    //        if (Buttons[selectedButton] == Buttons[2])
-    //        {
-                
-    //            MenuPanel[2].SetActive(true);
-    //                Debug.Log("Trinkets 열림 나머지 끔");
-    //                //Trinkets 활성화
-    //                //WASD키보드 입력값으로 셀렉
-    //                //입력값에 따라 Inof_Txt 변경
-    //                //E키로 선택된 Trinkets 확대
-             
-    //        }
-    //        if (Buttons[selectedButton] == Buttons[3])
-    //        {
-    //            Debug.Log("Controls 열림 나머지 끔");
-
-    //            //걍 시간있을때 contorl 창만 형식상 만들어두자
-
-    //        }
-    //        if (Buttons[selectedButton] == Buttons[4])
-    //        {
-    //            Debug.Log("Option 열림 나머지 끔");
-    //            //이것두
-    //        }
-
-    //    }
-    //}
 }
