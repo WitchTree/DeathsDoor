@@ -6,10 +6,12 @@ public class POT_Mimic_Melee : Enemy
 {
     Animator potAni;
 
+    //smashed
     [SerializeField] Rigidbody[] smashed = new Rigidbody[14];
     [SerializeField] GameObject[] bodyParts = new GameObject[3];
     [SerializeField] Collider spinCollider;
 
+    //open spike door
     [SerializeField] SpikeDoor spikeDoor;
 
     bool isMove = false;
