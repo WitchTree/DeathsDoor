@@ -27,7 +27,7 @@ public class PlayerOnDamage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy") && !isSuffer && bat.isAttacking)
+        if (other.CompareTag("Enemy") && !isSuffer)
         {
             playerState.life--;
             Debug.Log("¸ñ¼û");

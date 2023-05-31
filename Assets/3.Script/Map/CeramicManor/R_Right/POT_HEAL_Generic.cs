@@ -67,7 +67,7 @@ public class POT_HEAL_Generic : MonoBehaviour
         for (int i = 0; i < smashed.Length; i++)
         {
             smashed[i].isKinematic = false;
-            smashed[i].AddForce(attackPos * 1000f);
+            smashed[i].AddForce(attackPos * 500f);
         }
 
         //Collider 끄기
@@ -100,8 +100,18 @@ public class POT_HEAL_Generic : MonoBehaviour
             smashed[i].isKinematic = true;
         }
 
-        float time = 0f;
-        while (time < 4f)
+        float maxDist = 0f;
+        int maxDistIndex = 15;
+        for (int i = 0; i < smashed.Length; i++)
+        {
+            if ((smashed[i].transform.localPosition - smashedOriginalPos[i]).sqrMagnitude > maxDist)
+            {
+                maxDist = (smashed[i].transform.localPosition - smashedOriginalPos[i]).sqrMagnitude;
+                maxDistIndex = i;
+            }
+        }
+
+        while ((smashed[maxDistIndex].transform.localPosition - smashedOriginalPos[maxDistIndex]).sqrMagnitude > 0.000000001f)
         {
             for (int i = 0; i < smashed.Length; i++)
             {
@@ -111,7 +121,10 @@ public class POT_HEAL_Generic : MonoBehaviour
                 //rotation
                 smashed[i].transform.localEulerAngles = smashedOriginalRot[i];
             }
-            time += Time.deltaTime;
+            //time += Time.deltaTime;
+
+            
+
             yield return null;
         }
             

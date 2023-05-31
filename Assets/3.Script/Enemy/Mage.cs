@@ -28,6 +28,9 @@ public class Mage : Enemy
     bool isTeleportLock = false;
     bool isAttackLock = false;
 
+    //DMG effect
+    SkinnedMeshRenderer[] skinnedMeshRenderer = new SkinnedMeshRenderer[3];
+
     void Start()
     {
         SetMage();
@@ -50,6 +53,7 @@ public class Mage : Enemy
         this.spirit = 2;
 
         mageAni = GetComponent<Animator>();
+        skinnedMeshRenderer = GetComponentsInChildren<SkinnedMeshRenderer>();
     }
 
     //Mage의 Trigger는 원으로 안에 들어오면 어그로 끌리고 벗어나면 플레이어 근처로 텔레포트함
