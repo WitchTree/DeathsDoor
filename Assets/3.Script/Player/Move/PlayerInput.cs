@@ -22,11 +22,14 @@ public class PlayerInput : MonoBehaviour
     public bool isBow { get; private set; }
 
     public bool AtkLook { get; private set; }
+    public bool isLock = false;
 
 
     // Update is called once per frame
     void Update()
     {
+        if (!isLock)
+        {
         Move_Value = Input.GetAxis(MoveAxisName);
         Rotate_Value = Input.GetAxis(RotateAxisName);
 
@@ -36,5 +39,6 @@ public class PlayerInput : MonoBehaviour
         isStrong = Input.GetButton(strongSword);
         isStrong = Input.GetButton(strongSword);
         isBow = Input.GetButton(Bow);
+        }
     }
 }

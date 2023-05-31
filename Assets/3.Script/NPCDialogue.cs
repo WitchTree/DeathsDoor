@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class NPCDialogue : MonoBehaviour
 {
+    PlayerInput playerInput;
+
     public GameObject DialogueUI;
     public Text Txt_Dialogue;
 
@@ -15,11 +17,8 @@ public class NPCDialogue : MonoBehaviour
 
     public float wordSpeed;
     public bool playerIsClose;
-    public bool panelIsOpen =false;
-    int num;
-
-
-    bool talking = false;
+    private bool talking = false; //배열 출력이 끝날 때까지 E키 막아두기
+    private int num;
 
 
     // Start is called before the first frame update
@@ -27,6 +26,7 @@ public class NPCDialogue : MonoBehaviour
     {
         num = 0;
         Hud = GameObject.FindWithTag("HudUI");
+        playerInput = FindObjectOfType<PlayerInput>();
     }
 
     // Update is called once per frame
@@ -39,13 +39,11 @@ public class NPCDialogue : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.E) && playerIsClose && !talking)
         {
-            //Dialogue 배열이 다 출력될때까지 딱 한번만 E키가 먹히게 하고싶음 
-            //또는 배열이 다 출력되지 않았을 때 anykey를 누르면 출력 초기화
-            //어케해야 됨? 
             if (DialogueUI.activeInHierarchy && !talking)
             {
                 Hud.SetActive(true);
                 zeroText();
+                
                 Debug.Log("ㅇㅋ");
 
             }
@@ -55,6 +53,7 @@ public class NPCDialogue : MonoBehaviour
                 talking = true;
                 DialogueUI.SetActive(true);
                 Hud.SetActive(false);
+                playerInput.isLock = true;
                 StartCoroutine(Typing());
             }
         }
@@ -96,6 +95,7 @@ public class NPCDialogue : MonoBehaviour
                 zeroText();
                 DialogueUI.SetActive(false);
                 talking = false;
+                playerInput.isLock = false;
             }
         }
   
