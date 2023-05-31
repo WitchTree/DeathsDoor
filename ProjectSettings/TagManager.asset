@@ -8,6 +8,10 @@ TagManager:
   - Button
   - MainUIPanel
   - Enemy
+  - ETC
+  - HudUI
+  - Skill
+  - Fire
   layers:
   - Default
   - TransparentFX
