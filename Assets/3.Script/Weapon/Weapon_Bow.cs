@@ -82,6 +82,7 @@ public class Weapon_Bow : MonoBehaviour
         // 총알의 Collider를 사용하여 충돌 감지를 할 수도 있습니다.
         // 예를 들어, 아래와 같이 카메라를 기준으로 총알의 위치를 확인할 수 있습니다.
 
+        /*
         Camera mainCamera = Camera.main;
         Vector3 viewportPos = mainCamera.WorldToViewportPoint(transform.position);
 
@@ -89,6 +90,7 @@ public class Weapon_Bow : MonoBehaviour
         {
             return false; // 총알이 카메라 밖에 있음
         }
+        */
 
         return true; // 총알이 카메라 안에 있음
     }

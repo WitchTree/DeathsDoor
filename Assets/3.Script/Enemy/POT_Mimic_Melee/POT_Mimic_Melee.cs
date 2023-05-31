@@ -30,12 +30,12 @@ public class POT_Mimic_Melee : Enemy
 
     void OnTriggerEnter(Collider other) 
     {
-        if (other.CompareTag("Weapon") && !isMove) //첫 공격 맞고 깨어나기
+        if (other.CompareTag("Skill") && !isMove) //첫 공격 맞고 깨어나기
         {
             //무기에 맞으면 움직이기 시작
             StartMove();
         }
-        else if (other.CompareTag("Weapon")) // 첫 공격 이후 데미지 입기
+        else if (other.CompareTag("Skill")) // 첫 공격 이후 데미지 입기
         {
             //항이리 hp 감소
             hp -= 1;
@@ -49,7 +49,7 @@ public class POT_Mimic_Melee : Enemy
                     Drop();
                     break;
                 case 0:
-                    Drop();
+                    Dead();
                     break;
                 
             }
