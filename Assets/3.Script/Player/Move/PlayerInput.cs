@@ -23,6 +23,8 @@ public class PlayerInput : MonoBehaviour
     public bool isBow { get; private set; }
 
     public bool AtkLook { get; private set; }
+    public bool isLock = false;
+
     public bool isSkill_start { get; private set; }
     public bool isSkill_end { get; private set; }
     public bool skill1 { get; private set; }
@@ -30,6 +32,8 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!isLock)
+        {
         Move_Value = Input.GetAxis(MoveAxisName);
         Rotate_Value = Input.GetAxis(RotateAxisName);
 
@@ -43,5 +47,6 @@ public class PlayerInput : MonoBehaviour
         isSkill_end = Input.GetButtonUp(skill);
         skill1 = Input.GetButtonDown("Skill1");
         skill2 = Input.GetButtonDown("Skill2");
+        }
     }
 }
