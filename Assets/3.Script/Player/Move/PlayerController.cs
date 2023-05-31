@@ -23,8 +23,6 @@ public class PlayerController : MonoBehaviour
     private float closeDistance = 1.0f;
 
 
-    [SerializeField] private GameObject cursor;
-
     PlayerOnDamage playerDamage;
     [SerializeField] PlayerInput playerinput;
     [SerializeField] Camera main;
@@ -85,7 +83,7 @@ public class PlayerController : MonoBehaviour
             {
                 hitpoint = h.point;
                 hitpoint.y = transform.position.y;
-                cursor.transform.position = new Vector3(hitpoint.x, hitpoint.y + 0.1f, hitpoint.z);
+                
             }
             Vector3 offset = hitpoint - transform.position;
             float sqrLen = offset.sqrMagnitude;

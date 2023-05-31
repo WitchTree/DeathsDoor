@@ -30,6 +30,7 @@ public class SpikeDoor : MonoBehaviour
 
     IEnumerator OpenSpike_co(Transform spike)
     {
+        yield return new WaitForSeconds(2f);
         while (spike.localPosition.y > yPos)
         {
             spike.localPosition += new Vector3(0f, -0.001f, 0f);
@@ -48,6 +49,7 @@ public class SpikeDoor : MonoBehaviour
 
     IEnumerator CloseSpike_co(Transform spike, Vector3 pos)
     {
+        yield return new WaitForSeconds(2f);
         while (spike.localPosition.y < pos.y)
         {
             spike.localPosition += new Vector3(0f, 0.001f, 0f);

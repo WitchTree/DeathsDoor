@@ -12,10 +12,16 @@ public class POT_HEAL_Generic : MonoBehaviour
     Vector3[] smashedOriginalRot = new Vector3[14];
 
     //smashed 
+    Vector3 attackPos;
     Rigidbody[] smashed = new Rigidbody[14];
+
+    //Colliders
+    Collider[] colliders = new Collider[2];
 
     private void Start()
     {
+        colliders = GetComponents<Collider>();
+
         smashed = transform.GetChild(1).GetComponentsInChildren<Rigidbody>();
 
         for (int i = 0; i < transform.GetChild(1).childCount; i++)
@@ -23,8 +29,16 @@ public class POT_HEAL_Generic : MonoBehaviour
             smashedOriginalPos[i] = transform.GetChild(1).GetChild(i).transform.localPosition;
             smashedOriginalRot[i] = transform.GetChild(1).GetChild(i).transform.localEulerAngles;
         }
-        
     }
+
+    void Initialize()
+    {
+        colliders[0].enabled = true;
+        colliders[1].enabled = true;
+
+        transform.GetChild(0).gameObject.SetActive(true);
+    }
+        
 
     private void Update()
     {
@@ -36,7 +50,11 @@ public class POT_HEAL_Generic : MonoBehaviour
     {
         if (other.CompareTag("Skill"))
         {
-            BreakPot();
+            //깨질 때 힘줄 방향
+            attackPos = transform.position - other.gameObject.transform.position;
+            Destroy(other.gameObject);
+
+            StartCoroutine(Pot_co());
         }
     }
 
@@ -49,7 +67,12 @@ public class POT_HEAL_Generic : MonoBehaviour
         for (int i = 0; i < smashed.Length; i++)
         {
             smashed[i].isKinematic = false;
+            smashed[i].AddForce(attackPos * 500f);
         }
+
+        //Collider 끄기
+        colliders[0].enabled = false;
+        colliders[1].enabled = false;
 
         //spike door를 open할 키이고 잠금이 해제되어 있다면
         if (isPotKey && spikeDoor.isUnlock)
@@ -65,10 +88,10 @@ public class POT_HEAL_Generic : MonoBehaviour
 
     public void ResetPot()
     {
-        StartCoroutine(ResetPosToOriginal());
+        StartCoroutine(ResetPosToOriginal_co());
     }
 
-    IEnumerator ResetPosToOriginal()
+    IEnumerator ResetPosToOriginal_co()
     {
         //pot isKinematic 수정
         for (int i = 0; i < smashed.Length; i++)
@@ -77,8 +100,18 @@ public class POT_HEAL_Generic : MonoBehaviour
             smashed[i].isKinematic = true;
         }
 
-        float time = 0f;
-        while (time < 4f)
+        float maxDist = 0f;
+        int maxDistIndex = 15;
+        for (int i = 0; i < smashed.Length; i++)
+        {
+            if ((smashed[i].transform.localPosition - smashedOriginalPos[i]).sqrMagnitude > maxDist)
+            {
+                maxDist = (smashed[i].transform.localPosition - smashedOriginalPos[i]).sqrMagnitude;
+                maxDistIndex = i;
+            }
+        }
+
+        while ((smashed[maxDistIndex].transform.localPosition - smashedOriginalPos[maxDistIndex]).sqrMagnitude > 0.000000001f)
         {
             for (int i = 0; i < smashed.Length; i++)
             {
@@ -88,12 +121,23 @@ public class POT_HEAL_Generic : MonoBehaviour
                 //rotation
                 smashed[i].transform.localEulerAngles = smashedOriginalRot[i];
             }
-            time += Time.deltaTime;
+            //time += Time.deltaTime;
+
+            
+
             yield return null;
         }
             
         //이펙트 추가
-        transform.GetChild(0).gameObject.SetActive(true);
+        
+        //다시 초기화
+        Initialize();
+    }
 
+    IEnumerator Pot_co()
+    {
+        BreakPot();
+        yield return new WaitForSeconds(20f);
+        ResetPot();
     }
 }
