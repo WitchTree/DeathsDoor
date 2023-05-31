@@ -6,10 +6,12 @@ public class POT_Mimic_Melee : Enemy
 {
     Animator potAni;
 
+    //smashed
     [SerializeField] Rigidbody[] smashed = new Rigidbody[14];
     [SerializeField] GameObject[] bodyParts = new GameObject[3];
     [SerializeField] Collider spinCollider;
 
+    //open spike door
     [SerializeField] SpikeDoor spikeDoor;
 
     bool isMove = false;
@@ -30,16 +32,16 @@ public class POT_Mimic_Melee : Enemy
 
     void OnTriggerEnter(Collider other) 
     {
-        if (other.CompareTag("Weapon") && !isMove) //첫 공격 맞고 깨어나기
+        if (other.CompareTag("Skill") && !isMove) //첫 공격 맞고 깨어나기
         {
             //무기에 맞으면 움직이기 시작
             StartMove();
         }
-        else if (other.CompareTag("Weapon")) // 첫 공격 이후 데미지 입기
+        else if (other.CompareTag("Skill")) // 첫 공격 이후 데미지 입기
         {
             //항이리 hp 감소
             hp -= 1;
-
+            Debug.Log("Pot hp:" + hp);
             switch (hp) 
             {
                 case 2:
@@ -49,9 +51,8 @@ public class POT_Mimic_Melee : Enemy
                     Drop();
                     break;
                 case 0:
-                    Drop();
+                    Dead();
                     break;
-                
             }
         }
     }
@@ -70,10 +71,11 @@ public class POT_Mimic_Melee : Enemy
         smashed[13].AddForce(Vector3.up * 350f);
 
         potAni.SetBool("isAttacked", true);
-        StartCoroutine(SetTap_co());
-
         //회전
         potAni.SetBool("Spin", true);
+        StartCoroutine(SetTap_co());
+
+        
     }
 
     public void StartSpin()

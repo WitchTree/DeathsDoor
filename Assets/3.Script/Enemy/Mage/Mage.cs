@@ -7,7 +7,7 @@ public class Mage : Enemy
 {
     //Move
     Vector3 destination;
-    [SerializeField] Transform player, patrol;
+    [SerializeField] Transform player;
     [SerializeField] NavMeshAgent agent;
 
     //Teleport
@@ -28,6 +28,9 @@ public class Mage : Enemy
     bool isTeleportLock = false;
     bool isAttackLock = false;
 
+    //DMG effect
+    SkinnedMeshRenderer[] skinnedMeshRenderer = new SkinnedMeshRenderer[3];
+
     void Start()
     {
         SetMage();
@@ -35,26 +38,9 @@ public class Mage : Enemy
 
     void Update()
     {
-        if (!isAttracted)
-        {
-            destination = patrol.position;
-            agent.destination = destination;
-            agent.speed = 0.1f;
-        }
-        else if (!isAttacking && !isTeleporting) //������ �ƴ� ��
-        {
-            agent.speed = 0f;
-            Attack();
-        }
-        else
-        {
-            agent.speed = 0f;
-        }
-
         if (isDead)
         {
             mageAni.SetTrigger("Death");
-            gameObject.SetActive(false);
         }
         
     }
@@ -66,9 +52,10 @@ public class Mage : Enemy
         this.spirit = 2;
 
         mageAni = GetComponent<Animator>();
+        skinnedMeshRenderer = GetComponentsInChildren<SkinnedMeshRenderer>();
     }
 
-    //Mage�� Trigger�� ������ �ȿ� ������ ��׷� ������ ����� �÷��̾� ��ó�� �ڷ���Ʈ��
+    //Mage의 Trigger는 원으로 안에 들어오면 어그로 끌리고 벗어나면 플레이어 근처로 텔레포트함
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -83,7 +70,7 @@ public class Mage : Enemy
     {
         if (collision.transform.tag.Equals("player"))
         {
-            Debug.Log("Player�� �浹");
+            Debug.Log("Player와 충돌");
             hp -= 1;
             isAttacked = true;
             //StartCoroutine(Teleport_co());
@@ -94,7 +81,7 @@ public class Mage : Enemy
     {
         if (other.CompareTag("Player") && !isTeleportLock)
         {
-            //shooting�ϴ� �߰��� ������ ���� �ȵ� ��
+            //shooting하는 중간에 나가면 실행 안됨 ㅠ
             StartCoroutine(Teleport_co());
         }
     }
@@ -116,13 +103,13 @@ public class Mage : Enemy
     void Attack()
     {
         //Mage -> shoot
-        if (attackTime >= attackBetTime) //���� �����ϸ�
+        if (attackTime >= attackBetTime) //공격 가능하면
         {
             isAttacking = true;
             playerPos = player.position;
             StartCoroutine(Shoot_co());
-            
-            //isAttacking == true �̰� collider �浹�ϸ� player hp ��� �����
+
+            //isAttacking == true 이고 collider 충돌하면 player hp 닳게 만들기
         }
         attackTime += Time.deltaTime;
     }
@@ -157,7 +144,7 @@ public class Mage : Enemy
             mageAni.SetBool("isTeleporting", isTeleporting);
             yield return new WaitForSeconds(2.35f);
 
-            transform.position = RandomNavmeshLocation(teleportDist); //������ ��ġ�� ����
+            transform.position = RandomNavmeshLocation(teleportDist); //랜덤한 위치에 생성
             transform.LookAt(player);
             yield return null;
 
@@ -170,7 +157,7 @@ public class Mage : Enemy
         isTeleportLock = false;
     }
 
-    //NavMesh �� ������ ��ġ ����
+    //NavMesh 내 랜덤한 위치 생성
     Vector3 RandomNavmeshLocation(float radius)
     {
         Vector3 randomDirection = Random.insideUnitSphere * radius;

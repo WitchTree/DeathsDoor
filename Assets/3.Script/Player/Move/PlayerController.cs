@@ -8,8 +8,7 @@ public class PlayerController : MonoBehaviour
     public float roll_Dis = 10f;//구르는 거리
     public float selDelay = 1f;
     private float delay = 0f;
-    public int skill = 4; // 스킬 수
-    public int life = 4;
+
 
     private Rigidbody player_R;
     private Animator ani;
@@ -21,9 +20,10 @@ public class PlayerController : MonoBehaviour
     public bool isIdle = false;
     public bool isAtk = false;
 
-    [SerializeField] private GameObject cursor;
+    private float closeDistance = 1.0f;
 
 
+    PlayerOnDamage playerDamage;
     [SerializeField] PlayerInput playerinput;
     [SerializeField] Camera main;
     void Start()
@@ -31,33 +31,28 @@ public class PlayerController : MonoBehaviour
         sword = GetComponent<Sword>();
         player_R = GetComponent<Rigidbody>();
         ani = GetComponent<Animator>();
+        playerDamage = GetComponent<PlayerOnDamage>();
     }
 
     private void FixedUpdate()
     {
         Run();
         Roll();
-        //RayRotate();
         Lookat();
-    }
 
+    }
     private void Run()
     {
         isRun = false;
-        //sword.swordRighthand.SetActive(false);
-        //sword.swordBack.SetActive(true);
-        if ((playerinput.Move_Value !=0 || playerinput.Rotate_Value != 0) && !isRoll && !isAtk)//구르기 x,공격x
+        if ((playerinput.Move_Value != 0 || playerinput.Rotate_Value != 0) && !isRoll && !isAtk /*&& !playerDamage.isSuffer*/)//구르기 x,공격x, 피격X
         {
-            Vector3 velocity = new Vector3(playerinput.Rotate_Value, 0, playerinput.Move_Value);
-            velocity *= speed;
-            player_R.velocity = velocity;
+            Vector3 velocity = new Vector3(playerinput.Rotate_Value, 0, playerinput.Move_Value).normalized;
+            transform.position += velocity * speed * Time.deltaTime;
             isRun = true;
-
             transform.LookAt(transform.position + velocity);
         }
         ani.SetBool("Run", isRun);
     }
-
     public void Roll()
     {
         if (playerinput.isRoll && !isRoll && !isAtk)
@@ -65,45 +60,37 @@ public class PlayerController : MonoBehaviour
             StartCoroutine("Roll_co");
         }
     }
-
     private IEnumerator Roll_co()
     {
         delay = selDelay;
         isRoll = true;
         Vector3 roll_Dir = transform.forward;
-
         player_R.velocity = Vector3.zero;
         player_R.AddForce(roll_Dir * roll_Dis, ForceMode.VelocityChange);
-
-        ani.SetBool("Roll", isRoll);
-
+        ani.SetTrigger("RollTrigger");
+        sword.RollAtk();
         yield return new WaitForSeconds(delay);
         player_R.velocity = Vector3.zero;
-
         isRoll = false;
-        ani.SetBool("Roll", isRoll);
-
     }
-
     public void Lookat()
     {
         if (!isRoll)
         {
             Ray cameraRay = main.ScreenPointToRay(Input.mousePosition);
-            Vector3 hitpoint=Vector3.zero;
-            if(Physics.Raycast(cameraRay, out RaycastHit h))
+            Vector3 hitpoint = Vector3.zero;
+            if (Physics.Raycast(cameraRay, out RaycastHit h))
             {
                 hitpoint = h.point;
-                //cursor.transform.position = new Vector3(hitpoint.x, hitpoint.y + 0.1f, hitpoint.z);
+                hitpoint.y = transform.position.y;
+                
             }
-            //gb.transform.position = hitpoint;
-
-            if ((playerinput.AtkLook || playerinput.isStrong || playerinput.isBow)&&!isRun)//조건 공격 만들때 수정할게요~~
+            Vector3 offset = hitpoint - transform.position;
+            float sqrLen = offset.sqrMagnitude;
+            if ((playerinput.AtkLook || playerinput.isStrong || playerinput.isBow || playerinput.isSkill_start) && !isRun && (sqrLen > closeDistance * closeDistance))//조건 공격 만들때 수정할게요~~
             {
                 transform.LookAt(hitpoint);
             }
         }
     }
-   
-
 }
