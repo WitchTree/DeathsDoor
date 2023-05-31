@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Weapon_Bow : MonoBehaviour
 {
-    public Player_State playerState;
+    public PlayerState playerState;
     public PlayerInput playerInput;
     private int speed = 10;
     private bool isShoot = false;
@@ -30,7 +30,7 @@ public class Weapon_Bow : MonoBehaviour
     {
         enemy = FindObjectOfType<Enemy>();
         playerInput = FindObjectOfType<PlayerInput>();
-        playerState = FindObjectOfType<Player_State>();
+        playerState = FindObjectOfType<PlayerState>();
 
         //weaponDamage = playerState.skillDamage_1;
     }
