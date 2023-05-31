@@ -9,7 +9,7 @@ public class POT_HEAL_Generic : MonoBehaviour
 
     //original pos
     Vector3[] smashedOriginalPos = new Vector3[14];
-
+    Vector3[] smashedOriginalRot = new Vector3[14];
 
     //smashed 
     Rigidbody[] smashed = new Rigidbody[14];
@@ -21,8 +21,15 @@ public class POT_HEAL_Generic : MonoBehaviour
         for (int i = 0; i < transform.GetChild(1).childCount; i++)
         {
             smashedOriginalPos[i] = transform.GetChild(1).GetChild(i).transform.localPosition;
+            smashedOriginalRot[i] = transform.GetChild(1).GetChild(i).transform.localEulerAngles;
         }
         
+    }
+
+    private void Update()
+    {
+        //smashed[0].transform.localPosition = Vector3.MoveTowards(smashed[0].transform.localPosition, new Vector3(-0.0531f, 0f, 0f), 0.01f * Time.deltaTime);
+
     }
 
     void OnTriggerEnter(Collider other) 
@@ -39,7 +46,7 @@ public class POT_HEAL_Generic : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(false);
 
         //pot 깨지기
-        for (int i = 0; i < smashed.Length - 1; i++)
+        for (int i = 0; i < smashed.Length; i++)
         {
             smashed[i].isKinematic = false;
         }
@@ -64,22 +71,29 @@ public class POT_HEAL_Generic : MonoBehaviour
     IEnumerator ResetPosToOriginal()
     {
         //pot isKinematic 수정
-        for (int i = 0; i < smashed.Length - 1; i++)
+        for (int i = 0; i < smashed.Length; i++)
         {
+            //smashed[i].useGravity = false;
             smashed[i].isKinematic = true;
-            smashed[i].useGravity = false;
         }
 
         float time = 0f;
-        while (time < 5f)
+        while (time < 4f)
         {
             for (int i = 0; i < smashed.Length; i++)
             {
-                Debug.Log("move");
-                Vector3.MoveTowards(smashed[i].transform.localPosition, smashedOriginalPos[i], 5f * Time.deltaTime);
+                //position
+                smashed[i].transform.localPosition = Vector3.MoveTowards(smashed[i].transform.localPosition, smashedOriginalPos[i], 0.01f * Time.deltaTime);
+                
+                //rotation
+                smashed[i].transform.localEulerAngles = smashedOriginalRot[i];
             }
             time += Time.deltaTime;
             yield return null;
         }
+            
+        //이펙트 추가
+        transform.GetChild(0).gameObject.SetActive(true);
+
     }
 }
