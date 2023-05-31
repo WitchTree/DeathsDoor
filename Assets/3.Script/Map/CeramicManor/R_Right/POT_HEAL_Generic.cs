@@ -34,7 +34,7 @@ public class POT_HEAL_Generic : MonoBehaviour
 
     void OnTriggerEnter(Collider other) 
     {
-        if (other.CompareTag("Weapon"))
+        if (other.CompareTag("Skill"))
         {
             BreakPot();
         }
