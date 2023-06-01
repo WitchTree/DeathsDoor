@@ -5,10 +5,13 @@ using UnityEngine.AI;
 
 public class SpinState : StateMachineBehaviour
 {
+    //Pot
     POT_Mimic_Melee pot;
     NavMeshAgent agent;
 
+    //Player
     Transform player;
+    PlayerOnDamage playerOnDamage;
 
     Vector3 destination;
 
@@ -17,6 +20,7 @@ public class SpinState : StateMachineBehaviour
         pot = animator.GetComponent<POT_Mimic_Melee>();
         agent = animator.GetComponent<NavMeshAgent>();
         player = FindObjectOfType<PlayerController>().transform;
+        playerOnDamage = FindObjectOfType<PlayerOnDamage>();
 
 
         pot.StartSpin();
@@ -24,9 +28,17 @@ public class SpinState : StateMachineBehaviour
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        destination = player.position;
-        agent.destination = destination;
-        agent.speed = 1f;
+        if (!playerOnDamage.isSuffer)
+        {
+            destination = player.position;
+            agent.destination = destination;
+            agent.speed = 1f;
+        }
+        else
+        {
+            agent.speed = 0f;
+        }
+        
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

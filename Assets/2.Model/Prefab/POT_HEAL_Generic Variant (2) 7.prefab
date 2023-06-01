@@ -237,7 +237,6 @@ GameObject:
   - component: {fileID: 7130055943610994241}
   - component: {fileID: 4463926298876323642}
   - component: {fileID: 517795305897332921}
-  - component: {fileID: 517795305897332920}
   m_Layer: 0
   m_Name: POT_HEAL_Generic Variant (2) 7
   m_TagString: Untagged
@@ -284,20 +283,6 @@ CapsuleCollider:
   m_GameObject: {fileID: 517795305897332927}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.012
-  m_Height: 0.05
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.022, z: 0}
---- !u!136 &517795305897332920
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 517795305897332927}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.012
   m_Height: 0.05
@@ -1426,7 +1411,7 @@ Transform:
   m_GameObject: {fileID: 7176546694127420410}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 0.0033333334, y: 0.003333333, z: 0.003333333}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7353144840981315182}
   - {fileID: 2941645527277033232}

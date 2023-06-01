@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player_skill : MonoBehaviour
 {
     PlayerController playerController;
-    public Player_State playerState;
+    public PlayerState playerState;
     public PlayerInput playerInput;
     private Animator ani;
 
@@ -32,7 +32,7 @@ public class Player_skill : MonoBehaviour
     {
         ani = GetComponent<Animator>();
         playerInput = GetComponent<PlayerInput>();
-        playerState = GetComponent<Player_State>();
+        playerState = GetComponent<PlayerState>();
         playerController = GetComponent<PlayerController>();
     }
     private void Update()
@@ -81,7 +81,7 @@ public class Player_skill : MonoBehaviour
 
             isSkill = true;
 
-            Debug.Log(skillDamage);
+            //Debug.Log(skillDamage);
 
             if (skillIndex == 0)
             {
@@ -106,7 +106,7 @@ public class Player_skill : MonoBehaviour
             if ( playerState.skill > 0)
             {
                 
-                Debug.Log("남은 스킬" + playerState.skill);
+                //Debug.Log("남은 스킬" + playerState.skill);
             }
 
             if (skillIndex == 0)

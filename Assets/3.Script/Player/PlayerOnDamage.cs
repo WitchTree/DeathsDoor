@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerOnDamage : MonoBehaviour
 {
-    public Player_State playerState;
+    public PlayerState playerState;
 
     public Bat bat;
 
@@ -16,12 +16,27 @@ public class PlayerOnDamage : MonoBehaviour
     private void Awake()
     {
         bat = FindObjectOfType<Bat>();
-        playerState = GetComponent<Player_State>();
+        playerState = GetComponent<PlayerState>();
     }
 
     private void Start()
     {
         ani = GetComponent<Animator>();
+    }
+
+    public void PlayerSuffered()
+    {
+        isSuffer = true;
+        playerState.life--;
+
+        if (playerState.life <= 0)
+        {
+            ani.SetTrigger("Death");
+        }
+        else
+        {
+            ani.SetTrigger("Suffer");
+        }
     }
 
 

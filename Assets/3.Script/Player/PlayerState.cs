@@ -15,6 +15,12 @@ public class PlayerState : MonoBehaviour
     private Animator ani;
     public bool isSuffer = false;
 
+    //Skill Damage
+    public float skillDamage_1 = 1f;
+    public float skillDamage_2 = 1.5f;
+
+    public float skillDelay = 0.7f;
+
     private void Awake()
     {
         playerInput = FindObjectOfType<PlayerInput>();
@@ -29,7 +35,7 @@ public class PlayerState : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy") && !isSuffer && bat.isAttacking)
+        if (other.CompareTag("Enemy") && !isSuffer)
         {
             life--;
             Debug.Log("¸ñ¼û");

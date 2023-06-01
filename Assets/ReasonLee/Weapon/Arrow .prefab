@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 4517863845931017760}
   - component: {fileID: 8405418786382413722}
   - component: {fileID: -2412961114711839802}
+  - component: {fileID: 5903114998196035868}
   m_Layer: 0
   m_Name: 'Arrow '
   m_TagString: Skill
@@ -158,7 +159,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 3298510904223508706}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.05
   m_Height: 1.7715572
   m_Direction: 1
@@ -238,3 +239,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5903114998196035868
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3298510904223508706}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 0.9, z: 1}
+  m_Center: {x: 0, y: -0.6, z: 0}
