@@ -32,6 +32,7 @@ public class MageOnDamage : MonoBehaviour
         if (other.CompareTag("Skill"))
         {
             mage.hp--;
+            Destroy(other.gameObject);
             StartCoroutine(DmgEffect_co());
         }
     }
