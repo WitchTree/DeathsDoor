@@ -13,11 +13,11 @@ public class NPCDialogue : MonoBehaviour
     public GameObject Hud;
 
     public string[] Dialogue;
-    private int index; //stringÀÇ À§Ä¡ Ã£´Âµ¥ ÇÊ¿ä
+    private int index; //stringï¿½ï¿½ ï¿½ï¿½Ä¡ Ã£ï¿½Âµï¿½ ï¿½Ê¿ï¿½
 
     public float wordSpeed;
     public bool playerIsClose;
-    private bool talking = false; //¹è¿­ Ãâ·ÂÀÌ ³¡³¯ ¶§±îÁö EÅ° ¸·¾ÆµÎ±â
+    private bool talking = false; //ï¿½è¿­ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ EÅ° ï¿½ï¿½ï¿½ÆµÎ±ï¿½
     private int num;
     [SerializeField] private GameObject commandBox;
 
@@ -42,12 +42,12 @@ public class NPCDialogue : MonoBehaviour
                 Hud.SetActive(true);
                 zeroText();
                 
-                Debug.Log("¤·¤»");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½");
 
             }
             else
             {
-                Debug.Log("´ëÈ­Áß");
+                Debug.Log("ï¿½ï¿½È­ï¿½ï¿½");
                 talking = true;
                 DialogueUI.SetActive(true);
                 Hud.SetActive(false);
@@ -65,12 +65,12 @@ public class NPCDialogue : MonoBehaviour
 
     public void NextLine()
     {
-        #region banker¿¡°Ô ¸»°É¾úÀ»¶§ upgradeUI È°¼ºÈ­
+        #region bankerï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ upgradeUI È°ï¿½ï¿½È­
         /*
          * End dialogue
-        if (dialogue[dialogue.Length - 1] == "´ÙÀÌ¾ó·Î±×string" && num == ÀÎµ¦½º³Ñ¹ö )
+        if (dialogue[dialogue.Length - 1] == "ï¿½ï¿½ï¿½Ì¾ï¿½Î±ï¿½string" && num == ï¿½Îµï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ )
         {
-            sceneMove.StartButton("Intro");//»©±â 
+            sceneMove.StartButton("Intro");//ï¿½ï¿½ï¿½ï¿½ 
             num = 0;
             return;
         }
@@ -85,7 +85,7 @@ public class NPCDialogue : MonoBehaviour
                 index++;
                 Txt_Dialogue.text = "";
                 StartCoroutine(Typing());
-                Debug.Log("npc°¡ ¸»ÇÏ´ÂÁßÀÓ");
+                Debug.Log("npcï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ï¿½ï¿½");
             }
 
             else
@@ -93,13 +93,18 @@ public class NPCDialogue : MonoBehaviour
                 zeroText();
                 DialogueUI.SetActive(false);
                 talking = false;
-                playerInput.isLock = false;
+                Invoke(nameof(ResetisLock),0.8f);
             }
         }
   
     }
 
-    public void zeroText() //text ÃÊ±âÈ­
+    private void ResetisLock()
+    {
+        playerInput.isLock = false;
+    }
+
+    public void zeroText() //text ï¿½Ê±ï¿½È­
     {
         Txt_Dialogue.text = "";
         index = 0;

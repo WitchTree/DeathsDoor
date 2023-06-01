@@ -17,7 +17,9 @@ public class BusMovement : MonoBehaviour
     public PlayerController playerController;
     [SerializeField] GameObject bus;
     [SerializeField] GameObject arrow;
-
+    [SerializeField] GameObject moveGlow;
+    [SerializeField] Animator moveGlowAnimator;
+ 
 
     void Start()
     {         
@@ -48,6 +50,7 @@ public class BusMovement : MonoBehaviour
                 Invoke(nameof(ResetLock), 3.5f);
                 Invoke(nameof(ChangeLayer), 4.5f);
                 busAnimator.SetBool("isEnd", true);
+                Invoke(nameof(SetMoveGlow), 2.7f);                
             }
         }
     }
@@ -55,6 +58,17 @@ public class BusMovement : MonoBehaviour
     private void SetBool()
     {
         isTalking = false;
+    }
+
+    private void SetMoveGlow()
+    {
+        moveGlow.SetActive(true);
+        Invoke(nameof(ResetmoveGlow), 3.3f);          
+    }
+
+    private void ResetmoveGlow()
+    {
+        moveGlowAnimator.SetBool("isEnd",true);
     }
 
     private void ResetLock()
@@ -79,7 +93,7 @@ public class BusMovement : MonoBehaviour
         Invoke(nameof(SetBool), 1.7f);
     }
 
-    public void zeroText() //text �ʱ�ȭ
+    public void zeroText() //text �ʱ�ȭ
     {
         Txt_Dialogue.text = "";        
         DialogueUI.SetActive(true);

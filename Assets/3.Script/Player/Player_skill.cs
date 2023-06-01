@@ -12,11 +12,11 @@ public class Player_skill : MonoBehaviour
     public GameObject[] skill;
     GameObject preSkill;
 
-    public Transform weaponPivot; //´Ù¸¥ Å¬·¡½º¿¡¼­ ºÒ·¯¿Ã ¼ö ÀÖÀ½
-    public Transform weaponPivot_Fireball;//À§Ä¡
-    public GameObject arrow_prefab;//ÇÁ¸®ÆÕÇÑ È­»ì
-    public GameObject fireball_prefab;//ÇÁ¸®ÆÕÇÑ ÆÄÀÌ¾îº¼
-    public GameObject setparent_player;//setparent Áï ÇÃ·¹ÀÌ¾î ¹Þ±â
+    public Transform weaponPivot; //ï¿½Ù¸ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public Transform weaponPivot_Fireball;//ï¿½ï¿½Ä¡
+    public GameObject arrow_prefab;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½
+    public GameObject fireball_prefab;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾îº¼
+    public GameObject setparent_player;//setparent ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Þ±ï¿½
     public GameObject arrowhead;
 
     public GameObject arrow;
@@ -24,7 +24,7 @@ public class Player_skill : MonoBehaviour
 
     public bool isSkill = false;
 
-    int skillIndex = 0;//±âº» ½ºÅ³Àº È°
+    int skillIndex = 0;//ï¿½âº» ï¿½ï¿½Å³ï¿½ï¿½ È°
 
     public float skillDamage;
 
@@ -106,7 +106,7 @@ public class Player_skill : MonoBehaviour
             if ( playerState.skill > 0)
             {
                 
-                //Debug.Log("³²Àº ½ºÅ³" + playerState.skill);
+                //Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³" + playerState.skill);
             }
 
             if (skillIndex == 0)

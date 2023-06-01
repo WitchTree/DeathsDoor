@@ -11,11 +11,11 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private string strongSword = "Fire3";
     [SerializeField] private string skill = "Fire2";
 
-    //Get Axis -> return  float ÀÚ·áÇü
+    //Get Axis -> return  float Ã€ÃšÂ·Ã¡Ã‡Ã¼
     public float Move_Value { get; private set; }
     public float Rotate_Value { get; private set; }
 
-    //Get button -> return bool ÀÚ·áÇü 
+    //Get button -> return bool Ã€ÃšÂ·Ã¡Ã‡Ã¼ 
     public bool isRoll { get; private set; }
     public bool isLight { get; private set; }
     public bool isStrong { get; private set; }
