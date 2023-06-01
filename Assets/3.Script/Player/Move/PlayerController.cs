@@ -35,8 +35,17 @@ public class PlayerController : MonoBehaviour
         sword = GetComponent<Sword>();
         player_R = GetComponent<Rigidbody>();
         ani = GetComponent<Animator>();
-        playerDamage = GetComponent<PlayerOnDamage>();
+        playerDamage = GetComponent<PlayerOnDamage>();        
     }
+
+    public void ChangeLayersRecursively()
+    {
+        foreach (Transform child in transform)
+        {
+            child.gameObject.layer = 6;
+        }        
+    }
+
 
     private void FixedUpdate()
     {

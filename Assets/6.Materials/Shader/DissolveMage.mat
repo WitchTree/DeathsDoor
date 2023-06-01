@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DissolveMage
+  m_Shader: {fileID: -6465566751694194690, guid: f90f94cca91ab4847b694e4b723cf9a0, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Albedo:
+        m_Texture: {fileID: 2800000, guid: 9bd22051594acb3428f814919bf92cb0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Normals:
+        m_Texture: {fileID: 2800000, guid: 0f53d7bb33c92ab4eb844e2673ffc641, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - DissolveAmount: 0.33
+    - DissolveScale: 35
+    - DissolveWidth: 0.02
+    - Metalic: 0
+    - NormalStrength: 0.5
+    - Smoothness: 0.5
+    - _DissolveAmount: 0
+    m_Colors:
+    - BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - DissolveColor: {r: 38.937145, g: 7.542798, b: 17.328049, a: 1}
+  m_BuildTextureStacks: []
