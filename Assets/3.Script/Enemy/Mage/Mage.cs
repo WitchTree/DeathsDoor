@@ -31,6 +31,9 @@ public class Mage : Enemy
     [SerializeField] Transform bulletSpawnPoint;
     [SerializeField] GameObject bulletPrefab;
 
+    [Header("Spirit")]
+    [SerializeField] GameObject spiritPrefab;
+
     bool isTeleportLock = false;
     bool isAttackLock = false;
 
@@ -73,6 +76,8 @@ public class Mage : Enemy
     public void Death()
     {
         mageOnDamage.ChangeMaterialDead();
+
+        GameObject spirit = Instantiate(spiritPrefab, transform.position, Quaternion.identity);
     }
 
     //Mage의 Trigger는 원으로 안에 들어오면 어그로 끌리고 벗어나면 플레이어 근처로 텔레포트함

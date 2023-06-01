@@ -27,6 +27,9 @@ public class PotKey : MonoBehaviour
         {
             //항아리 부서지는 애니메이션
 
+            //Pot key sphere 활성화
+            transform.GetChild(1).gameObject.SetActive(true);
+
             //Key 머테리얼 변경
             KeyActive();
         }

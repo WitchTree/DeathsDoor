@@ -18,6 +18,9 @@ public class POT_Mimic_Melee : Enemy
     [Header("Spike Door")]
     [SerializeField] SpikeDoor spikeDoor;
 
+    [Header("Spirit")]
+    [SerializeField] GameObject spiritPrefab;
+
     bool isMove = false;
 
     void Start() 
@@ -124,6 +127,8 @@ public class POT_Mimic_Melee : Enemy
         bodyCollider.enabled = false;
 
         //플레이어에게 spirit 추가 
+        GameObject spirit = Instantiate(spiritPrefab, transform.position, Quaternion.identity);
+
         StartCoroutine(SpikeDoorUnlock_co());
     }
 
