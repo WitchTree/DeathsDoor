@@ -76,7 +76,7 @@ public class MainMenuUIManagement : MonoBehaviour
                     Hud.SetActive(false);
                     Arrow.SetActive(false);
                     SetMenuUI();
-                   
+                    EventSystem.current.SetSelectedGameObject(Buttons[0]);
                     //¿©±â¿¡ Main Panel Open
                     break;
             }
@@ -118,7 +118,7 @@ public class MainMenuUIManagement : MonoBehaviour
                 verticallDifference[i] = btn_pos.y - btn_pos2.y;
             }
         }
-        EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
+        //EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
     }
 
     private void MainUIHeaderKeyboardInput()

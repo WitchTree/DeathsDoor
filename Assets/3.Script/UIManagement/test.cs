@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class test : MonoBehaviour //메인메뉴 panel 입력값 테스트
+public class test : MonoBehaviour //inventory panel
 {
-    public GameObject[] Buttons;
+    public GameObject[] InventoryBtn;
 
     [SerializeField] int selectedButton = 0;
 
@@ -20,133 +20,163 @@ public class test : MonoBehaviour //메인메뉴 panel 입력값 테스트
     float[] verticallDifference;
 
 
-    private void Start()
-    {
-        //Cursor.visible = false; -> 마우스 커서 안보이기(비활성화x 걍 안보이기만할뿐...)
-    }
-
     // Update is called once per frame
-    void Update()
+
+
+    private void OnEnable()
     {
         SetMenuUI();
-        UIKeyboardInput();
     }
+    void Update()
+    {
+        InventoryKeyboardInput();
+    }
+
 
     private void SetMenuUI()
     {
-        //'Button' 태그가 붙은 모든 버튼의 배열 만들기 
-        Buttons = GameObject.FindGameObjectsWithTag("Button");
-
-        if (Buttons.Length > 0)
+        if (InventoryBtn.Length > 0)
         {
             //panel이 활성화 되어있는 지 확인하고, 변경되었을 경우 첫번째 버튼 활성화
-            if (firstButton != Buttons[0])
+            if (firstButton != InventoryBtn[0])
             {
                 selectedButton = 0;
             }
-            firstButton = Buttons[0];
+            firstButton = InventoryBtn[0];
         }
 
         //활성화 된 버튼의 위치 가져오기
-        btn_pos = Buttons[selectedButton].GetComponent<RectTransform>().position;
+        btn_pos = InventoryBtn[selectedButton].GetComponent<RectTransform>().position;
 
         //버튼 위치 차이를 나타내는 배열
-        horizontalDifference = new float[Buttons.Length];
-        verticallDifference = new float[Buttons.Length];
+        horizontalDifference = new float[InventoryBtn.Length];
+        verticallDifference = new float[InventoryBtn.Length];
 
         //버튼 위치 차이를 계산
-        for (int i = 0; i < Buttons.Length; i++)
+        for (int i = 0; i < InventoryBtn.Length; i++)
         {
             if (i != selectedButton)
             {
-                Vector3 btn_pos2 = Buttons[i].GetComponent<RectTransform>().position;
+                Vector3 btn_pos2 = InventoryBtn[i].GetComponent<RectTransform>().position;
                 horizontalDifference[i] = btn_pos.x - btn_pos2.x;
                 verticallDifference[i] = btn_pos.y - btn_pos2.y;
             }
         }
-        EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
+        EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
+       // Debug.Log(InventoryBtn[selectedButton].name);
     }
-    private void UIKeyboardInput()
+
+
+    private void InventoryKeyboardInput()
     {
-           if (Input.GetKeyDown(KeyCode.W) && !buttonPressed)
+
+        if (Input.GetKeyDown(KeyCode.W) && !buttonPressed)
         {
-            Debug.Log("W");
+            Debug.Log("W키 누름 ↑");
             buttonPressed = true;
 
+            switch (selectedButton)
+            {
+                case 3:
+                    selectedButton = 0;
+                    EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
+                    break;
+                case 4:
+                    selectedButton = 2;
+                    EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
+                    break;
+
+            }
+            /*
             if (selectedButton == 0)
             {
-                selectedButton = Buttons.Length - 1;
-                EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
+                selectedButton = InventoryBtn.Length - 1;
+                EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
+                Debug.Log(InventoryBtn[selectedButton].name);
             }
             else
             {
                 selectedButton--;
-                EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
+                EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
+                Debug.Log(InventoryBtn[selectedButton].name);
             }
+            */
 
-        }
-
-        if (Input.GetKeyDown(KeyCode.S) && !buttonPressed)
-        {
-            Debug.Log("S");
-            buttonPressed = true;
-
-
-            if (selectedButton == Buttons.Length - 1)
-            {
-                selectedButton -= Buttons.Length - 1;
-                EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
-            }
-            else
-            {
-                selectedButton++;
-                EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
-            }
 
         }
 
         if (Input.GetKeyDown(KeyCode.A) && !buttonPressed)
         {
-            Debug.Log("A키 누름");
+            Debug.Log("A키 누름 ←");
             buttonPressed = true;
 
             if (selectedButton == 0)
             {
-                selectedButton = Buttons.Length - 1;
-                EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
+                selectedButton = InventoryBtn.Length - 1;
+                EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
+                Debug.Log(InventoryBtn[selectedButton].name);
             }
             else
             {
                 selectedButton--;
-                EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
+                EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
+                Debug.Log(InventoryBtn[selectedButton].name);
+            }
+
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.S) && !buttonPressed)
+        {
+            Debug.Log("S키 누름 ↓");
+            buttonPressed = true;
+
+            if (selectedButton == InventoryBtn.Length - 1)
+            {
+                selectedButton -= InventoryBtn.Length - 1;
+                EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
+            }
+            else
+            {
+                selectedButton++;
+                EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
+                Debug.Log(InventoryBtn[selectedButton].name);
             }
 
         }
 
         if (Input.GetKeyDown(KeyCode.D) && !buttonPressed)
         {
-            Debug.Log("D키 누름");
+            Debug.Log("D키 누름 →");
             buttonPressed = true;
 
-
-            if (selectedButton == Buttons.Length - 1)
+            if (selectedButton == InventoryBtn.Length - 1)
             {
-                selectedButton -= Buttons.Length - 1;
-                EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
+                selectedButton -= InventoryBtn.Length - 1;
+                EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
+                Debug.Log(InventoryBtn[selectedButton].name);
             }
             else
             {
                 selectedButton++;
-                EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
+                EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
+                Debug.Log(InventoryBtn[selectedButton].name);
             }
+
 
         }
 
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Debug.Log("E키 선택!");
+        }
 
         if (buttonPressed)
         {
             buttonPressed = false;
         }
     }
+
 
 }
