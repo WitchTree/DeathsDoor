@@ -35,7 +35,7 @@ public class EntranceHall : MonoBehaviour
 
     IEnumerator OpenDoor_co() 
     {
-        float time = 0f;
+        yield return new WaitForSeconds(2f);
         while (leftDoor.localPosition.x > -0.0045f) 
         {
             leftDoor.localPosition -= new Vector3(openSpeed * Time.deltaTime, 0f, 0f);

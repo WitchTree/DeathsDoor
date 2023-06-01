@@ -9,10 +9,17 @@ public class POT_Mimic_Melee : Enemy
     //smashed
     [SerializeField] Rigidbody[] smashed = new Rigidbody[14];
     [SerializeField] GameObject[] bodyParts = new GameObject[3];
+
+    [Header("Collider")]
     [SerializeField] Collider spinCollider;
+    [SerializeField] Collider bodyCollider;
 
     //open spike door
+    [Header("Spike Door")]
     [SerializeField] SpikeDoor spikeDoor;
+
+    [Header("Spirit")]
+    [SerializeField] GameObject spiritPrefab;
 
     bool isMove = false;
 
@@ -32,6 +39,7 @@ public class POT_Mimic_Melee : Enemy
 
     void OnTriggerEnter(Collider other) 
     {
+        
         if (other.CompareTag("Skill") && !isMove) //첫 공격 맞고 깨어나기
         {
             //무기에 맞으면 움직이기 시작
@@ -40,7 +48,7 @@ public class POT_Mimic_Melee : Enemy
         else if (other.CompareTag("Skill")) // 첫 공격 이후 데미지 입기
         {
             //항이리 hp 감소
-            hp -= 1;
+            hp -= 1f;
             Debug.Log("Pot hp:" + hp);
             switch (hp) 
             {
@@ -74,8 +82,6 @@ public class POT_Mimic_Melee : Enemy
         //회전
         potAni.SetBool("Spin", true);
         StartCoroutine(SetTap_co());
-
-        
     }
 
     public void StartSpin()
@@ -118,7 +124,11 @@ public class POT_Mimic_Melee : Enemy
 
         bodyParts[2].SetActive(false);
 
+        bodyCollider.enabled = false;
+
         //플레이어에게 spirit 추가 
+        GameObject spirit = Instantiate(spiritPrefab, transform.position, Quaternion.identity);
+
         StartCoroutine(SpikeDoorUnlock_co());
     }
 
@@ -136,6 +146,8 @@ public class POT_Mimic_Melee : Enemy
             time += Time.deltaTime;
             yield return null;
         }
+        bodyCollider.enabled = true;
+        smashed[13].isKinematic = true;
     }
 
     IEnumerator SpikeDoorUnlock_co() 

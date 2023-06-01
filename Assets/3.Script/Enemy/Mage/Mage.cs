@@ -12,11 +12,12 @@ public class Mage : Enemy
 
     //Teleport
     //float distMax = 10f; 
-    float teleportDist = 6f;
-    bool isTeleporting = false;
+    public float teleportDist = 6f;
+    public bool isTeleporting = false;
 
     //Animator
     Animator mageAni;
+    MageOnDamage mageOnDamage;
 
     //Attack
     float attackBetTime = 5f;
@@ -24,6 +25,14 @@ public class Mage : Enemy
     float shootTime = 3f;
     bool isAttacked = false;
     Vector3 playerPos;
+
+    //bullet
+    [Header("Bullet")]
+    [SerializeField] Transform bulletSpawnPoint;
+    [SerializeField] GameObject bulletPrefab;
+
+    [Header("Spirit")]
+    [SerializeField] GameObject spiritPrefab;
 
     bool isTeleportLock = false;
     bool isAttackLock = false;
@@ -36,13 +45,10 @@ public class Mage : Enemy
         SetMage();
     }
 
-    void Update()
+    private void Update()
     {
-        if (isDead)
-        {
-            mageAni.SetTrigger("Death");
-        }
-        
+        Attack();
+        LookPlayer();
     }
 
     void SetMage()
@@ -52,7 +58,32 @@ public class Mage : Enemy
         this.spirit = 2;
 
         mageAni = GetComponent<Animator>();
+        mageOnDamage = GetComponentInChildren<MageOnDamage>();
         skinnedMeshRenderer = GetComponentsInChildren<SkinnedMeshRenderer>();
+        
+    }
+
+    public void Damaged()
+    {
+        hp--;
+        if (hp <= 0)
+        {
+            isDead = true;
+            mageAni.SetTrigger("Death");
+        }
+    }
+
+    public void Death()
+    {
+        mageOnDamage.ChangeMaterialDead();
+
+        StartCoroutine(CreateSpirit_co());
+    }
+
+    IEnumerator CreateSpirit_co()
+    {
+        yield return new WaitForSeconds(1f);
+        GameObject spirit = Instantiate(spiritPrefab, transform.position, Quaternion.identity);
     }
 
     //Mage의 Trigger는 원으로 안에 들어오면 어그로 끌리고 벗어나면 플레이어 근처로 텔레포트함
@@ -61,19 +92,7 @@ public class Mage : Enemy
         if (other.CompareTag("Player"))
         {
             isAttracted = true;
-            StopCoroutine(Teleport_co());
-            StartCoroutine(LookPlayer_co());
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.transform.tag.Equals("player"))
-        {
-            Debug.Log("Player와 충돌");
-            hp -= 1;
-            isAttacked = true;
-            //StartCoroutine(Teleport_co());
+            Attack();
         }
     }
 
@@ -81,84 +100,47 @@ public class Mage : Enemy
     {
         if (other.CompareTag("Player") && !isTeleportLock)
         {
-            //shooting하는 중간에 나가면 실행 안됨 ㅠ
-            StartCoroutine(Teleport_co());
+            isTeleporting = true;
+            mageAni.SetBool("isTeleporting", isTeleporting);
+            
+
         }
     }
 
-    IEnumerator LookPlayer_co() 
+    void LookPlayer() 
     {
-        yield return new WaitForSeconds(0.1f);
-        while(!isDead)
+        if (!isAttacking && !isTeleporting)
         {
-            if (!isAttacking && !isTeleporting)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(player.position - transform.position);
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 180f * Time.deltaTime);
-            }
-            yield return null;
+            Quaternion targetRotation = Quaternion.LookRotation(player.position - transform.position);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 180f * Time.deltaTime);
         }
     }
 
     void Attack()
     {
         //Mage -> shoot
-        if (attackTime >= attackBetTime) //공격 가능하면
+        if (attackTime >= attackBetTime && !isAttacking && !isTeleporting)  //공격 가능하면
         {
             isAttacking = true;
             playerPos = player.position;
-            StartCoroutine(Shoot_co());
-
-            //isAttacking == true 이고 collider 충돌하면 player hp 닳게 만들기
+            mageAni.SetBool("isShooting", isAttacking);
         }
         attackTime += Time.deltaTime;
     }
 
-    IEnumerator Shoot_co()
+    public void Shooting()
     {
-        mageAni.SetBool("isShooting", isAttacking);
-        float time = 0f;
-        while (time < shootTime)
-        {
-            time += Time.deltaTime;
-            yield return null;
-        }
-        isAttacking = false;
-        mageAni.SetBool("isShooting", isAttacking);
+        //Bullet 날리기
+        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+        bullet.transform.SetParent(transform);
+
         attackTime = 0f;
+        isAttacking = false;
     }
-
-    IEnumerator Teleport_co()
-    {
-        isTeleportLock = true;
-        if (isAttacked)
-        {
-            mageAni.SetBool("isAttacked", isAttacked);
-            yield return new WaitForSeconds(3f);
-        }
-        if (!isAttacking)
-        {
-            isTeleporting = true;
-            yield return new WaitForSeconds(3f);
-
-            mageAni.SetBool("isTeleporting", isTeleporting);
-            yield return new WaitForSeconds(2.35f);
-
-            transform.position = RandomNavmeshLocation(teleportDist); //랜덤한 위치에 생성
-            transform.LookAt(player);
-            yield return null;
-
-            isTeleporting = false;
-            mageAni.SetBool("isTeleporting", isTeleporting);
-            yield return new WaitForSeconds(2f);
-
-            isAttacked = false;
-        }
-        isTeleportLock = false;
-    }
+    
 
     //NavMesh 내 랜덤한 위치 생성
-    Vector3 RandomNavmeshLocation(float radius)
+    public Vector3 RandomNavmeshLocation(float radius)
     {
         Vector3 randomDirection = Random.insideUnitSphere * radius;
         randomDirection += player.position;

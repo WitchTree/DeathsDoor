@@ -8,6 +8,10 @@ public class MageOnDamage : MonoBehaviour
     SkinnedMeshRenderer[] skinnedMeshRenderer;
     Material[][] currMaterial = new Material[3][];
     [SerializeField] Material[] dmgMaterial;
+    [SerializeField] Material[] deadMaterial;
+
+    public float dissolveRate = 0.0125f;
+    public float refreshRate = 0.025f;
 
     private void Start()
     {
@@ -31,7 +35,7 @@ public class MageOnDamage : MonoBehaviour
     {
         if (other.CompareTag("Skill"))
         {
-            mage.hp--;
+            mage.Damaged();
             Destroy(other.gameObject);
             StartCoroutine(DmgEffect_co());
         }
@@ -49,5 +53,32 @@ public class MageOnDamage : MonoBehaviour
         {
             skinnedMeshRenderer[i].materials = currMaterial[i];
         }
+    }
+
+    public void ChangeMaterialDead()
+    {
+        StartCoroutine(DeadEffect_co());
+    }
+
+    IEnumerator DeadEffect_co()
+    {
+        for (int i = 0; i < skinnedMeshRenderer.Length; i++)
+        {
+            float counter = 0;
+            if (currMaterial[i].Length > 0)
+            {
+                while (currMaterial[i][0].GetFloat("_DissolveAmount") < 1)
+                {
+                    counter += dissolveRate;
+                    for (int j = 0; j < currMaterial[i].Length; j++)
+                    {
+                        currMaterial[i][j].SetFloat("_DissolveAmount", counter);
+                    }
+
+                    yield return new WaitForSeconds(refreshRate);
+                }
+            }
+        }
+
     }
 }

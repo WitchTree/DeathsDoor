@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class POT_Mimic_MeleeOnDamage : MonoBehaviour
 {
-    POT_Mimic_Melee pot;
-
     [SerializeField] SkinnedMeshRenderer[] skinnedMeshRenderer;
     [SerializeField] MeshRenderer[] meshRenderers;
 

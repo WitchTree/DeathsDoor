@@ -23,9 +23,12 @@ public class PotKey : MonoBehaviour
 
     void OnTriggerEnter(Collider other) 
     {
-        if (other.CompareTag("Weapon")) 
+        if (other.CompareTag("Skill")) 
         {
             //항아리 부서지는 애니메이션
+
+            //Pot key sphere 활성화
+            transform.GetChild(1).gameObject.SetActive(true);
 
             //Key 머테리얼 변경
             KeyActive();
