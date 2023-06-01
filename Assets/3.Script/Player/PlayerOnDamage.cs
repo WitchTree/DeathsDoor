@@ -24,6 +24,21 @@ public class PlayerOnDamage : MonoBehaviour
         ani = GetComponent<Animator>();
     }
 
+    public void PlayerSuffered()
+    {
+        isSuffer = true;
+        playerState.life--;
+
+        if (playerState.life <= 0)
+        {
+            ani.SetTrigger("Death");
+        }
+        else
+        {
+            ani.SetTrigger("Suffer");
+        }
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {

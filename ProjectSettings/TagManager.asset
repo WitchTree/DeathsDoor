@@ -12,6 +12,8 @@ TagManager:
   - HudUI
   - Skill
   - Fire
+  - Bullet
+  - Wall
   layers:
   - Default
   - TransparentFX

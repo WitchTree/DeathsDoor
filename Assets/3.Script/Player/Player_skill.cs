@@ -81,7 +81,7 @@ public class Player_skill : MonoBehaviour
 
             isSkill = true;
 
-            Debug.Log(skillDamage);
+            //Debug.Log(skillDamage);
 
             if (skillIndex == 0)
             {
@@ -106,7 +106,7 @@ public class Player_skill : MonoBehaviour
             if ( playerState.skill > 0)
             {
                 
-                Debug.Log("남은 스킬" + playerState.skill);
+                //Debug.Log("남은 스킬" + playerState.skill);
             }
 
             if (skillIndex == 0)
