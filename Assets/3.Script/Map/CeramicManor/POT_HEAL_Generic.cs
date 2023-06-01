@@ -16,11 +16,11 @@ public class POT_HEAL_Generic : MonoBehaviour
     Rigidbody[] smashed = new Rigidbody[14];
 
     //Colliders
-    Collider[] colliders = new Collider[2];
+    Collider collider;
 
     private void Start()
     {
-        colliders = GetComponents<Collider>();
+        collider = GetComponent<Collider>();
 
         smashed = transform.GetChild(1).GetComponentsInChildren<Rigidbody>();
 
@@ -33,8 +33,7 @@ public class POT_HEAL_Generic : MonoBehaviour
 
     void Initialize()
     {
-        colliders[0].enabled = true;
-        colliders[1].enabled = true;
+        collider.enabled = true;
 
         transform.GetChild(0).gameObject.SetActive(true);
     }
@@ -71,8 +70,8 @@ public class POT_HEAL_Generic : MonoBehaviour
         }
 
         //Collider 끄기
-        colliders[0].enabled = false;
-        colliders[1].enabled = false;
+        collider.enabled = false;
+        
 
         //spike door를 open할 키이고 잠금이 해제되어 있다면
         if (isPotKey && spikeDoor.isUnlock)
