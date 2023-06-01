@@ -19,11 +19,6 @@ public class RotateCursor : MonoBehaviour
             Quaternion angleAxis = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
             Quaternion rotation = Quaternion.Slerp(transform.rotation, angleAxis, rotateSpeed * Time.deltaTime);
             transform.rotation = rotation;
-
         }
-
-        
-
-        
     }
 }
