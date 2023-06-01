@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class NPCDialogue : MonoBehaviour
 {
-    PlayerInput playerInput;
+    public PlayerInput playerInput;
 
     public GameObject DialogueUI;
     public Text Txt_Dialogue;
 
-    GameObject Hud;
+    public GameObject Hud;
 
     public string[] Dialogue;
     private int index; //string의 위치 찾는데 필요
@@ -24,9 +24,7 @@ public class NPCDialogue : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        num = 0;
-        Hud = GameObject.FindWithTag("HudUI");
-        playerInput = FindObjectOfType<PlayerInput>();
+        num = 0;                
     }
 
     // Update is called once per frame
@@ -115,19 +113,18 @@ public class NPCDialogue : MonoBehaviour
             playerIsClose = true;
         }
         else
-        {
-            playerIsClose = false;
+        {            
             zeroText();
         }
     }
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (other.CompareTag("Player"))
-    //    {
-    //        playerIsClose = false;
-    //        zeroText();
-    //    }
-    //}
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerIsClose = false;
+        }
+    }
 
     IEnumerator Typing()
     {

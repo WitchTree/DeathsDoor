@@ -15,13 +15,16 @@ public class BusMovement : MonoBehaviour
     [SerializeField] private Animator busAnimator;
     [SerializeField] private GameObject player;
     public PlayerController playerController;
+    [SerializeField] GameObject bus;
+    [SerializeField] GameObject arrow;
 
 
     void Start()
     {         
         Invoke(nameof(SetDialogue), 2.2f);
         playerInput.isLock = true;
-        
+        //Cursor.visible = false;
+
     }
 
     private void Update()
@@ -39,9 +42,10 @@ public class BusMovement : MonoBehaviour
 
             if(index==3)
             {
+                zeroText();
                 player.SetActive(true);
                 DialogueUI.SetActive(false);
-                Invoke(nameof(ResetLock), 0.5f);
+                Invoke(nameof(ResetLock), 3.5f);
                 Invoke(nameof(ChangeLayer), 4.5f);
                 busAnimator.SetBool("isEnd", true);
             }
@@ -56,7 +60,9 @@ public class BusMovement : MonoBehaviour
     private void ResetLock()
     {
         playerInput.isLock = false;
-        
+        bus.SetActive(false);
+        arrow.SetActive(true);
+
     }
 
     private void ChangeLayer()
