@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Fireball : MonoBehaviour
 {
-    public PlayerState playerState;
+    public Player_State playerState;
     public PlayerInput playerInput;
     private int speed = 10;
     private bool isShoot = false;
@@ -17,7 +17,7 @@ public class Fireball : MonoBehaviour
     {
         enemy = FindObjectOfType<Enemy>();
         playerInput = FindObjectOfType<PlayerInput>();
-        playerState = FindObjectOfType<PlayerState>();
+        playerState = FindObjectOfType<Player_State>();
 
         weaponDamage = playerState.skillDamage_2;
     }

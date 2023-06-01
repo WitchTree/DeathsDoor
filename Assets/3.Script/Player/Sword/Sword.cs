@@ -20,18 +20,10 @@ public class Sword : MonoBehaviour
         RightHand,
         LeftHand
     }
-    public enum State
-    {
-        Idle,
-        Combo,
-        Charging
-    }
+
     public Hand hand { get; private set; }
-    public State state { get; private set; }
     private int atkCnt;//1,2,3타를 위한 변수
-    private bool isAtk = false;
-    private bool isCombo = false;
-    private bool isLeft = false;
+    public bool isAtk = false;
 
     Animator ani;
     public Sword_Data data; // 소드 데이터
@@ -45,48 +37,37 @@ public class Sword : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        Atk();
-        Normalize();
+
     }
     public void Atk()
     {
-        if (atkCnt >= 3)// 공격 3타 이상, 애니메이션 끝난 후
+        if (atkCnt > 3)
         {
-            Debug.Log("공격 안돼!!");
-            atkCnt = 0;
-            StartCoroutine(Waiting());
-            isAtk = false;
-            Debug.Log("공격 해!!");
-            return;
+            Normalize();
         }
         else if (playerinput.isLight)
         {
-            Debug.Log("공격 스타또");
-            if (atkCnt < 3)//공격 중, 애니메이션 끝나기 전, 3타 전까지
+            if (!isAtk)
             {
-                if(!isAtk)
-                {
                 isAtk = true;
-                }
-                atkCnt++;
-                Debug.Log(atkCnt);
-                StartCoroutine(Attacking());
-                return;
+                StartCoroutine(Atk_co());
+            }
+            else
+            {
+                CancelInvoke("Normalize");
+                StartCoroutine(Atk_co());
             }
         }
     }
-    public void RollAtk()
+    public IEnumerator Atk_co()
     {
-        if (playerinput.isStrong)
-        {
-            swordBack.SetActive(false);
-            swordRighthand.SetActive(true);
-            swordLefthand.SetActive(false);
-            ani.SetTrigger("RollHeavy");
-            Debug.Log("롤공격!");
-        }
+        atkCnt++;
+        SetHand();
+        ani.SetInteger("Combo", atkCnt);
+        Invoke("Normalize", data.DelayTime);
+        yield return null;
     }
-    private IEnumerator Attacking()
+    public void SetHand()
     {
         if (hand.Equals(Hand.LeftHand))
         {
@@ -104,24 +85,39 @@ public class Sword : MonoBehaviour
             swordLefthand.SetActive(true);
             LightSlash.SetActive(true);
         }
-        ani.SetTrigger("SwordCombo(Left)");
-        yield return new WaitForSeconds(data.DelayTime);
     }
-    private IEnumerator Waiting()
+    public void RollAtk()
     {
-        yield return new WaitForSeconds(data.DelayTime);
-
+        if (playerinput.isStrong)
+        {
+            swordBack.SetActive(false);
+            swordRighthand.SetActive(true);
+            swordLefthand.SetActive(false);
+            ani.SetTrigger("RollHeavy");
+            Invoke("Normalize", data.DelayTime);
+        }
     }
     public void Normalize()
     {
-        if (ani.GetCurrentAnimatorStateInfo(0).IsName("Idle_1"))
-        {
-            atkCnt = 0;
-            swordBack.SetActive(true);
-            swordRighthand.SetActive(false);
-            swordLefthand.SetActive(false);
-            LightSlash.SetActive(false);
-            isAtk = false;
-        }
+        atkCnt = 0;
+        swordBack.SetActive(true);
+        swordRighthand.SetActive(false);
+        swordLefthand.SetActive(false);
+        LightSlash.SetActive(false);
+        isAtk = false;
+        ani.SetInteger("Combo", atkCnt);
+
+        //}
+    }
+    public void DebugInvoke()
+    {
+        CancelInvoke("Normalize");
+        atkCnt = 0;
+        swordBack.SetActive(true);
+        swordRighthand.SetActive(false);
+        swordLefthand.SetActive(false);
+        LightSlash.SetActive(false);
+        isAtk = false;
+        ani.SetInteger("Combo", 4);
     }
 }
