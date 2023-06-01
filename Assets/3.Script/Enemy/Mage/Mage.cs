@@ -77,6 +77,12 @@ public class Mage : Enemy
     {
         mageOnDamage.ChangeMaterialDead();
 
+        StartCoroutine(CreateSpirit_co());
+    }
+
+    IEnumerator CreateSpirit_co()
+    {
+        yield return new WaitForSeconds(1f);
         GameObject spirit = Instantiate(spiritPrefab, transform.position, Quaternion.identity);
     }
 
