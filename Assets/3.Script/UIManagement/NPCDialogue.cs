@@ -19,7 +19,7 @@ public class NPCDialogue : MonoBehaviour
     public bool playerIsClose;
     private bool talking = false; //배열 출력이 끝날 때까지 E키 막아두기
     private int num;
-
+    [SerializeField] private GameObject commandBox;
 
     // Start is called before the first frame update
     void Start()
@@ -110,6 +110,7 @@ public class NPCDialogue : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            commandBox.SetActive(true);
             playerIsClose = true;
         }
         else
@@ -123,6 +124,7 @@ public class NPCDialogue : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerIsClose = false;
+            commandBox.SetActive(false);
         }
     }
 
