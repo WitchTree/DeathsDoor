@@ -21,6 +21,7 @@ public class PlayerInput : MonoBehaviour
     public bool isStrong { get; private set; }
     public bool isRollATk { get; private set; }
     public bool isBow { get; private set; }
+    public bool isLock = false;
 
     public bool AtkLook { get; private set; }
     public bool isSkill_start { get; private set; }
@@ -30,18 +31,21 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move_Value = Input.GetAxis(MoveAxisName);
-        Rotate_Value = Input.GetAxis(RotateAxisName);
+        if(!isLock)
+        {
+            Move_Value = Input.GetAxis(MoveAxisName);
+            Rotate_Value = Input.GetAxis(RotateAxisName);
 
-        AtkLook = Input.GetButton(lightSword);
-        isRoll = Input.GetKeyDown(KeyCode.Space);
-        isLight = Input.GetButtonDown(lightSword);
-        isRollATk = Input.GetButtonDown(strongSword);
-        isStrong = Input.GetButton(strongSword);
+            AtkLook = Input.GetButton(lightSword);
+            isRoll = Input.GetKeyDown(KeyCode.Space);
+            isLight = Input.GetButtonDown(lightSword);
+            isRollATk = Input.GetButtonDown(strongSword);
+            isStrong = Input.GetButton(strongSword);
 
-        isSkill_start = Input.GetButton(skill);
-        isSkill_end = Input.GetButtonUp(skill);
-        skill1 = Input.GetButtonDown("Skill1");
-        skill2 = Input.GetButtonDown("Skill2");
+            isSkill_start = Input.GetButton(skill);
+            isSkill_end = Input.GetButtonUp(skill);
+            skill1 = Input.GetButtonDown("Skill1");
+            skill2 = Input.GetButtonDown("Skill2");
+        }
     }
 }

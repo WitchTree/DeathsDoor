@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerOnDamage : MonoBehaviour
 {
-    public PlayerState playerState;
+    public Player_State playerState;
 
     public Bat bat;
 
@@ -16,7 +16,7 @@ public class PlayerOnDamage : MonoBehaviour
     private void Awake()
     {
         bat = FindObjectOfType<Bat>();
-        playerState = GetComponent<PlayerState>();
+        playerState = GetComponent<Player_State>();
     }
 
     private void Start()
@@ -42,7 +42,7 @@ public class PlayerOnDamage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy") && !isSuffer)
+        if (other.CompareTag("Enemy") && !isSuffer && bat.isAttacking)
         {
             playerState.life--;
             Debug.Log("¸ñ¼û");
