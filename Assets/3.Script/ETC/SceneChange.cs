@@ -22,7 +22,7 @@ public class SceneChange : MonoBehaviour
     public Animator playerAni;
 
     bool isWalk = true;
-     
+
 
     private void Start()
     {
