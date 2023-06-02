@@ -13,13 +13,14 @@ public class NPCDialogue : MonoBehaviour
     public GameObject Hud;
 
     public string[] Dialogue;
-    private int index; //string�� ��ġ ã�µ� �ʿ�
+    private int index; 
 
     public float wordSpeed;
     public bool playerIsClose;
-    private bool talking = false; //�迭 ����� ���� ������ EŰ ���Ƶα�
+    private bool talking = false; 
     private int num;
     [SerializeField] private GameObject commandBox;
+
 
     // Start is called before the first frame update
     void Start()
@@ -42,12 +43,10 @@ public class NPCDialogue : MonoBehaviour
                 Hud.SetActive(true);
                 zeroText();
                 
-                Debug.Log("����");
 
             }
             else
             {
-                Debug.Log("��ȭ��");
                 talking = true;
                 DialogueUI.SetActive(true);
                 Hud.SetActive(false);
@@ -65,18 +64,7 @@ public class NPCDialogue : MonoBehaviour
 
     public void NextLine()
     {
-        #region banker���� ���ɾ����� upgradeUI Ȱ��ȭ
-        /*
-         * End dialogue
-        if (dialogue[dialogue.Length - 1] == "���̾�α�string" && num == �ε����ѹ� )
-        {
-            sceneMove.StartButton("Intro");//���� 
-            num = 0;
-            return;
-        }
-        */
-        #endregion
-
+      
         //num++;
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -84,8 +72,7 @@ public class NPCDialogue : MonoBehaviour
             {
                 index++;
                 Txt_Dialogue.text = "";
-                StartCoroutine(Typing());
-                Debug.Log("npc�� ���ϴ�����");
+                StartCoroutine(Typing());               
             }
 
             else
