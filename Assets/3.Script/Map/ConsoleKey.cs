@@ -28,7 +28,7 @@ public class ConsoleKey : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Weapon"))
+        if (other.CompareTag("Skill"))
         {
             StartCoroutine(KeyDown_co());
         }

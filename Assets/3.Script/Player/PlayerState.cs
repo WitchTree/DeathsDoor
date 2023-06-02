@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class PlayerState : MonoBehaviour
 {
-    public int skill = 4; // ½ºÅ³ ¼ö
-    public int life = 4;
-    public int seed = 0;//¾¾¾ÑÀº 
-    public int getSpirit = 0;//È¹µæÇÑ ¿µÈ¥ ¼ö
+    [HideInInspector] public int skill = 100; // Skill count has to be changed !!
+    [HideInInspector] public int life = 4;
+    [HideInInspector] public int seed = 0;
+    [HideInInspector] public int getSpirit = 0;
 
-    public PlayerInput playerInput;
+    [HideInInspector] public PlayerInput playerInput;
 
-    private Animator ani;
-    public bool isSuffer = false;
+    [HideInInspector] private Animator ani;
+    [HideInInspector] public bool isSuffer = false;
 
     //Skill Damage
-    public float skillDamage_1 = 1f;
-    public float skillDamage_2 = 1.5f;
+    [HideInInspector] public float skillDamage_1 = 1f;
+    [HideInInspector] public float skillDamage_2 = 1.5f;
 
-    public float skillDelay = 0.7f;
+    [HideInInspector] public float skillDelay = 0.7f;
 
     private void Awake()
     {

@@ -5,16 +5,16 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     //default
-    public int attack = 1;
-    public float hp;
-    public float maxHp;
-    public int spirit;
-    public bool isDead = false;
-    public bool isAttacking = false;
+    //public int attack = 1;
+    [HideInInspector] public float hp;
+    [HideInInspector] public float maxHp;
+    [HideInInspector] public int spirit;
+    [HideInInspector] public bool isDead = false;
+    [HideInInspector] public bool isAttacking = false;
 
     //player detect
-    public bool isAttracted = false;
-    public bool isResetPos = false;
-    public float attractRadius = 4f;
-    public float moveRadius = 8f;
+    [HideInInspector] public bool isAttracted = false;
+    [HideInInspector] public bool isResetPos = false;
+    [HideInInspector] public float attractRadius = 4f;
+    [HideInInspector] public float moveRadius = 8f;
 }
