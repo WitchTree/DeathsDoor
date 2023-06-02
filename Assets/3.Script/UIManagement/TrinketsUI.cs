@@ -27,7 +27,6 @@ public class TrinketsUI : MonoBehaviour //Trinkets panel
 
     private void TrinketsKeyboardInput()
     {
-
         if (Input.GetKeyDown(KeyCode.W) && !buttonPressed)
         {
             Debug.Log("W키 누름 ↑");
@@ -60,16 +59,17 @@ public class TrinketsUI : MonoBehaviour //Trinkets panel
             Debug.Log("A키 누름 ←");
             buttonPressed = true;
 
-            if (selectedButton == TrinketsBtn.Length - 1)
+            if (selectedButton == 0)
             {
-                selectedButton -= TrinketsBtn.Length - 7;
+                selectedButton = TrinketsBtn.Length - 1;
                 EventSystem.current.SetSelectedGameObject(TrinketsBtn[selectedButton]);
             }
             else
             {
-                selectedButton++;
+                selectedButton--;
                 EventSystem.current.SetSelectedGameObject(TrinketsBtn[selectedButton]);
             }
+
         }
 
         if (Input.GetKeyDown(KeyCode.S) && !buttonPressed)
@@ -96,7 +96,6 @@ public class TrinketsUI : MonoBehaviour //Trinkets panel
                     EventSystem.current.SetSelectedGameObject(TrinketsBtn[selectedButton]);
                 }
             }
-
         }
 
         if (Input.GetKeyDown(KeyCode.D) && !buttonPressed)
@@ -104,17 +103,16 @@ public class TrinketsUI : MonoBehaviour //Trinkets panel
             Debug.Log("D키 누름 →");
             buttonPressed = true;
 
-            if (selectedButton == 0)
+            if (selectedButton == TrinketsBtn.Length - 1)
             {
-                selectedButton = TrinketsBtn.Length - 1;
+                selectedButton -= TrinketsBtn.Length - 6;
                 EventSystem.current.SetSelectedGameObject(TrinketsBtn[selectedButton]);
             }
             else
             {
-                selectedButton--;
+                selectedButton++;
                 EventSystem.current.SetSelectedGameObject(TrinketsBtn[selectedButton]);
             }
-
         }
 
 
