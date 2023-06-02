@@ -58,7 +58,6 @@ public class TitleUIManagement : MonoBehaviour
             }
         }
         EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
-        Debug.Log("첫번째 버튼 highlight selected 세팅");
     }
 
     
