@@ -32,10 +32,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Camera main;
     void Start()
     {
-        sword = GetComponent<Sword>();
         player_R = GetComponent<Rigidbody>();
         ani = GetComponent<Animator>();
-        playerDamage = GetComponent<PlayerOnDamage>();        
+        playerDamage = GetComponent<PlayerOnDamage>();
     }
 
     public void ChangeLayersRecursively()
@@ -43,55 +42,17 @@ public class PlayerController : MonoBehaviour
         foreach (Transform child in transform)
         {
             child.gameObject.layer = 6;
-        }        
+        }
     }
 
 
     private void FixedUpdate()
     {
         Lookat();
-        Run();
-        Roll();
-
-    }
-    private void Run()
-    {
-        isRun = false;
-        if ((playerinput.Move_Value != 0 || playerinput.Rotate_Value != 0) && !isRoll && !sword.isAtk /*&& !playerDamage.isSuffer*/)//구르기 x,공격x, 피격X
-        {
-            //sword.DebugInvoke();
-            Vector3 velocity = new Vector3(playerinput.Rotate_Value, 0, playerinput.Move_Value).normalized;
-            transform.position += velocity * speed * Time.deltaTime;
-            isRun = true;
-            transform.LookAt(transform.position + velocity);
-            ani.SetBool("Run", isRun);
-        }
-        ani.SetBool("Run", isRun);
-
-    }
-    public void Roll()
-    {
-        if (playerinput.isRoll && !isRoll && !sword.isAtk)
-        {
-            StartCoroutine("Roll_co");
-        }
-    }
-    private IEnumerator Roll_co()
-    {
-        delay = selDelay;
-        isRoll = true;
-        Vector3 roll_Dir = transform.forward;
-        player_R.velocity = Vector3.zero;
-        player_R.AddForce(roll_Dir * roll_Dis, ForceMode.VelocityChange);
-        ani.SetTrigger("RollTrigger");
-        sword.RollAtk();
-        yield return new WaitForSeconds(delay);
-        player_R.velocity = Vector3.zero;
-        isRoll = false;
     }
     public void Lookat()
     {
-        if (!isRoll || !sword.isAtk)
+        if (!isRoll)
         {
             Ray cameraRay = main.ScreenPointToRay(Input.mousePosition);
             Vector3 hitpoint = Vector3.zero;
@@ -99,7 +60,6 @@ public class PlayerController : MonoBehaviour
             {
                 hitpoint = h.point;
                 hitpoint.y = transform.position.y;
-                //cursor.transform.position = new Vector3(hitpoint.x, hitpoint.y + 0.1f, hitpoint.z);
             }
             Vector3 offset = hitpoint - transform.position;
             float sqrLen = offset.sqrMagnitude;
@@ -108,7 +68,6 @@ public class PlayerController : MonoBehaviour
                 if (playerinput.isLight)
                 {
                     transform.LookAt(hitpoint);
-                    sword.Atk();
                 }
                 if (playerinput.isStrong)
                 {

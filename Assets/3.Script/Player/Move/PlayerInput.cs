@@ -31,16 +31,24 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!isLock)
+        if (!isLock)
         {
             Move_Value = Input.GetAxis(MoveAxisName);
             Rotate_Value = Input.GetAxis(RotateAxisName);
+
+
+            AtkLook = Input.GetButton(lightSword);
+            isRoll = Input.GetKeyDown(KeyCode.Space);
+            isLight = Input.GetButtonDown(lightSword);
+            isRollATk = Input.GetButton(strongSword);
+            isStrong = Input.GetButtonUp(strongSword);
 
             AtkLook = Input.GetButton(lightSword);
             isRoll = Input.GetKeyDown(KeyCode.Space);
             isLight = Input.GetButtonDown(lightSword);
             isRollATk = Input.GetButtonDown(strongSword);
             isStrong = Input.GetButton(strongSword);
+
 
             isSkill_start = Input.GetButton(skill);
             isSkill_end = Input.GetButtonUp(skill);
