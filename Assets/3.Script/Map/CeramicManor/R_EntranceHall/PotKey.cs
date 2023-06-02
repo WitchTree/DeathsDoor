@@ -13,12 +13,12 @@ public class PotKey : MonoBehaviour
     //Material
     [SerializeField] Material glowMaterial;
 
-    [SerializeField] EntranceHall entranceHall;
+    [HideInInspector] public bool isActive = false;
 
     public void KeyActive() 
     {
         potIcon.GetComponent<MeshRenderer>().material = glowMaterial;
-        entranceHall.isDoorOpen[keyNum] = true;
+        isActive = true;
     }
 
     void OnTriggerEnter(Collider other) 
