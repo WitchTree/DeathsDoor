@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ForestMother : MonoBehaviour
+public class ForestMother : Enemy
 {
-    //forest Mother info
-    bool isDead = false;
-
     //Component
     Animator fMAni;
 
@@ -14,34 +11,38 @@ public class ForestMother : MonoBehaviour
     //Leg Collider
     [SerializeField] Collider[] vineColliders = new Collider[4];
     [SerializeField] Collider[] liftVineColliders = new Collider[2];
-
+    //Body Collider
+    [SerializeField] Collider bodyColliders;
+     
     //Hyper Collider
     [SerializeField] Collider hyperCollider;
 
-    [Header("Skill")]
     //Slam
-    public int slamPlayCount = 0;
-    public float slamSlowTime = 0f;
-    public Vector3 slamRot = new Vector3(0f, -20f, 0f);
+    [HideInInspector] public int slamPlayCount = 0;
+    [HideInInspector] public float slamSlowTime = 0f;
+    [HideInInspector] public Vector3 slamRot = new Vector3(0f, -20f, 0f);
 
     //Hyper
-    public float hyperSpinTime = 0f;
+    [HideInInspector] public float hyperSpinTime = 0f;
 
     //Lift
-    public bool isAttackedR = false;
-    public bool isAttackedL = false;
+    [HideInInspector] public bool isAttackedR = false;
+    [HideInInspector] public bool isAttackedL = false;
 
-    void Awake() 
+    //lift vine attack count
+    [HideInInspector] public int[] countAttacked = new int[2];
+
+    void Start() 
     {
         fMAni = GetComponent<Animator>();
+        SetFM();
     }
 
-    private void Update()
+    void SetFM()
     {
-        if (isDead)
-        {
-            Dead();
-        }
+        this.hp = 20f;
+        this.maxHp = 10f;
+        this.spirit = 100;
     }
 
     public void Attack() 
@@ -51,6 +52,7 @@ public class ForestMother : MonoBehaviour
 
     public void Dead()
     {
+        isDead = true;
         fMAni.SetTrigger("Dead");
     }
 
@@ -99,5 +101,37 @@ public class ForestMother : MonoBehaviour
     {
         hyperCollider.enabled = false;
     }
+
+    public void DamagedVineFrontL()
+    {
+        fMAni.SetBool("isAttackedL", true);
+    }
+
+    public void DamagedVineFrontR()
+    {
+        fMAni.SetBool("isAttackedR", true);
+    }
+
+    public void LiftStart()
+    {
+        bodyColliders.enabled = false;
+        InitializeCount();
+    }
+
+    public void InitializeCount()
+    {
+        countAttacked[0] = 0;
+        countAttacked[1] = 0;
+    }
+
+    public void Fall()
+    {
+        fMAni.SetBool("isFall", true);
+        fMAni.SetBool("isAttackedL", false);
+        fMAni.SetBool("isAttackedR", false);
+
+        bodyColliders.enabled = true;
+    }
+
 
 }

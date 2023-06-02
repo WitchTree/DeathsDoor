@@ -11,6 +11,7 @@ public class PlayerOnDamage : MonoBehaviour
 
     private Animator ani;
     public bool isSuffer = false;
+    public bool canSuffer = true;
 
 
     private void Awake()
@@ -26,17 +27,21 @@ public class PlayerOnDamage : MonoBehaviour
 
     public void PlayerSuffered()
     {
-        isSuffer = true;
-        playerState.life--;
+        if (canSuffer)
+        {
+            isSuffer = true;
+            playerState.life--;
 
-        if (playerState.life <= 0)
-        {
-            ani.SetTrigger("Death");
+            if (playerState.life <= 0)
+            {
+                ani.SetTrigger("Death");
+            }
+            else
+            {
+                ani.SetTrigger("Suffer");
+            }
         }
-        else
-        {
-            ani.SetTrigger("Suffer");
-        }
+        
     }
 
 

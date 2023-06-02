@@ -6,7 +6,7 @@ public class LiftIdleState : StateMachineBehaviour
 {
     Transform fMTransform;
     ForestMother forestMother;
-
+    
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
