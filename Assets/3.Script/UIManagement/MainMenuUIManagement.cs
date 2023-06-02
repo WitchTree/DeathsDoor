@@ -6,52 +6,46 @@ using UnityEngine.EventSystems;
 
 public class MainMenuUIManagement : MonoBehaviour
 {
-    public GameObject[] Buttons;
-    public GameObject[] MenuPanel; //메뉴 패널
 
-    [SerializeField] int selectedButton = 0;
+    [Header("header 배열")]
+    public Button[] Buttons; //header 배열
+    //private GameObject firstButton;
 
-    bool buttonPressed = false;
+    [Header("선택된 header")]
+    [SerializeField] int headerSelectedButton = 0;
+    [Space]
+    public GameObject[] Headerselected;
+
+    [Header("panel 배열")]
+    public GameObject[] MenuPanel; //pnanel 배열
+    [Space]
+
+    //[Header("panel 배열")]
+    //[SerializeField] int panelSelectedButton = 0;
+
+    //Vector3 btn_pos;
+    //float[] horizontalDifference;
+    //float[] verticallDifference;
+
+    private bool buttonPressed = false;
+    private bool isMenuAct = false;
+    private float timeScale;
 
     GameObject MainUI;
     GameObject Hud;
-    GameObject firstButton;
-
     GameObject Arrow;
 
-    private bool isMenuAct = false;
-
-    //뭔지몰라도 일단 위에 올려둠
-    Vector3 btn_pos;
-    float[] horizontalDifference;
-    float[] verticallDifference;
-
-    private float timeScale;
-
-
-    //나중에 아래의 인스턴스 선언 가지고 panel 키보드 입력값 받는걸로 고치렴~ 0530
-    #region instance 선언
-    private static MainMenuUIManagement Instance;
-    public static MainMenuUIManagement instance
-    {
-        get
-        {
-            if (Instance == null)
-            {
-                Instance = FindObjectOfType<MainMenuUIManagement>();
-            }
-            return Instance;
-        }
-    }
-    #endregion
 
     private void Awake()
     {
-
-        MainUI = transform.GetChild(0).gameObject; //활성화 될 자식오브젝트 찾기
+        MainUI = transform.GetChild(0).gameObject;
         Hud = GameObject.FindWithTag("HudUI");
         Arrow = GameObject.Find("Arrow");
+    }
 
+    private void Start()
+    {
+        Headerselected[0].SetActive(true);
     }
 
     // Update is called once per frame
@@ -75,9 +69,7 @@ public class MainMenuUIManagement : MonoBehaviour
                     MainUI.SetActive(true);
                     Hud.SetActive(false);
                     Arrow.SetActive(false);
-                    SetMenuUI();
-                    EventSystem.current.SetSelectedGameObject(Buttons[0]);
-                    //여기에 Main Panel Open
+                    MainUIHeaderKeyboardInput();
                     break;
             }
         }
@@ -88,7 +80,8 @@ public class MainMenuUIManagement : MonoBehaviour
         }
     }
 
-
+    //첫번째 Select 되어있는 버튼
+    /*
     private void SetMenuUI()
     {
         if (Buttons.Length > 0)
@@ -96,13 +89,13 @@ public class MainMenuUIManagement : MonoBehaviour
             //panel이 활성화 되어있는 지 확인하고, 변경되었을 경우 첫번째 버튼 활성화
             if (firstButton != Buttons[0])
             {
-                selectedButton = 0;
+                headerSelectedButton = 0;
             }
             firstButton = Buttons[0];
         }
 
         //활성화 된 버튼의 위치 가져오기
-        btn_pos = Buttons[selectedButton].GetComponent<RectTransform>().position;
+        btn_pos = Buttons[headerSelectedButton].GetComponent<RectTransform>().position;
 
         //버튼 위치 차이를 나타내는 배열
         horizontalDifference = new float[Buttons.Length];
@@ -111,15 +104,18 @@ public class MainMenuUIManagement : MonoBehaviour
         //버튼 위치 차이를 계산
         for (int i = 0; i < Buttons.Length; i++)
         {
-            if (i != selectedButton)
+            if (i != headerSelectedButton)
             {
                 Vector3 btn_pos2 = Buttons[i].GetComponent<RectTransform>().position;
                 horizontalDifference[i] = btn_pos.x - btn_pos2.x;
                 verticallDifference[i] = btn_pos.y - btn_pos2.y;
             }
         }
-        //EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
+        //EventSystem.current.SetSelectedGameObject(Buttons[headerSelectedButton]);
     }
+    */
+
+
 
     private void MainUIHeaderKeyboardInput()
     {
@@ -127,78 +123,186 @@ public class MainMenuUIManagement : MonoBehaviour
         {
             Debug.Log("Z키 누름");
             buttonPressed = true;
-
-            if (selectedButton == 0)
+            headerSelectedButton--;
+            /*
+            if (headerSelectedButton == 0)
             {
-                selectedButton = Buttons.Length - 1;
-                EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
+                headerSelectedButton = Buttons.Length - 1;
+                EventSystem.current.SetSelectedGameObject(Buttons[headerSelectedButton]);
             }
             else
             {
-                selectedButton--;
-                EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
+                headerSelectedButton--;
+                EventSystem.current.SetSelectedGameObject(Buttons[headerSelectedButton]);
             }
-
-            if (selectedButton == 0)
+            */
+            if (headerSelectedButton == 0)
             {
+                Buttons[0].Select();
+
                 MenuPanel[0].SetActive(true);
                 MenuPanel[1].SetActive(false);
                 MenuPanel[2].SetActive(false);
+
+                Headerselected[0].SetActive(true);
+                Headerselected[1].SetActive(false);
+                Headerselected[2].SetActive(false);
+                Headerselected[3].SetActive(false);
+                Headerselected[4].SetActive(false);
+                Debug.Log("인벤토리 열기");
+
             }
 
-            if (selectedButton == 1)
+            if (headerSelectedButton == 1)
             {
+                Buttons[1].Select();
+
                 MenuPanel[0].SetActive(false);
                 MenuPanel[1].SetActive(true);
                 MenuPanel[2].SetActive(false);
+
+                Headerselected[0].SetActive(false);
+                Headerselected[1].SetActive(true);
+                Headerselected[2].SetActive(false);
+                Headerselected[3].SetActive(false);
+                Headerselected[4].SetActive(false);
+                Debug.Log("무기 열기");
+
             }
 
-            if (selectedButton == 2)
+            if (headerSelectedButton == 2)
             {
+                Buttons[2].Select();
+
                 MenuPanel[0].SetActive(false);
                 MenuPanel[1].SetActive(false);
                 MenuPanel[2].SetActive(true);
+
+                Headerselected[0].SetActive(false);
+                Headerselected[1].SetActive(false);
+                Headerselected[2].SetActive(true);
+                Headerselected[3].SetActive(false);
+                Headerselected[4].SetActive(false);
+                Debug.Log("빛나는물건 열기");
             }
 
+            if (headerSelectedButton == 3)
+            {
+                Buttons[3].Select();
+
+                Headerselected[0].SetActive(false);
+                Headerselected[1].SetActive(false);
+                Headerselected[2].SetActive(false);
+                Headerselected[3].SetActive(true);
+                Headerselected[4].SetActive(false);
+                Debug.Log("컨트롤러 열기");
+
+            }
+            
+            if (headerSelectedButton == 4)
+            {
+                Buttons[4].Select();
+
+                Headerselected[0].SetActive(false);
+                Headerselected[1].SetActive(false);
+                Headerselected[2].SetActive(false);
+                Headerselected[3].SetActive(false);
+                Headerselected[4].SetActive(true);
+                Debug.Log("옵션 열기");
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.X) && !buttonPressed)
         {
             Debug.Log("X키 누름");
             buttonPressed = true;
-
-
-            if (selectedButton == Buttons.Length - 1)
+            headerSelectedButton++;
+            /*
+            if (headerSelectedButton == Buttons.Length - 1)
             {
-                selectedButton -= Buttons.Length - 1;
-                EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
+                headerSelectedButton -= Buttons.Length - 1;
+                EventSystem.current.SetSelectedGameObject(Buttons[headerSelectedButton]);
             }
             else
             {
-                selectedButton++;
-                EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
-                Debug.Log(Buttons[selectedButton].name);
+                headerSelectedButton++;
+                EventSystem.current.SetSelectedGameObject(Buttons[headerSelectedButton]);
+                Debug.Log(Buttons[headerSelectedButton].name);
             }
-
-            if(selectedButton==0)
+            */
+            if (headerSelectedButton == 0)
             {
+                Buttons[0].Select();
+
                 MenuPanel[0].SetActive(true);
                 MenuPanel[1].SetActive(false);
                 MenuPanel[2].SetActive(false);
+
+                Headerselected[0].SetActive(true);
+                Headerselected[1].SetActive(false);
+                Headerselected[2].SetActive(false);
+                Headerselected[3].SetActive(false);
+                Headerselected[4].SetActive(false);
+                Debug.Log("인벤토리 열기");
+
             }
 
-            if(selectedButton==1)
+            if (headerSelectedButton == 1)
             {
+                Buttons[1].Select();
+
                 MenuPanel[0].SetActive(false);
                 MenuPanel[1].SetActive(true);
                 MenuPanel[2].SetActive(false);
+
+                Headerselected[0].SetActive(false);
+                Headerselected[1].SetActive(true);
+                Headerselected[2].SetActive(false);
+                Headerselected[3].SetActive(false);
+                Headerselected[4].SetActive(false);
+                Debug.Log("무기 열기");
+
             }
 
-            if (selectedButton == 2)
+            if (headerSelectedButton == 2)
             {
+                Buttons[2].Select();
+
                 MenuPanel[0].SetActive(false);
                 MenuPanel[1].SetActive(false);
                 MenuPanel[2].SetActive(true);
+
+                Headerselected[0].SetActive(false);
+                Headerselected[1].SetActive(false);
+                Headerselected[2].SetActive(true);
+                Headerselected[3].SetActive(false);
+                Headerselected[4].SetActive(false);
+                Debug.Log("빛나는물건 열기");
+            }
+
+            if (headerSelectedButton == 3)
+            {
+                Buttons[3].Select();
+
+                Headerselected[0].SetActive(false);
+                Headerselected[1].SetActive(false);
+                Headerselected[2].SetActive(false);
+                Headerselected[3].SetActive(true);
+                Headerselected[4].SetActive(false);
+                Debug.Log("컨트롤러 열기");
+
+            }
+
+            if (headerSelectedButton == 4)
+            {
+                Buttons[4].Select();
+
+                Headerselected[0].SetActive(false);
+                Headerselected[1].SetActive(false);
+                Headerselected[2].SetActive(false);
+                Headerselected[3].SetActive(false);
+                Headerselected[4].SetActive(true);
+                Debug.Log("옵션 열기");
             }
         }
 
@@ -207,6 +311,5 @@ public class MainMenuUIManagement : MonoBehaviour
             buttonPressed = false;
         }
     }
-
 
 }
