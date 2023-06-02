@@ -10,7 +10,7 @@ public class HyperRotationState : StateMachineBehaviour
     
     //Forest Mother component
     Transform fMTransform;
-    ForestMother_S forestMother;
+    ForestMother forestMother;
     NavMeshAgent agent;
 
     //Hyper Spin
@@ -21,7 +21,7 @@ public class HyperRotationState : StateMachineBehaviour
     {
         player = GameObject.FindWithTag("Player").transform;
 
-        forestMother = animator.GetComponent<ForestMother_S>();
+        forestMother = animator.GetComponent<ForestMother>();
         fMTransform = animator.GetComponent<Transform>();
         agent = animator.GetComponent<NavMeshAgent>();
 

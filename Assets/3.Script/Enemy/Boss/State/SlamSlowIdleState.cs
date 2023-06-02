@@ -5,14 +5,14 @@ using UnityEngine;
 public class SlamSlowIdleState : StateMachineBehaviour
 {
     Transform fMTransform;
-    ForestMother_S forestMother;
+    ForestMother forestMother;
 
     float slamSlowMaxTime = 9f;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         fMTransform = animator.GetComponent<Transform>();
-        forestMother = animator.GetComponent<ForestMother_S>();
+        forestMother = animator.GetComponent<ForestMother>();
         
         forestMother.slamSlowTime = 0f;
     }
