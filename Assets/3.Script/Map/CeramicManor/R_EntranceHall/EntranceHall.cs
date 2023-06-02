@@ -5,22 +5,17 @@ using UnityEngine;
 public class EntranceHall : MonoBehaviour
 {
     //Door
-    public bool[] isDoorOpen = new bool[2];
     float openSpeed = 0.1f;
     [SerializeField] Transform leftDoor;
     [SerializeField] Transform rightDoor;
 
-    void Start() 
-    {
-        for (int i = 0; i < isDoorOpen.Length; i++) 
-        {
-            isDoorOpen[i] = false;
-        }
-    }
+    [Header("Keys")]
+    [SerializeField] PotKey[] keys;
 
-    void Update() 
-    {
-        if (isDoorOpen[0] && isDoorOpen[1]) 
+
+    void Update()
+    { 
+        if (keys[0].isActive && keys[1].isActive) 
         {
             OpenDoor();
         }
@@ -28,8 +23,8 @@ public class EntranceHall : MonoBehaviour
 
     public void OpenDoor() 
     {
-        isDoorOpen[0] = false; //update에서 코루틴 한번만 실행
-        isDoorOpen[1] = false;
+        keys[0].isActive = false; //update에서 코루틴 한번만 실행
+        keys[1].isActive = false;
         StartCoroutine(OpenDoor_co());
     }
 
