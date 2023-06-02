@@ -59,14 +59,14 @@ public class TrinketsUI : MonoBehaviour //Trinkets panel
             Debug.Log("A키 누름 ←");
             buttonPressed = true;
 
-            if (selectedButton == 0)
+            if ((selectedButton % 6).Equals(0))
             {
-                selectedButton = TrinketsBtn.Length - 1;
+                selectedButton += 5;
                 EventSystem.current.SetSelectedGameObject(TrinketsBtn[selectedButton]);
             }
             else
             {
-                selectedButton--;
+                selectedButton -= 1;
                 EventSystem.current.SetSelectedGameObject(TrinketsBtn[selectedButton]);
             }
 
@@ -79,20 +79,20 @@ public class TrinketsUI : MonoBehaviour //Trinkets panel
 
             if (selectedButton == 0)
             {
-                selectedButton = TrinketsBtn.Length - 6;
+                selectedButton = TrinketsBtn.Length + 6;
                 EventSystem.current.SetSelectedGameObject(TrinketsBtn[selectedButton]);
             }
-            else if (selectedButton >= 6)
+            else if (selectedButton <= 17)
             {
-                selectedButton -= 6;
+                selectedButton += 6;
                 EventSystem.current.SetSelectedGameObject(TrinketsBtn[selectedButton]);
             }
 
             else
             {
-                if (selectedButton / 6 == 0)
+                if (selectedButton / 6 == 3)
                 {
-                    selectedButton += 18;
+                    selectedButton -= 18;
                     EventSystem.current.SetSelectedGameObject(TrinketsBtn[selectedButton]);
                 }
             }
@@ -103,14 +103,14 @@ public class TrinketsUI : MonoBehaviour //Trinkets panel
             Debug.Log("D키 누름 →");
             buttonPressed = true;
 
-            if (selectedButton == TrinketsBtn.Length - 1)
+            if ((selectedButton % 6).Equals(5))
             {
-                selectedButton -= TrinketsBtn.Length - 6;
+                selectedButton -= 5;
                 EventSystem.current.SetSelectedGameObject(TrinketsBtn[selectedButton]);
             }
             else
             {
-                selectedButton++;
+                selectedButton += 1;
                 EventSystem.current.SetSelectedGameObject(TrinketsBtn[selectedButton]);
             }
         }
