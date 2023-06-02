@@ -5,7 +5,7 @@ using UnityEngine;
 public class ForestMotherTrigger : MonoBehaviour
 {
     [SerializeField] SpikeDoor spikeDoor;
-    [SerializeField] ForestMother_S forestMother;
+    [SerializeField] ForestMother forestMother;
     [SerializeField] int triggerNum;
 
     private void OnTriggerEnter(Collider other)
