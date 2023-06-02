@@ -13,9 +13,22 @@ public class ForestMother : Enemy
     [SerializeField] Collider[] liftVineColliders = new Collider[2];
     //Body Collider
     [SerializeField] Collider bodyColliders;
-     
     //Hyper Collider
     [SerializeField] Collider hyperCollider;
+
+    //Damage and dissolve
+    [Header("Skin Mesh")]
+    [SerializeField] SkinnedMeshRenderer[] skinnedMeshRenderers;
+    [SerializeField] MeshRenderer meshRenderer;
+    [SerializeField] Material[] dmgMaterial;
+    Material[][] currMaterials = new Material[19][];
+    Material currMaterial;
+
+    float dissolveRate = 0.0125f;
+    float refreshRate = 0.025f;
+
+    [Header("Spirit")]
+    [SerializeField] GameObject spiritPrefab;
 
     //Slam
     [HideInInspector] public int slamPlayCount = 0;
@@ -32,20 +45,30 @@ public class ForestMother : Enemy
     //lift vine attack count
     [HideInInspector] public int[] countAttacked = new int[2];
 
-    void Start() 
+    
+
+
+    void Start()
     {
         fMAni = GetComponent<Animator>();
+
+        //skinnedMeshRenderer save
+        for (int i = 0; i < skinnedMeshRenderers.Length; i++)
+        {
+            currMaterials[i] = skinnedMeshRenderers[i].materials;
+        }
+        currMaterial = meshRenderer.materials[0];
         SetFM();
     }
 
     void SetFM()
     {
         this.hp = 20f;
-        this.maxHp = 10f;
+        this.maxHp = 20f;
         this.spirit = 100;
     }
 
-    public void Attack() 
+    public void Attack()
     {
         fMAni.SetBool("Slam", true);
     }
@@ -54,6 +77,7 @@ public class ForestMother : Enemy
     {
         isDead = true;
         fMAni.SetTrigger("Dead");
+        StartCoroutine(CreateSpirit_co());
     }
 
     public void EnableCollider1()
@@ -96,7 +120,7 @@ public class ForestMother : Enemy
     {
         hyperCollider.enabled = true;
     }
-    
+
     public void DisableHyperCollider()
     {
         hyperCollider.enabled = false;
@@ -133,5 +157,52 @@ public class ForestMother : Enemy
         bodyColliders.enabled = true;
     }
 
+    public void DamagedEffect()
+    {
+        StartCoroutine(DmgEffect_co());
+    }
 
+    IEnumerator DmgEffect_co()
+    {
+        for (int i = 0; i < skinnedMeshRenderers.Length; i++)
+        {
+            skinnedMeshRenderers[i].materials = dmgMaterial;
+            meshRenderer.material = dmgMaterial[0];
+        }
+        yield return new WaitForSeconds(0.2f);
+
+        for (int i = 0; i < skinnedMeshRenderers.Length; i++)
+        {
+            skinnedMeshRenderers[i].materials = currMaterials[i];
+            meshRenderer.material = currMaterial;
+        }
+    }
+
+    public void ChangeMaterialDead()
+    {
+        StartCoroutine(DeadEffect_co());
+    }
+
+    IEnumerator DeadEffect_co()
+    {
+        float counter = 0;
+        while (currMaterials[1][0].GetFloat("_DissolveAmount") < 1)
+        {
+            counter += dissolveRate;
+            for (int j = 0; j < currMaterials[1].Length; j++)
+            {
+                for (int i = 0; i < skinnedMeshRenderers.Length; i++)
+                {
+                    currMaterials[i][j].SetFloat("_DissolveAmount", counter);
+                }
+            }
+            currMaterial.SetFloat("_DissolveAmount", counter);
+            yield return new WaitForSeconds(refreshRate);
+        }
+    }
+    IEnumerator CreateSpirit_co()
+    {
+        yield return new WaitForSeconds(1f);
+        GameObject spirit = Instantiate(spiritPrefab, transform.position, Quaternion.identity);
+    } 
 }

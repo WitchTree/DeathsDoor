@@ -65,13 +65,11 @@ public class Weapon_Bow : MonoBehaviour
         if (other.CompareTag("Fire"))
         {
             isfire = true;
-            Debug.Log("이제 불화살임");
             fireCheck = isfire;
         }
 
         if (!other.CompareTag("Player") )
         {
-            Debug.Log("충돌했으니 사라지자");
             //Destroy(gameObject);
         }    
     }

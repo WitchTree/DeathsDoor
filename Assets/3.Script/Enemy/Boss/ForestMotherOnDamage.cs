@@ -25,11 +25,14 @@ public class ForestMotherOnDamage : MonoBehaviour
             Destroy(other.gameObject);
             forestMother.hp -= playerSkill.skillDamage;
 
-            //Damage Material Change
-
             if (forestMother.hp <= 0)
             {
                 forestMother.Dead();
+            }
+            else
+            {
+                //Damage Material Change
+                forestMother.DamagedEffect();
             }
 
             VineAttacked();

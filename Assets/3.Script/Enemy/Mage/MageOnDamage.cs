@@ -62,22 +62,18 @@ public class MageOnDamage : MonoBehaviour
 
     IEnumerator DeadEffect_co()
     {
-        for (int i = 0; i < skinnedMeshRenderer.Length; i++)
+        float counter = 0;
+        while (currMaterial[1][0].GetFloat("_DissolveAmount") < 1)
         {
-            float counter = 0;
-            if (currMaterial[i].Length > 0)
+            counter += dissolveRate;
+            for (int j = 0; j < currMaterial[1].Length; j++)
             {
-                while (currMaterial[i][0].GetFloat("_DissolveAmount") < 1)
+                for (int i = 0; i < skinnedMeshRenderer.Length; i++)
                 {
-                    counter += dissolveRate;
-                    for (int j = 0; j < currMaterial[i].Length; j++)
-                    {
-                        currMaterial[i][j].SetFloat("_DissolveAmount", counter);
-                    }
-
-                    yield return new WaitForSeconds(refreshRate);
+                    currMaterial[i][j].SetFloat("_DissolveAmount", counter);
                 }
             }
+            yield return new WaitForSeconds(refreshRate);
         }
 
     }
