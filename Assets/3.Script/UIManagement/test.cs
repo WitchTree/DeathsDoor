@@ -12,27 +12,23 @@ public class test : MonoBehaviour //inventory panel
 
     bool buttonPressed = false;
 
+    /*
     GameObject firstButton;
 
     //뭔지몰라도 일단 위에 올려둠
     Vector3 btn_pos;
     float[] horizontalDifference;
     float[] verticallDifference;
-
+    */
 
     // Update is called once per frame
 
-
-    private void OnEnable()
-    {
-        SetMenuUI();
-    }
     void Update()
     {
         InventoryKeyboardInput();
     }
 
-
+    /*
     private void SetMenuUI()
     {
         if (InventoryBtn.Length > 0)
@@ -65,7 +61,7 @@ public class test : MonoBehaviour //inventory panel
         EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
        // Debug.Log(InventoryBtn[selectedButton].name);
     }
-
+    */
 
     private void InventoryKeyboardInput()
     {
@@ -87,21 +83,6 @@ public class test : MonoBehaviour //inventory panel
                     break;
 
             }
-            /*
-            if (selectedButton == 0)
-            {
-                selectedButton = InventoryBtn.Length - 1;
-                EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
-                Debug.Log(InventoryBtn[selectedButton].name);
-            }
-            else
-            {
-                selectedButton--;
-                EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
-                Debug.Log(InventoryBtn[selectedButton].name);
-            }
-            */
-
 
         }
 
@@ -110,19 +91,22 @@ public class test : MonoBehaviour //inventory panel
             Debug.Log("A키 누름 ←");
             buttonPressed = true;
 
-            if (selectedButton == 0)
+            switch (selectedButton)
             {
-                selectedButton = InventoryBtn.Length - 1;
-                EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
-                Debug.Log(InventoryBtn[selectedButton].name);
-            }
-            else
-            {
-                selectedButton--;
-                EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
-                Debug.Log(InventoryBtn[selectedButton].name);
-            }
+                case 1:
+                    selectedButton = 0;
+                    EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
+                    break;
+                case 2:
+                    selectedButton = 1;
+                    EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
+                    break;
+                case 4:
+                    selectedButton = 3;
+                    EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
+                    break;
 
+            }
 
         }
 
@@ -131,17 +115,18 @@ public class test : MonoBehaviour //inventory panel
             Debug.Log("S키 누름 ↓");
             buttonPressed = true;
 
-            if (selectedButton == InventoryBtn.Length - 1)
+            switch (selectedButton)
             {
-                selectedButton -= InventoryBtn.Length - 1;
-                EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
+                case 0:
+                    selectedButton = 3;
+                    EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
+                    break;
+                case 2:
+                    selectedButton = 4;
+                    EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
+                    break;
             }
-            else
-            {
-                selectedButton++;
-                EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
-                Debug.Log(InventoryBtn[selectedButton].name);
-            }
+
 
         }
 
@@ -150,19 +135,22 @@ public class test : MonoBehaviour //inventory panel
             Debug.Log("D키 누름 →");
             buttonPressed = true;
 
-            if (selectedButton == InventoryBtn.Length - 1)
-            {
-                selectedButton -= InventoryBtn.Length - 1;
-                EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
-                Debug.Log(InventoryBtn[selectedButton].name);
-            }
-            else
-            {
-                selectedButton++;
-                EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
-                Debug.Log(InventoryBtn[selectedButton].name);
-            }
 
+            switch (selectedButton)
+            {
+                case 0:
+                    selectedButton = 1;
+                    EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
+                    break;
+                case 1:
+                    selectedButton = 2;
+                    EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
+                    break;
+                case 3:
+                    selectedButton = 4;
+                    EventSystem.current.SetSelectedGameObject(InventoryBtn[selectedButton]);
+                    break;
+            }
 
         }
 
