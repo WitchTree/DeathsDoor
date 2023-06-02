@@ -10,7 +10,6 @@ public class PlayerState : MonoBehaviour
     public int getSpirit = 0;//È¹µæÇÑ ¿µÈ¥ ¼ö
 
     public PlayerInput playerInput;
-    public Bat bat;
 
     private Animator ani;
     public bool isSuffer = false;
@@ -24,7 +23,6 @@ public class PlayerState : MonoBehaviour
     private void Awake()
     {
         playerInput = FindObjectOfType<PlayerInput>();
-        bat = FindObjectOfType<Bat>();
     }
 
     private void Start()
