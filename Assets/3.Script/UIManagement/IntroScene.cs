@@ -16,6 +16,7 @@ public class IntroScene : MonoBehaviour
     public GameObject secondPointObject;
     public GameObject thirdPointObject;
     public GameObject targetObject;
+    public GameObject introDoor;
 
     public bool isEntered;
     public bool isCorner;
@@ -33,7 +34,7 @@ public class IntroScene : MonoBehaviour
     public GameObject DialogueUI;
     public Text Txt_Dialogue;
     public string[] Dialogue;
-    private int index;
+    public int index;
     public float wordSpeed;
 
 
@@ -41,12 +42,7 @@ public class IntroScene : MonoBehaviour
 
 
     private void Start()
-    {
-        for(int i=0;i<vcam.Length;i++)
-        {
-            vcam[i].m_Lens.OrthographicSize = 3.7f;   
-        }
-        
+    {        
         firstPoint =firstPointObject.transform.position;
         secondPoint=secondPointObject.transform.position;
         thirdPoint = thirdPointObject.transform.position;
@@ -58,8 +54,11 @@ public class IntroScene : MonoBehaviour
         if(isEntered==true)
         {            
             player.gameObject.transform.position = Vector3.MoveTowards(player.gameObject.transform.position, firstPoint, 1.5f* Time.deltaTime);
-            playerAnimator.SetBool("Run",true);
-            playerController.speed = 0;            
+            playerAnimator.SetBool("Run",false);
+            playerAnimator.SetBool("Idle",false);
+            playerAnimator.SetBool("FakeRun",true);
+            playerController.speed = 0;     
+            //playerController.isRoll=true;           
 
             if (player.gameObject.transform.position==firstPoint)
             {
@@ -70,7 +69,10 @@ public class IntroScene : MonoBehaviour
         if(isCorner==true)
         {
             player.gameObject.transform.position = Vector3.MoveTowards(player.gameObject.transform.position, secondPoint, 2* Time.deltaTime);
-            playerAnimator.SetBool("Run",true);
+            playerAnimator.SetBool("Run",false);
+            playerAnimator.SetBool("Idle",false);
+            playerAnimator.SetBool("FakeRun",true);
+            //playerController.isRoll=true;    
 
             if (player.gameObject.transform.position == secondPoint)
             {                
@@ -84,12 +86,15 @@ public class IntroScene : MonoBehaviour
         {
             playerInput.isLock = true;
             player.gameObject.transform.position = Vector3.MoveTowards(player.gameObject.transform.position, thirdPoint, 2 * Time.deltaTime);
-            playerAnimator.SetBool("Run", true);
+            playerAnimator.SetBool("Run", false);
+            playerAnimator.SetBool("Idle",false);
+            playerAnimator.SetBool("FakeRun",true);
+            //playerController.isRoll=true;    
 
             if (player.gameObject.transform.position == thirdPoint)
             {
                 ResetMove();                
-
+                
             }
                        
         }
@@ -97,6 +102,7 @@ public class IntroScene : MonoBehaviour
         if (isEnd == true)
         {
             playerAnimator.SetBool("Run", false);
+            playerAnimator.SetBool("FakeRun",false);
         }
 
         if(isLookat==true)
@@ -121,14 +127,22 @@ public class IntroScene : MonoBehaviour
             }
         }
 
-        if(index==7)
+        if(index==7||index==10)
         {
             DialogueAnimator.SetBool("isDoor", true);
-            Invoke(nameof(PauseDialogue), 0.8f);
-            
+            Invoke(nameof(PauseDialogue), 0.8f);    
+            if(index==7)
+            {
+                index=8;       
+            } 
+
+            else if(index==10)
+            {
+                index=11;    
+            }
         }
 
-
+       
     }
 
     private void OnTriggerEnter(Collider other)
@@ -139,7 +153,10 @@ public class IntroScene : MonoBehaviour
             isLookat = true;
             playerInput.isLock = true;
             isStart = true;          
-           
+            playerAnimator.SetBool("Run", false);
+            playerAnimator.SetBool("Idle",false);
+            playerAnimator.SetBool("FakeRun",true);
+            //playerController.isRoll=true;    
 
         }        
     }
@@ -166,6 +183,7 @@ public class IntroScene : MonoBehaviour
     {
         isFinish = false;
         isEnd = true;        
+        
     }
        
 
@@ -193,7 +211,16 @@ public class IntroScene : MonoBehaviour
     }
 
     IEnumerator Typing()
-    {
+    {       
+        foreach (char letter in Dialogue[index].ToCharArray())
+        {
+            Txt_Dialogue.text += letter;
+            yield return new WaitForSeconds(wordSpeed);
+        }
+    }
+
+    IEnumerator ResumeTyping()
+    {       
         foreach (char letter in Dialogue[index].ToCharArray())
         {
             Txt_Dialogue.text += letter;
@@ -215,13 +242,49 @@ public class IntroScene : MonoBehaviour
     }
 
     private void PauseDialogue()
-    {
-        DialogueUI.SetActive(false);
-        vcam[1].gameObject.SetActive(false);
-        vcam[2].gameObject.SetActive(true);
+    {        
+        if(index==8)
+        {
+            DialogueUI.SetActive(false);
+            vcam[1].gameObject.SetActive(false);
+            vcam[2].gameObject.SetActive(true);
+            Invoke(nameof(ActivateDoor),2.95f);
+            Invoke(nameof(CameraCloseUp),2.2f);
+        }
+        
+        if(index==11)
+        {
+            DialogueUI.SetActive(false);
+            vcam[2].gameObject.SetActive(false);
+            vcam[4].gameObject.SetActive(true);
+            Invoke(nameof(ResumeDialogue),0.6f);    
+        }
     }
 
+    private void CameraCloseUp()
+    {
+        vcam[2].gameObject.SetActive(false);
+        vcam[3].gameObject.SetActive(true);
+        
+        Invoke(nameof(CameraCloseDown),3.4f);
+    }
 
+    private void CameraCloseDown()
+    {        
+        vcam[3].gameObject.SetActive(false);
+        vcam[1].gameObject.SetActive(true);  
+        Invoke(nameof(ResumeDialogue),1.4f);      
+    }
+
+    private void ResumeDialogue()
+    {
+        DialogueUI.SetActive(true);
+        StartCoroutine(Typing());
+    }
+    private void ActivateDoor()
+    {        
+        introDoor.SetActive(true);
+    }
 
 
 

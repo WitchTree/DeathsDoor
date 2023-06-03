@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 2f; //ÀÌµ¿¼Óµµ
-    public float roll_Dis = 10f;//±¸¸£´Â °Å¸®
+    public float speed = 2f; //ï¿½Ìµï¿½ï¿½Óµï¿½
+    public float roll_Dis = 10f;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½
     public float selDelay = 1f;
     private float delay = 0.4f;
 
@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     private Animator ani;
     Sword sword;
 
-    //Çàµ¿
+    //ï¿½àµ¿
     public bool isRun = false;
     public bool isRoll = false;
     public bool isIdle = false;
@@ -42,7 +42,13 @@ public class PlayerController : MonoBehaviour
         foreach (Transform child in transform)
         {
             child.gameObject.layer = 6;
+            if(child.gameObject.transform.name=="Slash_Roll"||child.gameObject.transform.name=="Slash_Heavy_R"||child.gameObject.transform.name=="Slash_Heavy_L"||child.gameObject.transform.name=="Slash_light_R"||child.gameObject.transform.name=="Slash_light_L")
+            {
+                child.gameObject.layer = 0;
+            }
         }
+
+        
     }
     private void FixedUpdate()
     {
