@@ -9,8 +9,6 @@ public class PlayerController : MonoBehaviour
     public float selDelay = 1f;
     private float delay = 0.4f;
 
-    public GameObject labberPos;
-
     private Rigidbody player_R;
     private Animator ani;
     Sword sword;
@@ -20,22 +18,23 @@ public class PlayerController : MonoBehaviour
     public bool isRoll = false;
     public bool isIdle = false;
     public bool isAtk = false;
+    public bool isLock = false;
+
+
     public bool isClimb = false;
+    public bool isClimbing = false;
+    public bool climbCheck = false;
 
     private float closeDistance = 0.25f;
 
-
-    //[SerializeField] private GameObject cursor;
-
-    PlayerOnDamage playerDamage;
     [SerializeField] PlayerInput playerinput;
     [SerializeField] Camera main;
+
     void Start()
     {
         sword = GetComponent<Sword>();
         player_R = GetComponent<Rigidbody>();
         ani = GetComponent<Animator>();
-        playerDamage = GetComponent<PlayerOnDamage>();        
     }
 
     public void ChangeLayersRecursively()
@@ -43,21 +42,22 @@ public class PlayerController : MonoBehaviour
         foreach (Transform child in transform)
         {
             child.gameObject.layer = 6;
-        }        
+        }
     }
-
 
     private void FixedUpdate()
     {
         Lookat();
         Run();
         Roll();
-
+        Climb_MoveKey();
     }
+
+
     private void Run()
     {
         isRun = false;
-        if ((playerinput.Move_Value != 0 || playerinput.Rotate_Value != 0) && !isRoll && !sword.isAtk /*&& !playerDamage.isSuffer*/)//구르기 x,공격x, 피격X
+        if ((playerinput.Move_Value != 0 || playerinput.Rotate_Value != 0) && !isRoll && !sword.isAtk && !isClimb /*&& !playerDamage.isSuffer*/)//구르기 x,공격x, 피격X
         {
             //sword.DebugInvoke();
             Vector3 velocity = new Vector3(playerinput.Rotate_Value, 0, playerinput.Move_Value).normalized;
@@ -89,6 +89,7 @@ public class PlayerController : MonoBehaviour
         player_R.velocity = Vector3.zero;
         isRoll = false;
     }
+
     public void Lookat()
     {
         if (!isRoll || !sword.isAtk)
@@ -99,11 +100,10 @@ public class PlayerController : MonoBehaviour
             {
                 hitpoint = h.point;
                 hitpoint.y = transform.position.y;
-                //cursor.transform.position = new Vector3(hitpoint.x, hitpoint.y + 0.1f, hitpoint.z);
             }
             Vector3 offset = hitpoint - transform.position;
             float sqrLen = offset.sqrMagnitude;
-            if (!isRun && (sqrLen > closeDistance * closeDistance))
+            if (!isRun && (sqrLen > closeDistance * closeDistance) && !isClimb)
             {
                 if (playerinput.isLight)
                 {
@@ -122,4 +122,76 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Ladder_Top") && isClimb)
+        {
+            ani.SetTrigger("Climb_Top");
+            ani.SetBool("Climb_Up", isClimb);
+            this.transform.Translate(0, 0.9f, 0.02f);
+            isClimb = false;
+            climbCheck = false;
+            playerinput.isLock = false;
+            this.transform.Translate(0, 0.02f, 0.02f);
+        }
+
+        if (other.CompareTag("Ladder_Bottom") && isClimb)
+        {
+            isClimb = false;
+            player_R.velocity = Vector3.zero;
+            playerinput.isLock = false;
+            ani.SetTrigger("Climb_Bottom");
+            climbCheck = false;
+        }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Ladder") && playerinput.isInteraction && !isClimb)
+        {
+            if (!climbCheck)
+            {
+                Debug.Log(other.gameObject.GetComponentsInParent<Transform>()[1].position);
+                transform.position = other.gameObject.GetComponentsInParent<Transform>()[1].position;
+                transform.rotation = other.gameObject.GetComponentsInParent<Transform>()[1].rotation;
+                this.transform.Translate(0, 0.05f, 0);
+            }
+            playerinput.isLock = false;
+            isClimb = true;
+            ani.SetTrigger("Climb");
+            climbCheck = true;
+        }
+    }
+    private void Climb_MoveKey()
+    {
+        if (isClimb)
+        {
+            isClimbing = false;
+            ani.SetBool("Climb_Up", isClimbing);
+            ani.SetBool("Climb_Down", isClimbing);
+            Physics.gravity = new Vector3(0, 0, 0);
+            if (Input.GetKey(KeyCode.W))
+            {
+                isClimbing = true;
+                this.transform.Translate(0, 2 * Time.deltaTime, 0);
+                ani.SetBool("Climb_Up", isClimbing);
+
+            }
+            else if (Input.GetKey(KeyCode.S))
+            {
+                isClimbing = true;
+                this.transform.Translate(0, -2 * Time.deltaTime, 0);
+                ani.SetBool("Climb_Down", isClimbing);
+                Debug.Log(playerinput.isLock);
+            }
+            else
+            {
+                ani.SetTrigger("Climb");
+            }
+        }
+
+        else
+        {
+            Physics.gravity = new Vector3(Physics.gravity.x, -9.81f, Physics.gravity.z);
+        }
+    }
 }
