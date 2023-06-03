@@ -26,6 +26,7 @@ public class IntroScene : MonoBehaviour
     private bool isStart = false;
 
     public Animator playerAnimator;
+    public Animator DialogueAnimator;
     public PlayerInput playerInput;
     public PlayerController playerController;
     public CinemachineVirtualCamera vcam;
@@ -114,6 +115,12 @@ public class IntroScene : MonoBehaviour
                 DialogueUI.SetActive(false);
                 talking = false;                
             }
+        }
+
+        if(index==7)
+        {
+            DialogueAnimator.SetBool("isDoor", true);
+            Invoke(nameof(PauseDialogue), 0.8f);
         }
 
 
@@ -235,6 +242,11 @@ public class IntroScene : MonoBehaviour
     {
         DialogueUI.SetActive(true);
         StartCoroutine(Typing());
+    }
+
+    private void PauseDialogue()
+    {
+        DialogueUI.SetActive(false);        
     }
 
 
