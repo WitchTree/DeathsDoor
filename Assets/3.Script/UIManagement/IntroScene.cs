@@ -28,8 +28,8 @@ public class IntroScene : MonoBehaviour
     public Animator playerAnimator;
     public Animator DialogueAnimator;
     public PlayerInput playerInput;
-    public PlayerController playerController;
-    public CinemachineVirtualCamera vcam;
+    public PlayerController playerController;   
+    public CinemachineVirtualCamera[] vcam;
     public GameObject DialogueUI;
     public Text Txt_Dialogue;
     public string[] Dialogue;
@@ -42,7 +42,11 @@ public class IntroScene : MonoBehaviour
 
     private void Start()
     {
-        vcam.m_Lens.OrthographicSize = 3.7f;       
+        for(int i=0;i<vcam.Length;i++)
+        {
+            vcam[i].m_Lens.OrthographicSize = 3.7f;   
+        }
+        
         firstPoint =firstPointObject.transform.position;
         secondPoint=secondPointObject.transform.position;
         thirdPoint = thirdPointObject.transform.position;
@@ -121,6 +125,7 @@ public class IntroScene : MonoBehaviour
         {
             DialogueAnimator.SetBool("isDoor", true);
             Invoke(nameof(PauseDialogue), 0.8f);
+            
         }
 
 
@@ -133,10 +138,8 @@ public class IntroScene : MonoBehaviour
             isEntered=true;
             isLookat = true;
             playerInput.isLock = true;
-            isStart = true;
-            StartCoroutine("CameraZoomIn");
-            StartCoroutine("CameraZoomIn1");
-            StartCoroutine("CameraZoomIn2");
+            isStart = true;          
+           
 
         }        
     }
@@ -153,8 +156,10 @@ public class IntroScene : MonoBehaviour
     private void FinishMove()
     {
         isCorner = false;
-        isFinish = true;       
-        
+        isFinish = true;
+        vcam[0].gameObject.SetActive(false);
+        vcam[1].gameObject.SetActive(true);
+
     }
 
     private void ResetMove()
@@ -162,42 +167,7 @@ public class IntroScene : MonoBehaviour
         isFinish = false;
         isEnd = true;        
     }
-
-    public IEnumerator CameraZoomIn()
-    {
-        for (float f= 3.7f; f >= 3f; f -= 0.01f)
-        {
-            vcam.m_Lens.OrthographicSize =f;
-            yield return new WaitForSeconds(0.05f);
-        }
-
-    }
-
-    public IEnumerator CameraZoomIn1()
-    {
-
-        var transposer = vcam.GetCinemachineComponent<CinemachineComposer>();
-
-        for (float f = 1; f <= 2.71f; f += 0.02f)
-        {
-            transposer.m_TrackedObjectOffset.y = f;
-            yield return new WaitForSeconds(0.01f);
-        }
-
-    }
-
-    public IEnumerator CameraZoomIn2()
-    {
-
-        var transposer = vcam.GetCinemachineComponent<CinemachineComposer>();
-
-        for (float f = 0f; f >= -1.55f; f -= 0.01f)
-        {
-            transposer.m_TrackedObjectOffset.x = f;
-            yield return new WaitForSeconds(0.01f);
-        }
-
-    }
+       
 
     public void NextLine()
     {
@@ -246,7 +216,9 @@ public class IntroScene : MonoBehaviour
 
     private void PauseDialogue()
     {
-        DialogueUI.SetActive(false);        
+        DialogueUI.SetActive(false);
+        vcam[1].gameObject.SetActive(false);
+        vcam[2].gameObject.SetActive(true);
     }
 
 
