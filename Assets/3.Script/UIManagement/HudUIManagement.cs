@@ -6,18 +6,32 @@ using UnityEngine.EventSystems;
 
 public class HudUIManagement : MonoBehaviour
 {
+
+    public Player_State playerState;
+
+    //heal관련 변수;
+    //skill관련 변수;
+    //objecttrigger 관련 변수;
+    //sword tringger 관련 변수;
+    //사망 관련 변수;
+
+    [Header("스킬")]
     public GameObject[] skillSelect;
     [SerializeField] GameObject[] skillBox;
     [SerializeField] GameObject[] skillIcon;
 
-    [SerializeField] int selectedButton = 0;
+    [SerializeField] int skillSelectedBtn= 0;
 
+    [Header("HP")]
+    public GameObject[] playerHeealth;
+
+    [Header("MP")]
+    public GameObject[] playerSkillFill;
 
     bool buttonPressed = false;
 
     GameObject firstSkill;
 
-    //뭔지몰라도 일단 위에 올려둠
     Vector3 btn_pos;
     float[] horizontalDifference;
     float[] verticallDifference;
@@ -30,6 +44,13 @@ public class HudUIManagement : MonoBehaviour
         HudSkillSelectKeyboardInput();
     }
 
+    private void FixedUpdate()
+    {
+        PlayerHealthCondition();
+        PlayerSkillFillcondition();
+    }
+
+
     private void SetMenuUI()
     {
         if (skillSelect.Length > 0)
@@ -37,13 +58,13 @@ public class HudUIManagement : MonoBehaviour
             //panel이 활성화 되어있는 지 확인하고, 변경되었을 경우 첫번째 버튼 활성화
             if (firstSkill != skillSelect[0])
             {
-                selectedButton = 0;
+                skillSelectedBtn = 0;
             }
             firstSkill = skillSelect[0];
         }
 
         //활성화 된 버튼의 위치 가져오기
-        btn_pos = skillSelect[selectedButton].GetComponent<RectTransform>().position;
+        btn_pos = skillSelect[skillSelectedBtn].GetComponent<RectTransform>().position;
 
         //버튼 위치 차이를 나타내는 배열
         horizontalDifference = new float[skillSelect.Length];
@@ -52,14 +73,14 @@ public class HudUIManagement : MonoBehaviour
         //버튼 위치 차이를 계산
         for (int i = 0; i < skillSelect.Length; i++)
         {
-            if (i != selectedButton)
+            if (i != skillSelectedBtn)
             {
                 Vector3 btn_pos2 = skillSelect[i].GetComponent<RectTransform>().position;
                 horizontalDifference[i] = btn_pos.x - btn_pos2.x;
                 verticallDifference[i] = btn_pos.y - btn_pos2.y;
             }
         }
-        EventSystem.current.SetSelectedGameObject(skillSelect[selectedButton]);
+        EventSystem.current.SetSelectedGameObject(skillSelect[skillSelectedBtn]);
     }
 
     private void HudSkillSelectKeyboardInput()
@@ -108,11 +129,31 @@ public class HudUIManagement : MonoBehaviour
         //    skillBox[3].SetActive(true);
         //}
 
+
         if (buttonPressed)
         {
             buttonPressed = false;
             Debug.Log("스킬 선택 해제");
         }
+    }
+
+
+    private void PlayerHealthCondition()
+    {
+        //꽃 먹었을 때 HPFill+=4; (전부 활성화)
+        //맞을 때 마다 HPFill--;(비활성화)
+        //0이 되면 사망 DaathCheck->deadUI 띄우기
+    }
+
+    private void PlayerSkillFillcondition()
+    {
+        //몬스터를 때릴 때마다 MPFill ++; (활성화)
+        //버섯,항아리 때릴때마다 MpFill++; (활성화)
+        //스킬 사용할 때마다 MPFill++; (활성화)
+        // 단, 4개 이상 켜지지 않게
+
+        //0이되면 스킬 사용 x (전부 비활성화)
+
     }
 
 }
