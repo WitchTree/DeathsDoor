@@ -141,6 +141,7 @@ public class Player_skill : MonoBehaviour
             }
         }
         playerState.skill--;
+        FindObjectOfType<HudUIManagement>().PlayerSkillFillcondition();
 
     }
 }

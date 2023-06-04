@@ -45,7 +45,6 @@ public class HudUIManagement : MonoBehaviour
     private void FixedUpdate()
     {
         PlayerHealthCondition();
-        PlayerSkillFillcondition();
     }
 
 
@@ -132,7 +131,7 @@ public class HudUIManagement : MonoBehaviour
     }
 
 
-    public void PlayerHealthCondition()
+    public void PlayerHealthCondition() //데미지 먹는 곳 && 피 회복되는 곳에 사용
     {
         switch (playerState.life)
         {
@@ -177,8 +176,9 @@ public class HudUIManagement : MonoBehaviour
         //0이 되면 사망 DaathCheck->deadUI 띄우기
     }
 
-    private void PlayerSkillFillcondition()
+    public void PlayerSkillFillcondition() // 스킬 사용하는 곳 && 스킬 회복 되는곳
     {
+        playerState.skill = 3; //연결 테스트하기위해 수치3으로 바꿔봄
         switch (playerState.skill)
         {
             case 0:
