@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2355926773960594604}
   - component: {fileID: 2355926773960594605}
+  - component: {fileID: 2138377621077029499}
   m_Layer: 0
   m_Name: HudUI
   m_TagString: HudUI
@@ -74,6 +75,25 @@ MonoBehaviour:
   - {fileID: 3035366941886372193}
   - {fileID: 3035366942540821885}
   skillCnt: 4
+--- !u!95 &2138377621077029499
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2355926773960594611}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fe21d2cd9e91a5940b8c40f4d522bc75, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3035366940629266420
 GameObject:
   m_ObjectHideFlags: 0
