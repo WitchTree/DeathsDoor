@@ -12,10 +12,11 @@ public class InventoryUI : MonoBehaviour //inventory panel
 
     bool buttonPressed = false;
 
-    private void Start()
+    private void OnEnable()
     {
         EventSystem.current.SetSelectedGameObject(InventoryBtn[0]);
     }
+
 
     // Update is called once per frame
     void Update()

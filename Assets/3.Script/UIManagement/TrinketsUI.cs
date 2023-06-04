@@ -12,8 +12,7 @@ public class TrinketsUI : MonoBehaviour //Trinkets panel
 
     bool buttonPressed = false;
 
-
-    private void Start()
+    private void OnEnable()
     {
         EventSystem.current.SetSelectedGameObject(TrinketsBtn[0]);
     }

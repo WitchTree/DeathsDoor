@@ -12,8 +12,7 @@ public class WeaponUI : MonoBehaviour //weapon panel
 
     bool buttonPressed = false;
 
-
-    private void Start()
+    private void OnEnable()
     {
         EventSystem.current.SetSelectedGameObject(WeaponBtn[0]);
     }
@@ -116,7 +115,6 @@ public class WeaponUI : MonoBehaviour //weapon panel
         if (Input.GetKeyDown(KeyCode.E))
         {
             Debug.Log("E≈∞ º±≈√!");
-
         }
 
         if (buttonPressed)
