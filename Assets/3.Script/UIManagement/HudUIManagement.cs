@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class HudUIManagement : MonoBehaviour
 {
 
-    public Player_State playerState;
+    public PlayerState playerState;
 
     //heal관련 변수;
     //skill관련 변수;
@@ -23,10 +23,12 @@ public class HudUIManagement : MonoBehaviour
     [SerializeField] int skillSelectedBtn= 0;
 
     [Header("HP")]
-    public GameObject[] playerHeealth;
+    public GameObject[] playerHealth;
+    [SerializeField] int healthCnt= 4;
 
     [Header("MP")]
     public GameObject[] playerSkillFill;
+    [SerializeField] int skillCnt= 4;
 
     bool buttonPressed = false;
 
