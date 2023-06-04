@@ -17,7 +17,7 @@ public class ForestMotherDMGTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerState.life--;
+            //playerState.life--;
             Debug.Log("ÇÃ·¹ÀÌ¾î: ¾Ç !");
             playerOnDamage.PlayerSuffered();
         }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerState : MonoBehaviour
 {
+
+
     [HideInInspector] public int skill = 100; // Skill count has to be changed !!
     [HideInInspector] public int life = 4;
     [HideInInspector] public int seed = 0;
@@ -38,6 +40,8 @@ public class PlayerState : MonoBehaviour
             life--;
             Debug.Log("¸ñ¼û");
             Debug.Log(life);
+
+            FindObjectOfType<HudUIManagement>().PlayerHealthCondition();
 
             if (life <= 0)
             {

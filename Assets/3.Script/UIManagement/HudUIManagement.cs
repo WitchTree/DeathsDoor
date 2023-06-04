@@ -9,12 +9,6 @@ public class HudUIManagement : MonoBehaviour
 
     public PlayerState playerState;
 
-    //heal관련 변수;
-    //skill관련 변수;
-    //objecttrigger 관련 변수;
-    //sword tringger 관련 변수;
-    //사망 관련 변수;
-
     [Header("스킬")]
     public GameObject[] skillSelect;
     [SerializeField] GameObject[] skillBox;
@@ -23,10 +17,12 @@ public class HudUIManagement : MonoBehaviour
     [SerializeField] int skillSelectedBtn= 0;
 
     [Header("HP")]
-    public GameObject[] playerHealth;
+    public GameObject[] playerHealthEmpty;
+    public GameObject[] playerHpFill;
     [SerializeField] int healthCnt= 4;
 
     [Header("MP")]
+    public GameObject[] playerSkillEmpty;
     public GameObject[] playerSkillFill;
     [SerializeField] int skillCnt= 4;
 
@@ -57,7 +53,6 @@ public class HudUIManagement : MonoBehaviour
     {
         if (skillSelect.Length > 0)
         {
-            //panel이 활성화 되어있는 지 확인하고, 변경되었을 경우 첫번째 버튼 활성화
             if (firstSkill != skillSelect[0])
             {
                 skillSelectedBtn = 0;
@@ -65,14 +60,11 @@ public class HudUIManagement : MonoBehaviour
             firstSkill = skillSelect[0];
         }
 
-        //활성화 된 버튼의 위치 가져오기
         btn_pos = skillSelect[skillSelectedBtn].GetComponent<RectTransform>().position;
 
-        //버튼 위치 차이를 나타내는 배열
         horizontalDifference = new float[skillSelect.Length];
         verticallDifference = new float[skillSelect.Length];
 
-        //버튼 위치 차이를 계산
         for (int i = 0; i < skillSelect.Length; i++)
         {
             if (i != skillSelectedBtn)
@@ -89,7 +81,7 @@ public class HudUIManagement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1) && !buttonPressed)
         {
-            Debug.Log("1키 누름"); //화살 스킬
+            Debug.Log("1키 누름");
             buttonPressed = true;
 
             skillBox[0].SetActive(true);
@@ -100,7 +92,7 @@ public class HudUIManagement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha2) && !buttonPressed)
         {
-            Debug.Log("2키 누름"); //불 스킬
+            Debug.Log("2키 누름");
             buttonPressed = true;
 
             skillBox[0].SetActive(false);
@@ -140,8 +132,46 @@ public class HudUIManagement : MonoBehaviour
     }
 
 
-    private void PlayerHealthCondition()
+    public void PlayerHealthCondition()
     {
+        switch (playerState.life)
+        {
+            case 0:
+                playerHpFill[0].SetActive(false);
+                playerHpFill[1].SetActive(false);
+                playerHpFill[2].SetActive(false);
+                playerHpFill[3].SetActive(false);
+                //dead
+                break;
+
+            case 1:
+                playerHpFill[0].SetActive(true);
+                playerHpFill[1].SetActive(false);
+                playerHpFill[2].SetActive(false);
+                playerHpFill[3].SetActive(false);
+                break;
+
+            case 2:
+                playerHpFill[0].SetActive(true);
+                playerHpFill[1].SetActive(true);
+                playerHpFill[2].SetActive(false);
+                playerHpFill[3].SetActive(false);
+                break;
+
+            case 3:
+                playerHpFill[0].SetActive(true);
+                playerHpFill[1].SetActive(true);
+                playerHpFill[2].SetActive(true);
+                playerHpFill[3].SetActive(false);
+                break;
+
+            case 4:
+                playerHpFill[0].SetActive(true);
+                playerHpFill[1].SetActive(true);
+                playerHpFill[2].SetActive(true);
+                playerHpFill[3].SetActive(true);
+                break;
+        }
         //꽃 먹었을 때 HPFill+=4; (전부 활성화)
         //맞을 때 마다 HPFill--;(비활성화)
         //0이 되면 사망 DaathCheck->deadUI 띄우기
@@ -149,13 +179,49 @@ public class HudUIManagement : MonoBehaviour
 
     private void PlayerSkillFillcondition()
     {
+        switch (playerState.skill)
+        {
+            case 0:
+                playerSkillFill[0].SetActive(false);
+                playerSkillFill[1].SetActive(false);
+                playerSkillFill[2].SetActive(false);
+                playerSkillFill[3].SetActive(false);
+                break;
+
+            case 1:
+                playerSkillFill[0].SetActive(true);
+                playerSkillFill[1].SetActive(false);
+                playerSkillFill[2].SetActive(false);
+                playerSkillFill[3].SetActive(false);
+                break;
+
+            case 2:
+                playerSkillFill[0].SetActive(true);
+                playerSkillFill[1].SetActive(true);
+                playerSkillFill[2].SetActive(false);
+                playerSkillFill[3].SetActive(false);
+                break;
+
+            case 3:
+                playerSkillFill[0].SetActive(true);
+                playerSkillFill[1].SetActive(true);
+                playerSkillFill[2].SetActive(true);
+                playerSkillFill[3].SetActive(false);
+                break;
+
+            case 4:
+                playerSkillFill[0].SetActive(true);
+                playerSkillFill[1].SetActive(true);
+                playerSkillFill[2].SetActive(true);
+                playerSkillFill[3].SetActive(true);
+                break;
+        }
         //몬스터를 때릴 때마다 MPFill ++; (활성화)
         //버섯,항아리 때릴때마다 MpFill++; (활성화)
         //스킬 사용할 때마다 MPFill++; (활성화)
         // 단, 4개 이상 켜지지 않게
 
         //0이되면 스킬 사용 x (전부 비활성화)
-
     }
 
 }
