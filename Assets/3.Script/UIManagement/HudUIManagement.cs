@@ -100,29 +100,6 @@ public class HudUIManagement : MonoBehaviour
             skillBox[3].SetActive(false);
         }
 
-        //if (Input.GetKeyDown(KeyCode.Alpha3) && !buttonPressed)
-        //{
-        //    Debug.Log("3키 누름");
-        //    buttonPressed = true;
-        //
-        //    skillBox[0].SetActive(false);
-        //    skillBox[1].SetActive(false);
-        //    skillBox[2].SetActive(true);
-        //    skillBox[3].SetActive(false);
-        //}
-        //
-        //if (Input.GetKeyDown(KeyCode.Alpha4) && !buttonPressed)
-        //{
-        //    Debug.Log("4키 누름");
-        //    buttonPressed = true;
-        //
-        //    skillBox[0].SetActive(false);
-        //    skillBox[1].SetActive(false);
-        //    skillBox[2].SetActive(false);
-        //    skillBox[3].SetActive(true);
-        //}
-
-
         if (buttonPressed)
         {
             buttonPressed = false;
@@ -131,7 +108,7 @@ public class HudUIManagement : MonoBehaviour
     }
 
 
-    public void PlayerHealthCondition() //데미지 먹는 곳 && 피 회복되는 곳에 사용
+    public void PlayerHealthCondition() 
     {
         switch (playerState.life)
         {
@@ -171,14 +148,11 @@ public class HudUIManagement : MonoBehaviour
                 playerHpFill[3].SetActive(true);
                 break;
         }
-        //꽃 먹었을 때 HPFill+=4; (전부 활성화)
-        //맞을 때 마다 HPFill--;(비활성화)
-        //0이 되면 사망 DaathCheck->deadUI 띄우기
+
     }
 
-    public void PlayerSkillFillcondition() // 스킬 사용하는 곳 && 스킬 회복 되는곳
+    public void PlayerSkillFillcondition() 
     {
-        //playerState.skill = 3; //연결 테스트하기위해 수치3으로 바꿔봄
         switch (playerState.skill)
         {
             case 0:
@@ -216,12 +190,5 @@ public class HudUIManagement : MonoBehaviour
                 playerSkillFill[3].SetActive(true);
                 break;
         }
-        //몬스터를 때릴 때마다 MPFill ++; (활성화)
-        //버섯,항아리 때릴때마다 MpFill++; (활성화)
-        //스킬 사용할 때마다 MPFill++; (활성화)
-        // 단, 4개 이상 켜지지 않게
-
-        //0이되면 스킬 사용 x (전부 비활성화)
     }
-
 }
