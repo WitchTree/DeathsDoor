@@ -188,6 +188,9 @@ public class HudUIManagement : MonoBehaviour
                 playerSkillFill[1].SetActive(true);
                 playerSkillFill[2].SetActive(true);
                 playerSkillFill[3].SetActive(true);
+
+                
+
                 break;
         }
     }

@@ -6,8 +6,12 @@ using UnityEngine.EventSystems;
 
 public class InventoryUI : MonoBehaviour //inventory panel
 {
-    public GameObject[] InventoryBtn;
+    [Header("SFX")]
+    [SerializeField] private AudioSource inventoryAudio;
+    [SerializeField] private AudioClip inventoryNavigation;
+    [Space]
 
+    public GameObject[] InventoryBtn;
     [SerializeField] int selectedButton = 0;
 
     bool buttonPressed = false;
@@ -30,6 +34,7 @@ public class InventoryUI : MonoBehaviour //inventory panel
 
         if (Input.GetKeyDown(KeyCode.W) && !buttonPressed)
         {
+            inventoryAudio.PlayOneShot(inventoryNavigation);
             Debug.Log("W키 누름 ↑");
             buttonPressed = true;
 
@@ -50,6 +55,7 @@ public class InventoryUI : MonoBehaviour //inventory panel
 
         if (Input.GetKeyDown(KeyCode.A) && !buttonPressed)
         {
+            inventoryAudio.PlayOneShot(inventoryNavigation);
             Debug.Log("A키 누름 ←");
             buttonPressed = true;
 
@@ -74,6 +80,7 @@ public class InventoryUI : MonoBehaviour //inventory panel
 
         if (Input.GetKeyDown(KeyCode.S) && !buttonPressed)
         {
+            inventoryAudio.PlayOneShot(inventoryNavigation);
             Debug.Log("S키 누름 ↓");
             buttonPressed = true;
 
@@ -93,6 +100,7 @@ public class InventoryUI : MonoBehaviour //inventory panel
 
         if (Input.GetKeyDown(KeyCode.D) && !buttonPressed)
         {
+            inventoryAudio.PlayOneShot(inventoryNavigation);
             Debug.Log("D키 누름 →");
             buttonPressed = true;
 

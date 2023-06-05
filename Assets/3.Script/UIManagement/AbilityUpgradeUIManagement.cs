@@ -6,6 +6,12 @@ using UnityEngine.EventSystems;
 
 public class AbilityUpgradeUIManagement : MonoBehaviour
 {
+
+    [Header("SFX")]
+    [SerializeField] private AudioSource UpgradeAudio;
+    [SerializeField] private AudioClip UpgradeNavigation;
+    [Space]
+
     public GameObject[] Buttons;
     private GameObject firstButton;
     [SerializeField] int selectedButton = 0;
@@ -35,6 +41,7 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R)) 
         {
+            UpgradeAudio.PlayOneShot(UpgradeNavigation);
             switch (isMenuAct)
             {
                 case true:
@@ -97,6 +104,7 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.W) && !buttonPressed)
         {
+            UpgradeAudio.PlayOneShot(UpgradeNavigation);
             Debug.Log("W");
             buttonPressed = true;
 
@@ -115,6 +123,7 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.S) && !buttonPressed)
         {
+            UpgradeAudio.PlayOneShot(UpgradeNavigation);
             Debug.Log("S");
             buttonPressed = true;
 

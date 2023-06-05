@@ -6,6 +6,10 @@ using UnityEngine.EventSystems;
 
 public class TrinketsUI : MonoBehaviour //Trinkets panel
 {
+    [Header("SFX")]
+    [SerializeField] private AudioSource trinketsAudio;
+    [SerializeField] private AudioClip trinketsNavigation;
+    [Space]
     public GameObject[] TrinketsBtn;
 
     [SerializeField] int selectedButton = 0;
@@ -28,6 +32,7 @@ public class TrinketsUI : MonoBehaviour //Trinkets panel
     {
         if (Input.GetKeyDown(KeyCode.W) && !buttonPressed)
         {
+            trinketsAudio.PlayOneShot(trinketsNavigation);
             Debug.Log("W키 누름 ↑");
             buttonPressed = true;
 
@@ -45,11 +50,11 @@ public class TrinketsUI : MonoBehaviour //Trinkets panel
                     EventSystem.current.SetSelectedGameObject(TrinketsBtn[selectedButton]);
                 }
             }
-            //if (TrinketsBtn[0] || TrinketsBtn[1] || TrinketsBtn[2] || TrinketsBtn[3] || TrinketsBtn[4] || TrinketsBtn[5])
         }
 
         if (Input.GetKeyDown(KeyCode.A) && !buttonPressed)
         {
+            trinketsAudio.PlayOneShot(trinketsNavigation);
             Debug.Log("A키 누름 ←");
             buttonPressed = true;
 
@@ -68,6 +73,7 @@ public class TrinketsUI : MonoBehaviour //Trinkets panel
 
         if (Input.GetKeyDown(KeyCode.S) && !buttonPressed)
         {
+            trinketsAudio.PlayOneShot(trinketsNavigation);
             Debug.Log("S키 누름 ↓");
             buttonPressed = true;
 
@@ -89,6 +95,7 @@ public class TrinketsUI : MonoBehaviour //Trinkets panel
 
         if (Input.GetKeyDown(KeyCode.D) && !buttonPressed)
         {
+            trinketsAudio.PlayOneShot(trinketsNavigation);
             Debug.Log("D키 누름 →");
             buttonPressed = true;
 

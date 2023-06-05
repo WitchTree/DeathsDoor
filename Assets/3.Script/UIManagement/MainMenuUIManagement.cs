@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class MainMenuUIManagement : MonoBehaviour
 {
     [Header("SFX")]
+    [SerializeField] private AudioSource menuAudio;
     [SerializeField] private AudioClip menuOpen;
     [SerializeField] private AudioClip menuClose;
     [SerializeField] private AudioClip menuNavigation;
@@ -23,8 +24,6 @@ public class MainMenuUIManagement : MonoBehaviour
     [Header("panel 배열")]
     public GameObject[] MenuPanel; 
     [Space]
-
-
 
     private bool buttonPressed = false;
     private bool isMenuAct = false;
@@ -52,7 +51,6 @@ public class MainMenuUIManagement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            
             switch (isMenuAct)
             {
                 case true:
@@ -61,16 +59,17 @@ public class MainMenuUIManagement : MonoBehaviour
                     MainUI.SetActive(false);
                     Hud.SetActive(true);
                     Arrow.SetActive(true);
+                    menuAudio.PlayOneShot(menuClose);
                     break;
 
                 case false:
-
                     Time.timeScale = timeScale;
                     isMenuAct = true;
                     MainUI.SetActive(true);
                     Hud.SetActive(false);
                     Arrow.SetActive(false);
                     MainUIHeaderKeyboardInput();
+                    menuAudio.PlayOneShot(menuOpen);
                     break;
             }
         }
@@ -86,6 +85,7 @@ public class MainMenuUIManagement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z) && !buttonPressed)
         {
+            menuAudio.PlayOneShot(menuNavigation);
             Debug.Log("Z키 누름");
             buttonPressed = true;
             headerSelectedButton--;
@@ -162,6 +162,7 @@ public class MainMenuUIManagement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.X) && !buttonPressed)
         {
+            menuAudio.PlayOneShot(menuNavigation);
             Debug.Log("X키 누름");
             buttonPressed = true;
             headerSelectedButton++;
