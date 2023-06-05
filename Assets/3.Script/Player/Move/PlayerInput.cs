@@ -28,6 +28,8 @@ public class PlayerInput : MonoBehaviour
     public bool isSkill_end { get; private set; }
     public bool skill1 { get; private set; }
     public bool skill2 { get; private set; }
+
+    public bool isInteraction { get; private set; }
     // Update is called once per frame
     void Update()
     {
@@ -36,6 +38,7 @@ public class PlayerInput : MonoBehaviour
             Move_Value = Input.GetAxis(MoveAxisName);
             Rotate_Value = Input.GetAxis(RotateAxisName);
 
+            isInteraction = Input.GetKey(KeyCode.E);
 
             AtkLook = Input.GetButton(lightSword);
             isRoll = Input.GetKeyDown(KeyCode.Space);

@@ -335,14 +335,14 @@ ModelImporter:
       takeName: Climbing_ladder_down
       internalID: 0
       firstFrame: 0
-      lastFrame: 84
+      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -364,14 +364,14 @@ ModelImporter:
       takeName: Climbing_ladder
       internalID: 0
       firstFrame: 0
-      lastFrame: 84
+      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -451,7 +451,7 @@ ModelImporter:
       takeName: Climbing_off_ladder_top
       internalID: 0
       firstFrame: 0
-      lastFrame: 84
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

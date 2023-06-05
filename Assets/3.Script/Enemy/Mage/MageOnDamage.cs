@@ -25,7 +25,7 @@ public class MageOnDamage : MonoBehaviour
 
     private void Update()
     {
-        if (mage.hp.Equals(0))
+        if (mage.hp >= 0)
         {
             mage.isDead = true;
         }
