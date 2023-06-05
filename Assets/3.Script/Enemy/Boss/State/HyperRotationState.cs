@@ -28,6 +28,8 @@ public class HyperRotationState : StateMachineBehaviour
         forestMother.hyperSpinTime = 0f;
         agent.speed = 10f;
         centerPos = fMTransform.position;
+
+        forestMother.PlayHmmSound();
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -54,5 +56,7 @@ public class HyperRotationState : StateMachineBehaviour
         animator.SetBool("isHyperSpinEnd", false);
         animator.SetBool("isSpin", false);
         agent.speed = 0f;
+
+        forestMother.StopHmmSound();
     }
 }

@@ -7,6 +7,7 @@ public class ForestMotherTrigger : MonoBehaviour
     [SerializeField] SpikeDoor spikeDoor;
     [SerializeField] ForestMother forestMother;
     [SerializeField] int triggerNum;
+    
 
     private void OnTriggerEnter(Collider other)
     {
