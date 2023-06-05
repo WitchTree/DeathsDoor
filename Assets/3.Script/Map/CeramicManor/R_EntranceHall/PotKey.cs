@@ -39,7 +39,7 @@ public class PotKey : MonoBehaviour
         if (other.CompareTag("Skill")) 
         {
             //Broken pot audio
-            audio.PlayOneShot(potDamage);
+            audio.PlayOneShot(potDamage, 0.5f);
 
             //Pot key sphere active
             transform.GetChild(1).gameObject.SetActive(true);
