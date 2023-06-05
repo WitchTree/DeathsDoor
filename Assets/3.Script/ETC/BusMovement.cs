@@ -19,6 +19,7 @@ public class BusMovement : MonoBehaviour
     [SerializeField] GameObject arrow;
     [SerializeField] GameObject moveGlow;
     [SerializeField] Animator moveGlowAnimator;
+    [SerializeField] GameObject HudUi;
  
 
     void Start()
@@ -63,6 +64,7 @@ public class BusMovement : MonoBehaviour
     private void SetMoveGlow()
     {
         moveGlow.SetActive(true);
+        HudUi.SetActive(true);
         Invoke(nameof(ResetmoveGlow), 3.3f);          
     }
 

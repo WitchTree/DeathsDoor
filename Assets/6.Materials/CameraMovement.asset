@@ -13,28 +13,6 @@ MonoBehaviour:
   m_Name: CameraMovement
   m_EditorClassIdentifier: 
   m_CustomBlends:
-  - m_From: PlayerFollowCamera
-    m_To: '**ANY CAMERA**'
-    m_Blend:
-      m_Style: 1
-      m_Time: 2
-      m_CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-  - m_From: IntroEntry
-    m_To: '**ANY CAMERA**'
-    m_Blend:
-      m_Style: 1
-      m_Time: 2
-      m_CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
   - m_From: IntroEntry
     m_To: ChendlerCloseUp
     m_Blend:
@@ -46,21 +24,21 @@ MonoBehaviour:
         m_PreInfinity: 0
         m_PostInfinity: 0
         m_RotationOrder: 0
-  - m_From: DoorAppear
-    m_To: DoorCloseUp
+  - m_From: ChendlerCloseUp
+    m_To: ChendlerCloseUp2
     m_Blend:
-      m_Style: 1
-      m_Time: 2
+      m_Style: 5
+      m_Time: 10
       m_CustomCurve:
         serializedVersion: 2
         m_Curve: []
         m_PreInfinity: 0
         m_PostInfinity: 0
         m_RotationOrder: 0
-  - m_From: DoorCloseUp
-    m_To: '**ANY CAMERA**'
+  - m_From: ChendlerCloseUp2
+    m_To: IntroEntry
     m_Blend:
-      m_Style: 1
+      m_Style: 0
       m_Time: 2
       m_CustomCurve:
         serializedVersion: 2

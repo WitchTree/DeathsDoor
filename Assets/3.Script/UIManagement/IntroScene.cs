@@ -36,6 +36,7 @@ public class IntroScene : MonoBehaviour
     public string[] Dialogue;
     public int index;
     public float wordSpeed;
+    public GameObject introScene;
 
 
 
@@ -127,7 +128,7 @@ public class IntroScene : MonoBehaviour
             }
         }
 
-        if(index==7||index==10)
+        if(index==7||index==10||index==13||index==18)
         {
             DialogueAnimator.SetBool("isDoor", true);
             Invoke(nameof(PauseDialogue), 0.8f);    
@@ -139,6 +140,19 @@ public class IntroScene : MonoBehaviour
             else if(index==10)
             {
                 index=11;    
+            }
+
+            else if(index==13)
+            {
+                index=14;    
+            }
+
+            else if(index==18)
+            {
+                zeroText();                
+                Invoke(nameof(ResetCamera),0.3f);
+                Invoke(nameof(ResetPlayer),0.5f);                
+                introScene.SetActive(false);
             }
         }
 
@@ -166,16 +180,16 @@ public class IntroScene : MonoBehaviour
     private void TurCorner()
     {
         isEntered=false;
-        isCorner=true;           
+        isCorner=true;    
+        vcam[0].gameObject.SetActive(false);
+        vcam[1].gameObject.SetActive(true);       
 
     }
 
     private void FinishMove()
     {
         isCorner = false;
-        isFinish = true;
-        vcam[0].gameObject.SetActive(false);
-        vcam[1].gameObject.SetActive(true);
+        isFinish = true;        
 
     }
 
@@ -219,14 +233,6 @@ public class IntroScene : MonoBehaviour
         }
     }
 
-    IEnumerator ResumeTyping()
-    {       
-        foreach (char letter in Dialogue[index].ToCharArray())
-        {
-            Txt_Dialogue.text += letter;
-            yield return new WaitForSeconds(wordSpeed);
-        }
-    }
 
     public void zeroText() 
     {
@@ -257,7 +263,16 @@ public class IntroScene : MonoBehaviour
             DialogueUI.SetActive(false);
             vcam[2].gameObject.SetActive(false);
             vcam[4].gameObject.SetActive(true);
-            Invoke(nameof(ResumeDialogue),0.6f);    
+            Invoke(nameof(ResumeDialogue),1.4f);    
+            Invoke(nameof(ChendlerCameraCloseUp),0.6f);    
+        }
+
+        if(index==14)
+        {
+            DialogueUI.SetActive(false);
+            vcam[5].gameObject.SetActive(false);
+            vcam[1].gameObject.SetActive(true);
+            Invoke(nameof(ResumeDialogue),1.4f);               
         }
     }
 
@@ -276,6 +291,18 @@ public class IntroScene : MonoBehaviour
         Invoke(nameof(ResumeDialogue),1.4f);      
     }
 
+    private void ChendlerCameraCloseUp()
+    {
+        vcam[4].gameObject.SetActive(false);
+        vcam[5].gameObject.SetActive(true);        
+    }
+
+    private void ResetCamera()
+    {
+        vcam[1].gameObject.SetActive(false);
+        vcam[0].gameObject.SetActive(true);    
+    }
+
     private void ResumeDialogue()
     {
         DialogueUI.SetActive(true);
@@ -284,6 +311,17 @@ public class IntroScene : MonoBehaviour
     private void ActivateDoor()
     {        
         introDoor.SetActive(true);
+    }
+
+    private void ResetPlayer()
+    {
+        isEntered=false;
+        isLookat = false;
+        isEnd=false;
+        playerInput.isLock = false;
+        playerController.speed = 4;   
+        index=0;
+        DialogueUI.SetActive(false);
     }
 
 
