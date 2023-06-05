@@ -11,7 +11,7 @@ public class Weapon_Bow : MonoBehaviour
     public bool isfire = false;
     public bool fireCheck = false;
     public Enemy enemy;
-
+    public ParticleSystem particleObject;
 
     private static Weapon_Bow Instance;
     public static Weapon_Bow instance
@@ -32,7 +32,6 @@ public class Weapon_Bow : MonoBehaviour
         playerInput = FindObjectOfType<PlayerInput>();
         playerState = FindObjectOfType<PlayerState>();
 
-        //weaponDamage = playerState.skillDamage_1;
     }
 
     void Update()
@@ -66,6 +65,7 @@ public class Weapon_Bow : MonoBehaviour
         {
             isfire = true;
             fireCheck = isfire;
+            particleObject.Play();
         }
 
         if (!other.CompareTag("Player") )
@@ -76,19 +76,13 @@ public class Weapon_Bow : MonoBehaviour
 
     private bool IsVisibleByCamera()//카메라 밖에서 사라짐
     {
-        // 총알이 카메라에 보이는지 확인하는 로직을 구현합니다.
-        // 총알의 Collider를 사용하여 충돌 감지를 할 수도 있습니다.
-        // 예를 들어, 아래와 같이 카메라를 기준으로 총알의 위치를 확인할 수 있습니다.
-
-        /*
         Camera mainCamera = Camera.main;
         Vector3 viewportPos = mainCamera.WorldToViewportPoint(transform.position);
 
         if (viewportPos.x < 0 || viewportPos.x > 1 || viewportPos.y < 0 || viewportPos.y > 1)
         {
-            return false; // 총알이 카메라 밖에 있음
+            return false;
         }
-        */
 
         return true; // 총알이 카메라 안에 있음
     }
