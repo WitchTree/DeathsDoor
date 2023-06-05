@@ -174,6 +174,7 @@ public class IntroScene : MonoBehaviour
 
         }        
     }
+
     
    
 
@@ -199,7 +200,7 @@ public class IntroScene : MonoBehaviour
         isEnd = true;        
         
     }
-       
+
 
     public void NextLine()
     {
@@ -243,8 +244,25 @@ public class IntroScene : MonoBehaviour
 
     private void StartDialogue()
     {
-        DialogueUI.SetActive(true);
-        StartCoroutine(Typing());
+        if (isStart && !talking)
+        {
+            if (DialogueUI.activeInHierarchy && !talking)
+            {
+                zeroText();
+            }
+            else
+            {
+                talking = true;
+                DialogueUI.SetActive(true);
+                playerInput.isLock = true;
+                StartCoroutine(Typing());
+            }
+        }
+
+        if (Txt_Dialogue.text == Dialogue[index])
+        {
+            NextLine();
+        }
     }
 
     private void PauseDialogue()
