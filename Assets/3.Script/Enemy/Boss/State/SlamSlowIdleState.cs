@@ -15,6 +15,8 @@ public class SlamSlowIdleState : StateMachineBehaviour
         forestMother = animator.GetComponent<ForestMother>();
         
         forestMother.slamSlowTime = 0f;
+
+        forestMother.PlayHmmSound();
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -31,6 +33,7 @@ public class SlamSlowIdleState : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         forestMother.slamSlowTime = 0f;
+        forestMother.StopHmmSound();
         animator.SetBool("isSlamSlowEnd", false);
         animator.SetBool("isSpin", false);
     }
