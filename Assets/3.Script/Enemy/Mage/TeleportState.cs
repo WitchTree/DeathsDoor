@@ -22,6 +22,7 @@ public class TeleportState : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         mage.transform.position = mage.RandomNavmeshLocation(mage.teleportDist);
+        mage.PlayTeleportAudio();
 
     }
 

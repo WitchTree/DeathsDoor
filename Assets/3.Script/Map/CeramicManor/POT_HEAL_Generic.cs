@@ -18,9 +18,16 @@ public class POT_HEAL_Generic : MonoBehaviour
     //Colliders
     Collider collider;
 
+    //Audio
+    AudioSource audio;
+    [SerializeField] AudioClip potBreak;
+    [SerializeField] AudioClip potReset;
+
+
     private void Start()
     {
         collider = GetComponent<Collider>();
+        audio = GetComponent<AudioSource>();
 
         smashed = transform.GetChild(1).GetComponentsInChildren<Rigidbody>();
 
@@ -37,19 +44,15 @@ public class POT_HEAL_Generic : MonoBehaviour
 
         transform.GetChild(0).gameObject.SetActive(true);
     }
-        
-
-    private void Update()
-    {
-        //smashed[0].transform.localPosition = Vector3.MoveTowards(smashed[0].transform.localPosition, new Vector3(-0.0531f, 0f, 0f), 0.01f * Time.deltaTime);
-
-    }
 
     void OnTriggerEnter(Collider other) 
     {
         if (other.CompareTag("Skill"))
         {
-            //깨질 때 힘줄 방향
+            //Audio
+            audio.PlayOneShot(potBreak);
+
+            //Broken pot direction
             attackPos = transform.position - other.gameObject.transform.position;
             Destroy(other.gameObject);
 
@@ -59,40 +62,35 @@ public class POT_HEAL_Generic : MonoBehaviour
 
     public void BreakPot()
     {
-        //pot body 비활성화
+        //pot body disactive
         transform.GetChild(0).gameObject.SetActive(false);
 
-        //pot 깨지기
+        //pot break
         for (int i = 0; i < smashed.Length; i++)
         {
             smashed[i].isKinematic = false;
             smashed[i].AddForce(attackPos * 500f);
         }
 
-        //Collider 끄기
+        //Collider disabled
         collider.enabled = false;
         
-
-        //spike door를 open할 키이고 잠금이 해제되어 있다면
         if (isPotKey && spikeDoor.isUnlock)
         {
-            //문 열기
+            //Open door
             spikeDoor.OpenSpikeDoor();
-        }
-        else
-        {
-            //pot 다시 붙기
         }
     }
 
     public void ResetPot()
     {
+        audio.PlayOneShot(potReset);
         StartCoroutine(ResetPosToOriginal_co());
     }
 
     IEnumerator ResetPosToOriginal_co()
     {
-        //pot isKinematic 수정
+        //Modify pot isKinematic 
         for (int i = 0; i < smashed.Length; i++)
         {
             //smashed[i].useGravity = false;
@@ -127,9 +125,8 @@ public class POT_HEAL_Generic : MonoBehaviour
             yield return null;
         }
             
-        //이펙트 추가
+        //Add Effect
         
-        //다시 초기화
         Initialize();
     }
 

@@ -24,5 +24,6 @@ public class PotKeySphere : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         gameObject.SetActive(false);
+        transform.parent.gameObject.SetActive(false);
     }
 }
