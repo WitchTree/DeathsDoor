@@ -11,9 +11,12 @@ public class SceneChange : MonoBehaviour
     float timeFadeIn = 0f;
     float timeFadeOut = 0f;
 
+    [Header("Scene")]
     [SerializeField] string sceneName = "";
     [SerializeField] Image sceneLoadingImg;
+    TheGroveOfSpirits theGroveOfSpirits;
 
+    [Header("Player")]
     [SerializeField] Transform player;
     [SerializeField] Transform PEndPos;
     [SerializeField] Transform PStartPos;
@@ -27,6 +30,7 @@ public class SceneChange : MonoBehaviour
     private void Start()
     {
         playerAni = player.GetComponent<Animator>();
+        theGroveOfSpirits = FindObjectOfType<TheGroveOfSpirits>();
 
         StartCoroutine(FadeIn());
         StartCoroutine(PlayerAppear());
@@ -104,6 +108,8 @@ public class SceneChange : MonoBehaviour
 
         player.position = PStartPos.position;
         player.GetComponent<Animator>().SetBool("Run", false);
+
+        theGroveOfSpirits.StartDefaultBGM();
     }
 
     //timeFadeIn, timeFadeOut에 초기화 없어서 여러번 하면 오류날수도

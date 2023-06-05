@@ -3,7 +3,9 @@ guid: 1df71fa03076048a68faede306145e78
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - spikeDoor: {instanceID: 0}
+  - potBreak: {fileID: 8300000, guid: 286a8f3cc9897fc46aa498578355a3c9, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

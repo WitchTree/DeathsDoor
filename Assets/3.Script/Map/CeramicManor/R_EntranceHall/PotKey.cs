@@ -13,7 +13,20 @@ public class PotKey : MonoBehaviour
     //Material
     [SerializeField] Material glowMaterial;
 
+    //Mesh Renderer from child
+    MeshRenderer meshRenderer;
+
     [HideInInspector] public bool isActive = false;
+
+    //Audio
+    AudioSource audio;
+    [SerializeField] AudioClip potDamage;
+
+    private void Awake()
+    {
+        audio = GetComponent<AudioSource>();
+        meshRenderer = GetComponentInChildren<MeshRenderer>();
+    }
 
     public void KeyActive() 
     {
@@ -25,13 +38,15 @@ public class PotKey : MonoBehaviour
     {
         if (other.CompareTag("Skill")) 
         {
-            //항아리 부서지는 애니메이션
+            //Broken pot audio
+            audio.PlayOneShot(potDamage, 0.5f);
 
-            //Pot key sphere 활성화
+            //Pot key sphere active
             transform.GetChild(1).gameObject.SetActive(true);
 
-            //Key 머테리얼 변경
+            //Change key material
             KeyActive();
         }
     }
+
 }

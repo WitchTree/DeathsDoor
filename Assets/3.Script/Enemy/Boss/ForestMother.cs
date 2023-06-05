@@ -45,12 +45,17 @@ public class ForestMother : Enemy
     //lift vine attack count
     [HideInInspector] public int[] countAttacked = new int[2];
 
-    
+    [Header("Audio(Hit, Clap, Bowclap, HmmSound, SadVoice)")]
+    AudioSource audio;
+    [SerializeField] AudioClip[] audioClips;
+    TheGroveOfSpirits theGroveOfSpirits;
 
 
     void Start()
     {
         fMAni = GetComponent<Animator>();
+        audio = GetComponent<AudioSource>();
+        theGroveOfSpirits = FindObjectOfType<TheGroveOfSpirits>();
 
         //skinnedMeshRenderer save
         for (int i = 0; i < skinnedMeshRenderers.Length; i++)
@@ -71,13 +76,33 @@ public class ForestMother : Enemy
     public void Attack()
     {
         fMAni.SetBool("Slam", true);
+        theGroveOfSpirits.StartForestMotherBGM();
     }
 
     public void Dead()
     {
         isDead = true;
         fMAni.SetTrigger("Dead");
+        audio.PlayOneShot(audioClips[4]);
         StartCoroutine(CreateSpirit_co());
+    }
+
+    public void PlayHitSound()
+    {
+        audio.PlayOneShot(audioClips[0]);
+    }
+
+    public void PlayHmmSound()
+    {
+        audio.Stop();
+        audio.loop = true;
+        audio.Play();
+    }
+
+    public void StopHmmSound()
+    {
+        audio.Stop();
+        audio.loop = false;
     }
 
     public void EnableCollider1()
@@ -204,5 +229,7 @@ public class ForestMother : Enemy
     {
         yield return new WaitForSeconds(1f);
         GameObject spirit = Instantiate(spiritPrefab, transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(0.1f);
+        theGroveOfSpirits.StopForestMotherBGM();
     } 
 }

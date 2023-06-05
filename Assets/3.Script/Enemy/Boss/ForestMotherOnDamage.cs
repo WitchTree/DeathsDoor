@@ -24,6 +24,7 @@ public class ForestMotherOnDamage : MonoBehaviour
         {
             Destroy(other.gameObject);
             forestMother.hp -= playerSkill.skillDamage;
+            forestMother.PlayHitSound();
 
             if (forestMother.hp <= 0)
             {

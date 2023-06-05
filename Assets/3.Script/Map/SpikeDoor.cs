@@ -8,18 +8,24 @@ public class SpikeDoor : MonoBehaviour
     Vector3[] childPos = new Vector3[7];
     public bool isUnlock = true;
 
+    AudioSource audio;
+    [SerializeField] AudioClip openAudio;
+
     private void Awake()
     {
         for (int i = 2; i < 9; i++) //transform.childCount
         {
             childPos[i - 2] = transform.GetChild(i).localPosition;
         }
+
+        audio = GetComponent<AudioSource>();
     }
 
     public void OpenSpikeDoor()
     {
         if (isUnlock) 
         {
+            audio.PlayOneShot(openAudio, 0.5f);
             for (int i = 2; i < 9; i++)
             {
                 StartCoroutine(OpenSpike_co(transform.GetChild(i)));
@@ -30,7 +36,7 @@ public class SpikeDoor : MonoBehaviour
 
     IEnumerator OpenSpike_co(Transform spike)
     {
-        yield return new WaitForSeconds(2f);
+        //yield return new WaitForSeconds(2f);
         while (spike.localPosition.y > yPos)
         {
             spike.localPosition += new Vector3(0f, -0.001f, 0f);

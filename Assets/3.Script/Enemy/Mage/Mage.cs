@@ -40,6 +40,13 @@ public class Mage : Enemy
     //DMG effect
     SkinnedMeshRenderer[] skinnedMeshRenderer = new SkinnedMeshRenderer[3];
 
+    //Audio
+    [Header("Audio")]
+    AudioSource audio;
+    [SerializeField] AudioClip takeDamage;
+    [SerializeField] AudioClip shoot;
+    [SerializeField] AudioClip disappear;
+
     void Start()
     {
         SetMage();
@@ -60,12 +67,13 @@ public class Mage : Enemy
         mageAni = GetComponent<Animator>();
         mageOnDamage = GetComponentInChildren<MageOnDamage>();
         skinnedMeshRenderer = GetComponentsInChildren<SkinnedMeshRenderer>();
-        
+        audio = GetComponent<AudioSource>();
     }
 
     public void Damaged()
     {
         hp--;
+        audio.PlayOneShot(takeDamage);
         if (hp <= 0)
         {
             isDead = true;
@@ -86,7 +94,8 @@ public class Mage : Enemy
         GameObject spirit = Instantiate(spiritPrefab, transform.position, Quaternion.identity);
     }
 
-    //Mage의 Trigger는 원으로 안에 들어오면 어그로 끌리고 벗어나면 플레이어 근처로 텔레포트함
+    //If player comes inside the trigger, mage attracted.
+    //outside the trigger, mage teleport.
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -102,8 +111,6 @@ public class Mage : Enemy
         {
             isTeleporting = true;
             mageAni.SetBool("isTeleporting", isTeleporting);
-            
-
         }
     }
 
@@ -119,7 +126,7 @@ public class Mage : Enemy
     void Attack()
     {
         //Mage -> shoot
-        if (attackTime >= attackBetTime && !isAttacking && !isTeleporting)  //공격 가능하면
+        if (attackTime >= attackBetTime && !isAttacking && !isTeleporting)
         {
             isAttacking = true;
             playerPos = player.position;
@@ -130,7 +137,7 @@ public class Mage : Enemy
 
     public void Shooting()
     {
-        //Bullet 날리기
+        //Shoot bullet
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
         bullet.transform.SetParent(transform);
 
@@ -139,7 +146,7 @@ public class Mage : Enemy
     }
     
 
-    //NavMesh 내 랜덤한 위치 생성
+    //Respawn at random position in NavMesh
     public Vector3 RandomNavmeshLocation(float radius)
     {
         Vector3 randomDirection = Random.insideUnitSphere * radius;
@@ -151,5 +158,10 @@ public class Mage : Enemy
             finalPosition = hit.position;
         }
         return finalPosition;
+    }
+
+    public void PlayTeleportAudio()
+    {
+        audio.PlayOneShot(disappear);
     }
 }

@@ -12,6 +12,14 @@ public class EntranceHall : MonoBehaviour
     [Header("Keys")]
     [SerializeField] PotKey[] keys;
 
+    [Header("Audio")]
+    AudioSource audio;
+    [SerializeField] AudioClip doorButton;
+
+    private void Start()
+    {
+        audio = GetComponent<AudioSource>();
+    }
 
     void Update()
     { 
@@ -30,6 +38,7 @@ public class EntranceHall : MonoBehaviour
 
     IEnumerator OpenDoor_co() 
     {
+        audio.PlayOneShot(doorButton);
         yield return new WaitForSeconds(2f);
         while (leftDoor.localPosition.x > -0.0045f) 
         {

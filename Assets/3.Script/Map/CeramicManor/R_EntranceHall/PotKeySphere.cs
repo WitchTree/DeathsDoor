@@ -6,14 +6,20 @@ public class PotKeySphere : MonoBehaviour
 {
     float size = 0.0001f;
 
+    AudioSource audio;
+    [SerializeField] AudioClip keyCollect;
+
     private void Start()
     {
+        audio = GetComponent<AudioSource>();
+
         transform.localScale = new Vector3(size, size, size);
         StartCoroutine(PotKeySizeUp_co());
     }
 
     IEnumerator PotKeySizeUp_co()
     {
+        audio.PlayOneShot(keyCollect, 0.5f);
         while (transform.localScale.x < 0.017f)
         {
             transform.localScale += new Vector3(size, size, size);
@@ -24,5 +30,6 @@ public class PotKeySphere : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         gameObject.SetActive(false);
+        transform.parent.gameObject.SetActive(false);
     }
 }
