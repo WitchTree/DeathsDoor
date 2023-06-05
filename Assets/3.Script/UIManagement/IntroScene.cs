@@ -17,6 +17,7 @@ public class IntroScene : MonoBehaviour
     public GameObject thirdPointObject;
     public GameObject targetObject;
     public GameObject introDoor;
+    public GameObject shortDoor;
 
     public bool isEntered;
     public bool isCorner;
@@ -339,6 +340,8 @@ public class IntroScene : MonoBehaviour
         playerInput.isLock = false;
         playerController.speed = 4;   
         index=0;
+        introDoor.SetActive(false);
+        shortDoor.SetActive(true);
         DialogueUI.SetActive(false);
     }
 
