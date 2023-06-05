@@ -6,7 +6,7 @@ public class PlayerState : MonoBehaviour
 {
 
 
-    [HideInInspector] public int skill = 100; // Skill count has to be changed !!
+    [SerializeField] public int skill = 4; // Skill count has to be changed !!
     [HideInInspector] public int life = 4;
     [HideInInspector] public int seed = 0;
     [HideInInspector] public int getSpirit = 0;

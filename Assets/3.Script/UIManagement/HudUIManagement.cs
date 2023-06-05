@@ -178,7 +178,7 @@ public class HudUIManagement : MonoBehaviour
 
     public void PlayerSkillFillcondition() // 스킬 사용하는 곳 && 스킬 회복 되는곳
     {
-        playerState.skill = 3; //연결 테스트하기위해 수치3으로 바꿔봄
+        //playerState.skill = 3; //연결 테스트하기위해 수치3으로 바꿔봄
         switch (playerState.skill)
         {
             case 0:
