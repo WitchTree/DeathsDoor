@@ -42,9 +42,8 @@ public class NPCDialogue : MonoBehaviour
             {
                 Hud.SetActive(true);
                 zeroText();
-                
-
             }
+
             else
             {
                 talking = true;
@@ -91,7 +90,7 @@ public class NPCDialogue : MonoBehaviour
         playerInput.isLock = false;
     }
 
-    public void zeroText() //text �ʱ�ȭ
+    public void zeroText() 
     {
         Txt_Dialogue.text = "";
         index = 0;
