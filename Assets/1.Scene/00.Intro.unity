@@ -7955,6 +7955,8 @@ MonoBehaviour:
   - {fileID: 7599486642368585699}
   - {fileID: 7599486641534070204}
   - {fileID: 7599486641049158813}
+  selectedButton: 0
+  fadeImage: {fileID: 0}
 --- !u!114 &1908225046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18345,6 +18347,7 @@ GameObject:
   - component: {fileID: 660080491042821544}
   - component: {fileID: 660080491042821545}
   - component: {fileID: 660080491042821550}
+  - component: {fileID: 660080491042821552}
   m_Layer: 5
   m_Name: BtnStart
   m_TagString: Button
@@ -18352,6 +18355,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &660080491042821552
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660080491042821551}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a4fcb8246cfc8484dae7c348ac6d814d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!224 &660080491126382512
 RectTransform:
   m_ObjectHideFlags: 0
