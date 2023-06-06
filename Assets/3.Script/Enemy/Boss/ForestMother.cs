@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Cinemachine;
 public class ForestMother : Enemy
 {
     //Component
@@ -50,6 +50,12 @@ public class ForestMother : Enemy
     [SerializeField] AudioClip[] audioClips;
     TheGroveOfSpirits theGroveOfSpirits;
 
+    public CinemachineVirtualCamera[] vcam;
+    public GameObject nextSceneDoor;
+    public GameObject nextSceneDoorGlow;
+    public PlayerController playerController;
+    public NextScene nextScene;
+   
 
     void Start()
     {
@@ -62,19 +68,23 @@ public class ForestMother : Enemy
         {
             currMaterials[i] = skinnedMeshRenderers[i].materials;
         }
-        currMaterial = meshRenderer.materials[0];
-        SetFM();
+        currMaterial = meshRenderer.materials[0];       
+        SetFM();           
     }
-
+    
+  
     void SetFM()
     {
-        this.hp = 20f;
+        this.hp = 1f;
         this.maxHp = 20f;
         this.spirit = 100;
     }
 
     public void Attack()
     {
+        vcam[0].gameObject.SetActive(false);
+        vcam[2].gameObject.SetActive(true);    
+        vcam[2].m_Lens.NearClipPlane=-7.5f;
         fMAni.SetBool("Slam", true);
         theGroveOfSpirits.StartForestMotherBGM();
     }
@@ -205,6 +215,7 @@ public class ForestMother : Enemy
 
     public void ChangeMaterialDead()
     {
+        CameraMovement();
         StartCoroutine(DeadEffect_co());
     }
 
@@ -225,6 +236,35 @@ public class ForestMother : Enemy
             yield return new WaitForSeconds(refreshRate);
         }
     }
+
+    private void CameraMovement()
+    {        
+        playerController.ReChangeLayersRecursively();
+        nextSceneDoor.SetActive(true);
+        vcam[2].gameObject.SetActive(false);
+        vcam[4].gameObject.SetActive(true);     
+        Invoke(nameof(PlayerMovement),6.5f);          
+        Invoke(nameof(CameraMovement2),3.5f);  
+        
+    }
+
+    private void CameraMovement2()
+    {               
+        vcam[4].gameObject.SetActive(false);
+        vcam[3].m_Lens.NearClipPlane=-7.5f;
+        vcam[3].gameObject.SetActive(true);  
+        
+    }
+
+
+
+    private void PlayerMovement()
+    {
+        nextSceneDoorGlow.SetActive(true);
+        nextScene.isFirst=true;
+    }
+
+   
     IEnumerator CreateSpirit_co()
     {
         yield return new WaitForSeconds(1f);

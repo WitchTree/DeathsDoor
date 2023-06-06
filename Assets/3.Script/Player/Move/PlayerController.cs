@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private float delay = 0.4f;
 
     public GameObject labberPos;
+    public GameObject[] weapon;
 
     private Rigidbody player_R;
     private Animator ani;
@@ -46,6 +47,19 @@ public class PlayerController : MonoBehaviour
         }
 
         
+    }
+
+    public void ReChangeLayersRecursively()
+    {
+        foreach (Transform child in transform)
+        {
+            child.gameObject.layer = 0;            
+        }
+
+        for(int i=0;i<3;i++)
+        {
+            weapon[i].gameObject.layer=0;
+        }
     }
     private void FixedUpdate()
     {
