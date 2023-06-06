@@ -22,7 +22,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Cursor
   - Water
   - UI
   - RenderAbove

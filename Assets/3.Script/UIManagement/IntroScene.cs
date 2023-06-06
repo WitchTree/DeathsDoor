@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class IntroScene : MonoBehaviour
 {
     [SerializeField] GameObject player;
+    [SerializeField] GameObject Arrow;
     public Vector3 firstPoint;
     public Vector3 secondPoint;
     public Vector3 thirdPoint;
@@ -171,6 +172,7 @@ public class IntroScene : MonoBehaviour
             playerAnimator.SetBool("Run", false);
             playerAnimator.SetBool("Idle",false);
             playerAnimator.SetBool("FakeRun",true);
+            Arrow.SetActive(false);
             //playerController.isRoll=true;    
 
         }        
@@ -343,6 +345,7 @@ public class IntroScene : MonoBehaviour
         introDoor.SetActive(false);
         shortDoor.SetActive(true);
         DialogueUI.SetActive(false);
+        Arrow.SetActive(true);
     }
 
 

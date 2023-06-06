@@ -29,6 +29,9 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] PlayerInput playerinput;
     [SerializeField] Camera main;
+
+    public float rotationSpeed=5f;
+    public GameObject cursor;
     void Start()
     {
         player_R = GetComponent<Rigidbody>();
@@ -72,10 +75,23 @@ public class PlayerController : MonoBehaviour
         {
             Ray cameraRay = main.ScreenPointToRay(Input.mousePosition);
             Vector3 hitpoint = Vector3.zero;
-            if (Physics.Raycast(cameraRay, out RaycastHit h))
+            // if (Physics.Raycast(cameraRay, out RaycastHit h))
+            // {
+            //     hitpoint = h.point;
+            //     hitpoint.y = transform.position.y;
+            // }
+
+            if (Physics.Raycast(cameraRay, out RaycastHit h)&&h.collider.gameObject.layer!=2)
             {
+                Vector3 targetDir=h.point-transform.position;
+                targetDir.y=0f;
+                Quaternion targetRotation=Quaternion.LookRotation(targetDir);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
                 hitpoint = h.point;
-                hitpoint.y = transform.position.y;
+                cursor.transform.position = new Vector3(hitpoint.x, hitpoint.y, hitpoint.z);
+                
+                
+                
             }
             Vector3 offset = hitpoint - transform.position;
             float sqrLen = offset.sqrMagnitude;
