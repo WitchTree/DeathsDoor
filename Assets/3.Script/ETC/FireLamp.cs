@@ -36,7 +36,7 @@ public class FireLamp : MonoBehaviour
     {
         if (other.CompareTag("Skill"))
         {
-            if (other.gameObject.name == "Arrow(Clone)")
+            if (other.gameObject.name == "Arrow (Clone)")
             {
                 if (Weapon_Bow.instance.fireCheck)
                 {
@@ -47,12 +47,16 @@ public class FireLamp : MonoBehaviour
 
                     return;
                 }
+
+
             }
+            else
+            {
+                fire.SetActive(true);
+                isFire = true;
 
-            fire.SetActive(true);
-            isFire = true;
-
-            Debug.Log("불 붙었다!!");
+                Debug.Log("불 붙었다!!");
+            }
         }
     }
 

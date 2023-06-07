@@ -5,17 +5,20 @@ using UnityEngine;
 public class PoisionPot : MonoBehaviour
 {
     public GameObject Pot_Purple;
+    public GameObject Pot_PurpleCell;
     public float sphereRadius = 5f;
+    public ParticleSystem particleObject;
+    private int count = 1;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Skill"))
+        if (other.CompareTag("Skill") && count == 1)
         {
             StartCoroutine(Explosion());           
         }
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmos()    
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sphereRadius);
@@ -34,21 +37,27 @@ public class PoisionPot : MonoBehaviour
         {
             if (hitObj.transform != null)
             {
-                //Bat batComponent = hitObj.transform.GetComponent<Bat>();
+                Mage megetComponent = hitObj.transform.GetComponent<Mage>();
                 PlayerOnDamage playerComponent = hitObj.transform.GetComponent<PlayerOnDamage>();
 
 
-                //if (batComponent != null)
-                //{
-                //    batComponent.HitPot(transform.position);
-                //}
+                if (megetComponent != null)
+                {
+                    megetComponent.HitPot(transform.position);
+                }
                 if (playerComponent != null)
                 {
                     playerComponent.HitPot(transform.position);
                 }
+
               
             }
         }
-        Destroy(gameObject);
+        Pot_Purple.SetActive(false);
+        Pot_PurpleCell.SetActive(true);
+
+        particleObject.Play();
+        count--;
+        //Destroy(gameObject);
     }
 }

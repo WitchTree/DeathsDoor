@@ -14,11 +14,15 @@ TagManager:
   - Fire
   - Bullet
   - Wall
+  - Bus
+  - Ladder_Top
+  - Ladder_Bottom
+  - Ladder
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Cursor
   - Water
   - UI
   - RenderAbove

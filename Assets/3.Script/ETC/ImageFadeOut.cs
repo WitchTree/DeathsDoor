@@ -29,7 +29,7 @@ public class ImageFadeOut : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
 
-
-
     }
+
+   
 }

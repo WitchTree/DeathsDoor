@@ -7,8 +7,6 @@ public class PlayerOnDamage : MonoBehaviour
 {
     public PlayerState playerState;
 
-    public Bat bat;
-
     private Animator ani;
     public bool isSuffer = false;
     public bool canSuffer = true;
@@ -16,7 +14,6 @@ public class PlayerOnDamage : MonoBehaviour
 
     private void Awake()
     {
-        bat = FindObjectOfType<Bat>();
         playerState = GetComponent<PlayerState>();
     }
 
@@ -44,10 +41,9 @@ public class PlayerOnDamage : MonoBehaviour
         
     }
 
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy") && !isSuffer && bat.isAttacking)
+        if (other.CompareTag("Enemy") && !isSuffer)
         {
             playerState.life--;
             Debug.Log("¸ñ¼û");
@@ -85,10 +81,8 @@ public class PlayerOnDamage : MonoBehaviour
     }
 
     IEnumerator onDamage_co()
-    {
-        
+    {     
         yield return new WaitForSeconds(1f);
-        Debug.Log("¾Æ¾ß" );
     }
 
 }

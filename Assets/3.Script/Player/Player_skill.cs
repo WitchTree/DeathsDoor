@@ -81,14 +81,12 @@ public class Player_skill : MonoBehaviour
 
             isSkill = true;
 
-            //Debug.Log(skillDamage);
-
             if (skillIndex == 0)
             {
                 ani.SetBool("Bow", isSkill);
                 if (playerState.skill <= 0 )
                 {
-                    arrowhead.SetActive(false);
+                   arrowhead.SetActive(false);
                 }
             }
             if (skillIndex == 1)

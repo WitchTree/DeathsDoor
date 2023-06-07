@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class IntroScene : MonoBehaviour
 {
     [SerializeField] GameObject player;
+    [SerializeField] GameObject Arrow;
     public Vector3 firstPoint;
     public Vector3 secondPoint;
     public Vector3 thirdPoint;
@@ -17,6 +18,7 @@ public class IntroScene : MonoBehaviour
     public GameObject thirdPointObject;
     public GameObject targetObject;
     public GameObject introDoor;
+    public GameObject shortDoor;
 
     public bool isEntered;
     public bool isCorner;
@@ -170,10 +172,12 @@ public class IntroScene : MonoBehaviour
             playerAnimator.SetBool("Run", false);
             playerAnimator.SetBool("Idle",false);
             playerAnimator.SetBool("FakeRun",true);
+            Arrow.SetActive(false);
             //playerController.isRoll=true;    
 
         }        
     }
+
     
    
 
@@ -199,7 +203,7 @@ public class IntroScene : MonoBehaviour
         isEnd = true;        
         
     }
-       
+
 
     public void NextLine()
     {
@@ -243,8 +247,25 @@ public class IntroScene : MonoBehaviour
 
     private void StartDialogue()
     {
-        DialogueUI.SetActive(true);
-        StartCoroutine(Typing());
+        if (isStart && !talking)
+        {
+            if (DialogueUI.activeInHierarchy && !talking)
+            {
+                zeroText();
+            }
+            else
+            {
+                talking = true;
+                DialogueUI.SetActive(true);
+                playerInput.isLock = true;
+                StartCoroutine(Typing());
+            }
+        }
+
+        if (Txt_Dialogue.text == Dialogue[index])
+        {
+            NextLine();
+        }
     }
 
     private void PauseDialogue()
@@ -321,7 +342,10 @@ public class IntroScene : MonoBehaviour
         playerInput.isLock = false;
         playerController.speed = 4;   
         index=0;
+        introDoor.SetActive(false);
+        shortDoor.SetActive(true);
         DialogueUI.SetActive(false);
+        Arrow.SetActive(true);
     }
 
 

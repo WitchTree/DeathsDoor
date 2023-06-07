@@ -164,4 +164,9 @@ public class Mage : Enemy
     {
         audio.PlayOneShot(disappear);
     }
+
+    public void HitPot(Vector3 position)
+    {
+        hp -= 100;
+    }
 }

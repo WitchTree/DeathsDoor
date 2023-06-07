@@ -7,20 +7,20 @@ using UnityEngine.EventSystems;
 public class MainMenuUIManagement : MonoBehaviour
 {
 
-    [Header("header ¹è¿­")]
-    public Button[] Buttons; //header ¹è¿­
+    [Header("header ï¿½è¿­")]
+    public Button[] Buttons; //header ï¿½è¿­
     //private GameObject firstButton;
 
-    [Header("¼±ÅÃµÈ header")]
+    [Header("ï¿½ï¿½ï¿½Ãµï¿½ header")]
     [SerializeField] int headerSelectedButton = 0;
     [Space]
     public GameObject[] Headerselected;
 
-    [Header("panel ¹è¿­")]
-    public GameObject[] MenuPanel; //pnanel ¹è¿­
+    [Header("panel ï¿½è¿­")]
+    public GameObject[] MenuPanel; //pnanel ï¿½è¿­
     [Space]
 
-    //[Header("panel ¹è¿­")]
+    //[Header("panel ï¿½è¿­")]
     //[SerializeField] int panelSelectedButton = 0;
 
     //Vector3 btn_pos;
@@ -45,7 +45,7 @@ public class MainMenuUIManagement : MonoBehaviour
 
     private void Start()
     {
-        Headerselected[0].SetActive(true);
+        //Headerselected[0].SetActive(true);
     }
 
     // Update is called once per frame
@@ -80,13 +80,13 @@ public class MainMenuUIManagement : MonoBehaviour
         }
     }
 
-    //Ã¹¹øÂ° Select µÇ¾îÀÖ´Â ¹öÆ°
+    //Ã¹ï¿½ï¿½Â° Select ï¿½Ç¾ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½Æ°
     /*
     private void SetMenuUI()
     {
         if (Buttons.Length > 0)
         {
-            //panelÀÌ È°¼ºÈ­ µÇ¾îÀÖ´Â Áö È®ÀÎÇÏ°í, º¯°æµÇ¾úÀ» °æ¿ì Ã¹¹øÂ° ¹öÆ° È°¼ºÈ­
+            //panelï¿½ï¿½ È°ï¿½ï¿½È­ ï¿½Ç¾ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï°ï¿½, ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ã¹ï¿½ï¿½Â° ï¿½ï¿½Æ° È°ï¿½ï¿½È­
             if (firstButton != Buttons[0])
             {
                 headerSelectedButton = 0;
@@ -94,14 +94,14 @@ public class MainMenuUIManagement : MonoBehaviour
             firstButton = Buttons[0];
         }
 
-        //È°¼ºÈ­ µÈ ¹öÆ°ÀÇ À§Ä¡ °¡Á®¿À±â
+        //È°ï¿½ï¿½È­ ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         btn_pos = Buttons[headerSelectedButton].GetComponent<RectTransform>().position;
 
-        //¹öÆ° À§Ä¡ Â÷ÀÌ¸¦ ³ªÅ¸³»´Â ¹è¿­
+        //ï¿½ï¿½Æ° ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­
         horizontalDifference = new float[Buttons.Length];
         verticallDifference = new float[Buttons.Length];
 
-        //¹öÆ° À§Ä¡ Â÷ÀÌ¸¦ °è»ê
+        //ï¿½ï¿½Æ° ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½
         for (int i = 0; i < Buttons.Length; i++)
         {
             if (i != headerSelectedButton)
@@ -121,7 +121,7 @@ public class MainMenuUIManagement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z) && !buttonPressed)
         {
-            Debug.Log("ZÅ° ´©¸§");
+            Debug.Log("ZÅ° ï¿½ï¿½ï¿½ï¿½");
             buttonPressed = true;
             headerSelectedButton--;
             /*
@@ -149,7 +149,7 @@ public class MainMenuUIManagement : MonoBehaviour
                 Headerselected[2].SetActive(false);
                 Headerselected[3].SetActive(false);
                 Headerselected[4].SetActive(false);
-                Debug.Log("ÀÎº¥Åä¸® ¿­±â");
+                Debug.Log("ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½");
 
             }
 
@@ -166,7 +166,7 @@ public class MainMenuUIManagement : MonoBehaviour
                 Headerselected[2].SetActive(false);
                 Headerselected[3].SetActive(false);
                 Headerselected[4].SetActive(false);
-                Debug.Log("¹«±â ¿­±â");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 
             }
 
@@ -183,7 +183,7 @@ public class MainMenuUIManagement : MonoBehaviour
                 Headerselected[2].SetActive(true);
                 Headerselected[3].SetActive(false);
                 Headerselected[4].SetActive(false);
-                Debug.Log("ºû³ª´Â¹°°Ç ¿­±â");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½Â¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
             }
 
             if (headerSelectedButton == 3)
@@ -195,7 +195,7 @@ public class MainMenuUIManagement : MonoBehaviour
                 Headerselected[2].SetActive(false);
                 Headerselected[3].SetActive(true);
                 Headerselected[4].SetActive(false);
-                Debug.Log("ÄÁÆ®·Ñ·¯ ¿­±â");
+                Debug.Log("ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ ï¿½ï¿½ï¿½ï¿½");
 
             }
             
@@ -208,13 +208,13 @@ public class MainMenuUIManagement : MonoBehaviour
                 Headerselected[2].SetActive(false);
                 Headerselected[3].SetActive(false);
                 Headerselected[4].SetActive(true);
-                Debug.Log("¿É¼Ç ¿­±â");
+                Debug.Log("ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½");
             }
         }
 
         if (Input.GetKeyDown(KeyCode.X) && !buttonPressed)
         {
-            Debug.Log("XÅ° ´©¸§");
+            Debug.Log("XÅ° ï¿½ï¿½ï¿½ï¿½");
             buttonPressed = true;
             headerSelectedButton++;
             /*
@@ -243,7 +243,7 @@ public class MainMenuUIManagement : MonoBehaviour
                 Headerselected[2].SetActive(false);
                 Headerselected[3].SetActive(false);
                 Headerselected[4].SetActive(false);
-                Debug.Log("ÀÎº¥Åä¸® ¿­±â");
+                Debug.Log("ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½");
 
             }
 
@@ -260,7 +260,7 @@ public class MainMenuUIManagement : MonoBehaviour
                 Headerselected[2].SetActive(false);
                 Headerselected[3].SetActive(false);
                 Headerselected[4].SetActive(false);
-                Debug.Log("¹«±â ¿­±â");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 
             }
 
@@ -277,7 +277,7 @@ public class MainMenuUIManagement : MonoBehaviour
                 Headerselected[2].SetActive(true);
                 Headerselected[3].SetActive(false);
                 Headerselected[4].SetActive(false);
-                Debug.Log("ºû³ª´Â¹°°Ç ¿­±â");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½Â¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
             }
 
             if (headerSelectedButton == 3)
@@ -289,7 +289,7 @@ public class MainMenuUIManagement : MonoBehaviour
                 Headerselected[2].SetActive(false);
                 Headerselected[3].SetActive(true);
                 Headerselected[4].SetActive(false);
-                Debug.Log("ÄÁÆ®·Ñ·¯ ¿­±â");
+                Debug.Log("ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ ï¿½ï¿½ï¿½ï¿½");
 
             }
 
@@ -302,7 +302,7 @@ public class MainMenuUIManagement : MonoBehaviour
                 Headerselected[2].SetActive(false);
                 Headerselected[3].SetActive(false);
                 Headerselected[4].SetActive(true);
-                Debug.Log("¿É¼Ç ¿­±â");
+                Debug.Log("ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½");
             }
         }
 
