@@ -8,10 +8,14 @@ public class TitleUIManagement : MonoBehaviour
 {
 
     public Animator[] BtnAni;
+
     public GameObject[] Buttons;
     private GameObject firstButton;
 
     [SerializeField] int selectedButton = 0;
+
+    [SerializeField] private AudioSource menuAudio;
+    [SerializeField] private AudioClip menuNavigation;
 
     Vector3 btn_pos;
     float[] horizontalDifference;
@@ -69,6 +73,7 @@ public class TitleUIManagement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.W) && !buttonPressed)
         {
+            menuAudio.PlayOneShot(menuNavigation);
             buttonPressed = true;
 
             if (selectedButton == 0)
@@ -86,6 +91,7 @@ public class TitleUIManagement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.S) && !buttonPressed)
         {
+            menuAudio.PlayOneShot(menuNavigation);
             buttonPressed = true;
 
             if (selectedButton == Buttons.Length - 1)

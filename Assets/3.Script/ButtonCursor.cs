@@ -5,9 +5,11 @@ using UnityEngine;
 public class ButtonCursor : MonoBehaviour
 {
     float selection;
-    [SerializeField] private GameObject startedSelected;
-    [SerializeField] private GameObject optionSelected;
-    [SerializeField] private GameObject exitSelected;
+
+
+    [SerializeField] private GameObject selected_0; 
+    [SerializeField] private GameObject selected_1;
+    [SerializeField] private GameObject selected_2;
 
     // Start is called before the first frame update
     void Start()
@@ -44,22 +46,22 @@ public class ButtonCursor : MonoBehaviour
 
         if (selection == 1)
         {
-            startedSelected.SetActive(true);
-            optionSelected.SetActive(false);
-            exitSelected.SetActive(false);
+            selected_0.SetActive(true);
+            selected_1.SetActive(false);
+            selected_2.SetActive(false);
 
         }
         if (selection == 2)
         {
-            startedSelected.SetActive(false);
-            optionSelected.SetActive(true);
-            exitSelected.SetActive(false);
+            selected_0.SetActive(false);
+            selected_1.SetActive(true);
+            selected_2.SetActive(false);
         }
         if (selection == 3)
         {
-            startedSelected.SetActive(false);
-            optionSelected.SetActive(false);
-            exitSelected.SetActive(true);
+            selected_0.SetActive(false);
+            selected_1.SetActive(false);
+            selected_2.SetActive(true);
         }
 
     }
