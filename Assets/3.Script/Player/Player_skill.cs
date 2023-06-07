@@ -150,7 +150,12 @@ public class Player_skill : MonoBehaviour
                 fireball.transform.SetParent(setparent_player.transform);
             }
         }
-        playerState.skill--;
+        if (playerState.skill >0)
+        {
+            playerState.skill--;
+        }
+        
+        Debug.Log("스킬" + playerState.skill);
 
     }
 }
