@@ -132,8 +132,7 @@ public class PlayerController : MonoBehaviour
             isClimb = false;
             player_R.velocity = Vector3.zero;
             climbCheck = false;
-            playerinput.isLock = false;
-            Debug.Log("바닥에 닿았는데 왜 안되는 거야 짱나게");
+            playerinput.isLock = false;            
         }
     }
     private void OnTriggerStay(Collider other)
