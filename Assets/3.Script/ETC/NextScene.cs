@@ -25,6 +25,7 @@ public class NextScene : MonoBehaviour
     public Volume globalVolume;
     public Bloom globalBloom;
     public GameObject outroImage;
+   
 
     SceneChange sceneChange;
     // Start is called before the first frame update
