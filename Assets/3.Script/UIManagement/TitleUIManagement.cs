@@ -16,6 +16,7 @@ public class TitleUIManagement : MonoBehaviour
 
     [SerializeField] private AudioSource menuAudio;
     [SerializeField] private AudioClip menuNavigation;
+    [SerializeField] private AudioClip buttonSelectedSFX;
 
     Vector3 btn_pos;
     float[] horizontalDifference;
@@ -114,6 +115,7 @@ public class TitleUIManagement : MonoBehaviour
             if (selectedButton==0)
             {
                 BtnAni[0].SetTrigger("ButtonPressed");
+                menuAudio.PlayOneShot(buttonSelectedSFX);
                 fadeImage.FadeOut();
                 Debug.Log("Start");
             }
@@ -121,6 +123,7 @@ public class TitleUIManagement : MonoBehaviour
             else if (selectedButton == 1)
             {
                 BtnAni[1].SetTrigger("ButtonPressed");
+                menuAudio.PlayOneShot(buttonSelectedSFX);
                 //option 버튼... 시간 남을때 하렴...ㅎㅎ-민아가 민아에게-
                 Debug.Log("Option");
             }
@@ -128,6 +131,7 @@ public class TitleUIManagement : MonoBehaviour
             else if (selectedButton == 2)
             {
                 BtnAni[2].SetTrigger("ButtonPressed");
+                menuAudio.PlayOneShot(buttonSelectedSFX);
                 Application.Quit();
                 Debug.Log("Quit");
             }

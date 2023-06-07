@@ -70,10 +70,7 @@ public class PlayerClimb : MonoBehaviour
     {
         if (isClimb)
         {
-            Debug.Log("ªÁ≈∏∏Æ ≈Ω");
-            isClimbing = false;
-            ani.SetBool("Climb_Up", isClimbing);
-            ani.SetBool("Climb_Down", isClimbing);
+            
             Physics.gravity = new Vector3(0, 0, 0);
             if (Input.GetKey(KeyCode.W))
             {
@@ -87,10 +84,13 @@ public class PlayerClimb : MonoBehaviour
                 this.transform.Translate(0, -2 * Time.deltaTime, 0);
                 ani.SetBool("Climb_Down", isClimbing);
             }
-            //else
-            //{
-            //    ani.SetTrigger("Climb");
-            //}
+            else
+            {
+                isClimbing = false;
+                ani.SetBool("Climb_Up", isClimbing);
+                ani.SetBool("Climb_Down", isClimbing);
+            }
+            
         }
         else
         {
