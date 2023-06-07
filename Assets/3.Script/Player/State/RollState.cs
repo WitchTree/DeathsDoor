@@ -25,19 +25,18 @@ public class RollState : StateMachineBehaviour
         Vector3 roll_Dir = playerTransform.forward;
         player_R.velocity = Vector3.zero;
         player_R.AddForce(roll_Dir * playerController.roll_Dis, ForceMode.VelocityChange);
-        Debug.Log(velocity);
-    }   
-     
+    }
+
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+
         if (playerInput.isStrong)
         {
             isClick = true;
         }
-        if(animator.GetCurrentAnimatorStateInfo(0).normalizedTime>0.9f)
+        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9f)
         {
-            player_R.velocity = Vector3.zero;
             if (isClick)
             {
                 sword.swordBack.SetActive(false);

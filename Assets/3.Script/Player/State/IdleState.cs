@@ -43,7 +43,6 @@ public class IdleState : StateMachineBehaviour
             sword.SetHand();
             if (sword.hand == Sword.Hand.RightHand)
             {
-                Debug.Log("¿À¸¥¼Õ");
                 isCharge_L = false;
                 isCharge_R = true;
                 sword.swordBack.SetActive(false);
@@ -55,7 +54,6 @@ public class IdleState : StateMachineBehaviour
             }
             if (sword.hand == Sword.Hand.LeftHand)
             {
-                Debug.Log("¿Þ¼Õ");
                 isCharge_R = false;
                 isCharge_L = true;
                 sword.swordBack.SetActive(false);

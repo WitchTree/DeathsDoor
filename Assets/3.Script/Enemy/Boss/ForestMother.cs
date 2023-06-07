@@ -55,7 +55,8 @@ public class ForestMother : Enemy
     public GameObject nextSceneDoorGlow;
     public PlayerController playerController;
     public NextScene nextScene;
-   
+    public GameObject cursor;
+
 
     void Start()
     {
@@ -216,6 +217,7 @@ public class ForestMother : Enemy
     public void ChangeMaterialDead()
     {
         CameraMovement();
+        cursor.SetActive(false);
         StartCoroutine(DeadEffect_co());
     }
 

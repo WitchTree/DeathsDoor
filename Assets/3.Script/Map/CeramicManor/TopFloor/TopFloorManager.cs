@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TopFloor : MonoBehaviour
+public class TopFloorManager : MonoBehaviour
 {
     //Door
     float openSpeed = 0.1f;

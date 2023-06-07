@@ -7,11 +7,16 @@ public class CorridorRightManager : MonoBehaviour
     [SerializeField] Mage mage;
     [SerializeField] SpikeDoor spikeDoor;
 
+    bool isSpikedoorLock = false;
+
     private void Update()
     {
-        if (mage.isDead)
+        if (mage.hp <= 0 && !isSpikedoorLock)
         {
+            isSpikedoorLock = true;
             spikeDoor.OpenSpikeDoor();
         }
     }
+
+    
 }

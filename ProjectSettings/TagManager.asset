@@ -19,6 +19,8 @@ TagManager:
   - Ladder_Bottom
   - Ladder
   - Weapon
+  - Blood
+  - Dust
   layers:
   - Default
   - TransparentFX

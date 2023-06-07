@@ -23,20 +23,11 @@ public class MageOnDamage : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (mage.hp >= 0)
-        {
-            mage.isDead = true;
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Skill") || other.CompareTag("Weapon"))
         {
             mage.Damaged();
-            Destroy(other.gameObject);
             StartCoroutine(DmgEffect_co());
         }
     }

@@ -146,7 +146,7 @@ public class POT_Mimic_Melee : Enemy
         bodyCollider.enabled = false;
 
         //Add spirit to player
-        GameObject spirit = Instantiate(spiritPrefab, transform.position, Quaternion.identity);
+        Instantiate(spiritPrefab, transform.position, Quaternion.identity);
 
         StartCoroutine(SpikeDoorUnlock_co());
     }

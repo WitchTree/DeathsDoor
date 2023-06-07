@@ -11,10 +11,12 @@ public class PlayerOnDamage : MonoBehaviour
     public bool isSuffer = false;
     public bool canSuffer = true;
 
-
+    public AudioSource audio;
+    public AudioClip death;
     private void Awake()
     {
         playerState = GetComponent<PlayerState>();
+        audio = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -54,6 +56,7 @@ public class PlayerOnDamage : MonoBehaviour
             if (playerState.life <= 0)
             {
                 ani.SetTrigger("Death");
+                audio.PlayOneShot(death);
             }
             else
             {

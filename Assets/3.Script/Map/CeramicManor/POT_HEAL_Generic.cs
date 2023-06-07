@@ -68,7 +68,7 @@ public class POT_HEAL_Generic : MonoBehaviour
         for (int i = 0; i < smashed.Length; i++)
         {
             smashed[i].isKinematic = false;
-            smashed[i].AddForce(attackPos * 500f);
+            smashed[i].AddForce(attackPos * 200f);
         }
 
         //Collider disabled

@@ -23,7 +23,7 @@ public class ChargeStartState_L : StateMachineBehaviour
         if (playerInput.isStrong)
         {
             isCharge = false;
-             playercontroller.Lookat();
+            playercontroller.Lookat();
             animator.SetBool("ChargeStart_L", isCharge);
         }
     }
