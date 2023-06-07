@@ -23,7 +23,7 @@ public class POT_Mimic_Melee : Enemy
 
     [Header("Audio")]
     AudioSource audio;
-    [SerializeField] AudioClip potBreak;
+    [SerializeField] AudioClip[] audioClips = new AudioClip[2];
 
     bool isMove = false;
 
@@ -44,29 +44,35 @@ public class POT_Mimic_Melee : Enemy
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Skill") && !isMove) //Awake from first attack
+        if (!isMove)
         {
-            //Start moving
-            audio.PlayOneShot(potBreak);
-            StartMove();
-        }
-        else if (other.CompareTag("Skill")) //After first attack
-        {
-            //pot hp
-            hp -= 1f;
-            audio.PlayOneShot(potBreak);
-
-            switch (hp)
+            if (other.CompareTag("Skill") || other.CompareTag("Weapon")) //Awake from first attack
             {
-                case 2:
-                    StopMove();
-                    break;
-                case 1:
-                    Drop();
-                    break;
-                case 0:
-                    Dead();
-                    break;
+                //Start moving
+                audio.PlayOneShot(audioClips[0]);
+                StartMove();
+            }
+        }
+        else 
+        {
+            if (other.CompareTag("Skill") || other.CompareTag("Weapon")) //After first attack
+            {
+                //pot hp
+                hp -= 1f;
+                audio.PlayOneShot(audioClips[0]);
+
+                switch (hp)
+                {
+                    case 2:
+                        StopMove();
+                        break;
+                    case 1:
+                        Drop();
+                        break;
+                    case 0:
+                        Dead();
+                        break;
+                }
             }
         }
     }
@@ -93,11 +99,18 @@ public class POT_Mimic_Melee : Enemy
     public void StartSpin()
     {
         spinCollider.enabled = true;
+        audio.Stop();
+        audio.clip = audioClips[1];
+        audio.volume = 0.5f;
+        audio.loop = true;
+        audio.Play();
     }
 
     public void EndSpin()
     {
         spinCollider.enabled = false;
+        audio.Stop();
+        audio.loop = false;
     }
 
     public void StopMove()

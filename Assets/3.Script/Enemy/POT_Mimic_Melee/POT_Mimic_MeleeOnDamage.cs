@@ -26,7 +26,7 @@ public class POT_Mimic_MeleeOnDamage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Skill"))
+        if (other.CompareTag("Skill") || other.CompareTag("Weapon"))
         {
             StartCoroutine(DmgEffect_co());
         }

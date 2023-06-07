@@ -18,6 +18,7 @@ TagManager:
   - Ladder_Top
   - Ladder_Bottom
   - Ladder
+  - Weapon
   layers:
   - Default
   - TransparentFX
