@@ -62,4 +62,12 @@ public class PlayerState : MonoBehaviour
         isSuffer = false;
         ani.SetBool("Suffer", isSuffer);
     }
+
+    public void SkillCountUp()
+    {
+        if (skill < 4)
+        {
+            skill++;
+        }
+    }
 }

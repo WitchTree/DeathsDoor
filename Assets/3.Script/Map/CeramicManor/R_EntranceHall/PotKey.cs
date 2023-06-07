@@ -43,6 +43,7 @@ public class PotKey : MonoBehaviour
 
             //Pot key sphere active
             transform.GetChild(1).gameObject.SetActive(true);
+            transform.GetChild(2).gameObject.SetActive(true);
 
             //Change key material
             KeyActive();

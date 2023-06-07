@@ -19,6 +19,7 @@ public class PotKeySphere : MonoBehaviour
 
     IEnumerator PotKeySizeUp_co()
     {
+        transform.parent.GetChild(0).gameObject.SetActive(false);
         audio.PlayOneShot(keyCollect, 0.5f);
         while (transform.localScale.x < 0.017f)
         {
@@ -30,6 +31,6 @@ public class PotKeySphere : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         gameObject.SetActive(false);
-        transform.parent.gameObject.SetActive(false);
+        
     }
 }
