@@ -9,8 +9,6 @@ public class FireLamp : MonoBehaviour
     public bool isFire = false;
     public bool fireCheck = false;
 
-    public AudioSource audio;
-    public AudioClip setFire;
     private static FireLamp Instance;
     public static FireLamp instance
     {
@@ -22,10 +20,6 @@ public class FireLamp : MonoBehaviour
             }
             return Instance;
         }
-    }
-    private void Start()
-    {
-        audio = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -49,7 +43,7 @@ public class FireLamp : MonoBehaviour
                     fire.SetActive(true);
                     isFire = true;
 
-                    audio.PlayOneShot(setFire);
+                    Debug.Log("불 붙었다!!");
 
                     return;
                 }
@@ -61,7 +55,7 @@ public class FireLamp : MonoBehaviour
                 fire.SetActive(true);
                 isFire = true;
 
-                audio.PlayOneShot(setFire);
+                Debug.Log("불 붙었다!!");
             }
         }
     }
