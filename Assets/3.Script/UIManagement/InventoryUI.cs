@@ -14,6 +14,8 @@ public class InventoryUI : MonoBehaviour //inventory panel
     public GameObject[] InventoryBtn;
     [SerializeField] int selectedButton = 0;
 
+    public GameObject[] InventorySelected;
+
     [SerializeField] Text Txt_InfoSub;
     [SerializeField] Text Txt_Info;
 
