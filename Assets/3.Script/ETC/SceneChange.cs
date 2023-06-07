@@ -52,7 +52,7 @@ public class SceneChange : MonoBehaviour
         
         while(!asyncOper.isDone)
         {
-            Debug.Log(string.Format("Scene Load: {0}", asyncOper.progress));
+            //Debug.Log(string.Format("Scene Load: {0}", asyncOper.progress));
             yield return null;
         }
     }
