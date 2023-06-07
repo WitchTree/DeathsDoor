@@ -21,9 +21,7 @@ public class PlayerController : MonoBehaviour
     public bool isRoll = false;
     public bool isIdle = false;
     public bool isAtk = false;
-    public bool isClimb = false;
-    public bool isClimbing = false;
-    public bool climbCheck = false;
+
 
     private float closeDistance = 0.25f;
 

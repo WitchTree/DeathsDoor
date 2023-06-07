@@ -28,6 +28,7 @@ public class MageOnDamage : MonoBehaviour
         if (mage.hp <= 0)
         {
             mage.isDead = true;
+            Debug.Log(mage.isDead);
         }
     }
 
