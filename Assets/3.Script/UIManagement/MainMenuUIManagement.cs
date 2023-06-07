@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 public class MainMenuUIManagement : MonoBehaviour
 {
@@ -32,7 +31,6 @@ public class MainMenuUIManagement : MonoBehaviour
     GameObject MainUI;
     GameObject Hud;
     GameObject Arrow;
-
 
     private void Awake()
     {
@@ -86,7 +84,6 @@ public class MainMenuUIManagement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z) && !buttonPressed)
         {
             menuAudio.PlayOneShot(menuNavigation);
-            Debug.Log("Z키 누름");
             buttonPressed = true;
             headerSelectedButton--;
 
@@ -97,6 +94,7 @@ public class MainMenuUIManagement : MonoBehaviour
                 MenuPanel[0].SetActive(true);
                 MenuPanel[1].SetActive(false);
                 MenuPanel[2].SetActive(false);
+                MenuPanel[3].SetActive(false);
 
                 Headerselected[0].SetActive(true);
                 Headerselected[1].SetActive(false);
@@ -113,12 +111,14 @@ public class MainMenuUIManagement : MonoBehaviour
                 MenuPanel[0].SetActive(false);
                 MenuPanel[1].SetActive(true);
                 MenuPanel[2].SetActive(false);
+                MenuPanel[3].SetActive(false);
 
                 Headerselected[0].SetActive(false);
                 Headerselected[1].SetActive(true);
                 Headerselected[2].SetActive(false);
                 Headerselected[3].SetActive(false);
                 Headerselected[4].SetActive(false);
+
 
             }
 
@@ -129,17 +129,24 @@ public class MainMenuUIManagement : MonoBehaviour
                 MenuPanel[0].SetActive(false);
                 MenuPanel[1].SetActive(false);
                 MenuPanel[2].SetActive(true);
+                MenuPanel[3].SetActive(false);
 
                 Headerselected[0].SetActive(false);
                 Headerselected[1].SetActive(false);
                 Headerselected[2].SetActive(true);
                 Headerselected[3].SetActive(false);
                 Headerselected[4].SetActive(false);
+
             }
 
             if (headerSelectedButton == 3)
             {
                 Buttons[3].Select();
+
+                MenuPanel[0].SetActive(false);
+                MenuPanel[1].SetActive(false);
+                MenuPanel[2].SetActive(false);
+                MenuPanel[3].SetActive(true);
 
                 Headerselected[0].SetActive(false);
                 Headerselected[1].SetActive(false);
@@ -163,7 +170,6 @@ public class MainMenuUIManagement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X) && !buttonPressed)
         {
             menuAudio.PlayOneShot(menuNavigation);
-            Debug.Log("X키 누름");
             buttonPressed = true;
             headerSelectedButton++;
 
@@ -174,12 +180,14 @@ public class MainMenuUIManagement : MonoBehaviour
                 MenuPanel[0].SetActive(true);
                 MenuPanel[1].SetActive(false);
                 MenuPanel[2].SetActive(false);
+                MenuPanel[3].SetActive(false);
 
                 Headerselected[0].SetActive(true);
                 Headerselected[1].SetActive(false);
                 Headerselected[2].SetActive(false);
                 Headerselected[3].SetActive(false);
                 Headerselected[4].SetActive(false);
+
             }
 
             if (headerSelectedButton == 1)
@@ -189,6 +197,7 @@ public class MainMenuUIManagement : MonoBehaviour
                 MenuPanel[0].SetActive(false);
                 MenuPanel[1].SetActive(true);
                 MenuPanel[2].SetActive(false);
+                MenuPanel[3].SetActive(false);
 
                 Headerselected[0].SetActive(false);
                 Headerselected[1].SetActive(true);
@@ -204,6 +213,7 @@ public class MainMenuUIManagement : MonoBehaviour
                 MenuPanel[0].SetActive(false);
                 MenuPanel[1].SetActive(false);
                 MenuPanel[2].SetActive(true);
+                MenuPanel[3].SetActive(false);
 
                 Headerselected[0].SetActive(false);
                 Headerselected[1].SetActive(false);
@@ -215,6 +225,11 @@ public class MainMenuUIManagement : MonoBehaviour
             if (headerSelectedButton == 3)
             {
                 Buttons[3].Select();
+
+                MenuPanel[0].SetActive(false);
+                MenuPanel[1].SetActive(false);
+                MenuPanel[2].SetActive(false);
+                MenuPanel[3].SetActive(true);
 
                 Headerselected[0].SetActive(false);
                 Headerselected[1].SetActive(false);

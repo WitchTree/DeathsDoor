@@ -23,7 +23,6 @@ public class TitleUIManagement : MonoBehaviour
 
     private void Start()
     {
-        //BtnAni = GetComponent<Animator>();
         SetMenuUI();
     }
 
@@ -70,7 +69,6 @@ public class TitleUIManagement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.W) && !buttonPressed)
         {
-            Debug.Log("W");
             buttonPressed = true;
 
             if (selectedButton == 0)
@@ -88,9 +86,7 @@ public class TitleUIManagement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.S) && !buttonPressed)
         {
-            Debug.Log("S");
             buttonPressed = true;
-
 
             if (selectedButton == Buttons.Length - 1)
             {
@@ -107,13 +103,11 @@ public class TitleUIManagement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E) && !buttonPressed)
         {
-            Debug.Log("E키 선택!");
             buttonPressed = true;
 
             if (selectedButton==0)
             {
                 BtnAni[0].SetTrigger("ButtonPressed");
-                //start버튼 선택했을 때 sceneChange=> 01.HOD 장면으로 넘어가주세용~  from.0602
                 fadeImage.FadeOut();
                 Debug.Log("Start");
             }
@@ -129,7 +123,6 @@ public class TitleUIManagement : MonoBehaviour
             {
                 BtnAni[2].SetTrigger("ButtonPressed");
                 Application.Quit();
-                //quit 버튼 게임 종료
                 Debug.Log("Quit");
             }
         }

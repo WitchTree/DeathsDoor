@@ -105,7 +105,6 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W) && !buttonPressed)
         {
             UpgradeAudio.PlayOneShot(UpgradeNavigation);
-            Debug.Log("W");
             buttonPressed = true;
 
             if (selectedButton == 0)
@@ -124,7 +123,6 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S) && !buttonPressed)
         {
             UpgradeAudio.PlayOneShot(UpgradeNavigation);
-            Debug.Log("S");
             buttonPressed = true;
 
 

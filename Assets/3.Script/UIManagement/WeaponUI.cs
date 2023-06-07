@@ -34,7 +34,6 @@ public class WeaponUI : MonoBehaviour //weapon panel
         if (Input.GetKeyDown(KeyCode.W) && !buttonPressed)
         {
             weaponAudio.PlayOneShot(weaponNavigation);
-            Debug.Log("W키 누름 ↑");
             buttonPressed = true;
 
             switch (selectedButton)
@@ -54,7 +53,6 @@ public class WeaponUI : MonoBehaviour //weapon panel
         if (Input.GetKeyDown(KeyCode.A) && !buttonPressed)
         {
             weaponAudio.PlayOneShot(weaponNavigation);
-            Debug.Log("A키 누름 ←");
             buttonPressed = true;
 
             switch (selectedButton)
@@ -79,7 +77,6 @@ public class WeaponUI : MonoBehaviour //weapon panel
         if (Input.GetKeyDown(KeyCode.S) && !buttonPressed)
         {
             weaponAudio.PlayOneShot(weaponNavigation);
-            Debug.Log("S키 누름 ↓");
             buttonPressed = true;
 
             switch (selectedButton)
@@ -99,7 +96,6 @@ public class WeaponUI : MonoBehaviour //weapon panel
         if (Input.GetKeyDown(KeyCode.D) && !buttonPressed)
         {
             weaponAudio.PlayOneShot(weaponNavigation);
-            Debug.Log("D키 누름 →");
             buttonPressed = true;
 
 

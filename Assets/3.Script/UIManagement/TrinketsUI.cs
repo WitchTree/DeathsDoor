@@ -33,7 +33,6 @@ public class TrinketsUI : MonoBehaviour //Trinkets panel
         if (Input.GetKeyDown(KeyCode.W) && !buttonPressed)
         {
             trinketsAudio.PlayOneShot(trinketsNavigation);
-            Debug.Log("W키 누름 ↑");
             buttonPressed = true;
 
             if (selectedButton >= 6)
@@ -55,7 +54,6 @@ public class TrinketsUI : MonoBehaviour //Trinkets panel
         if (Input.GetKeyDown(KeyCode.A) && !buttonPressed)
         {
             trinketsAudio.PlayOneShot(trinketsNavigation);
-            Debug.Log("A키 누름 ←");
             buttonPressed = true;
 
             if ((selectedButton % 6).Equals(0))
@@ -74,7 +72,6 @@ public class TrinketsUI : MonoBehaviour //Trinkets panel
         if (Input.GetKeyDown(KeyCode.S) && !buttonPressed)
         {
             trinketsAudio.PlayOneShot(trinketsNavigation);
-            Debug.Log("S키 누름 ↓");
             buttonPressed = true;
 
             if (selectedButton <= 17)
@@ -96,7 +93,6 @@ public class TrinketsUI : MonoBehaviour //Trinkets panel
         if (Input.GetKeyDown(KeyCode.D) && !buttonPressed)
         {
             trinketsAudio.PlayOneShot(trinketsNavigation);
-            Debug.Log("D키 누름 →");
             buttonPressed = true;
 
             if ((selectedButton % 6).Equals(5))
@@ -110,7 +106,6 @@ public class TrinketsUI : MonoBehaviour //Trinkets panel
                 EventSystem.current.SetSelectedGameObject(TrinketsBtn[selectedButton]);
             }
         }
-
 
         if (Input.GetKeyDown(KeyCode.E))
         {
