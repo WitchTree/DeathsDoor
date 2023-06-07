@@ -6,28 +6,47 @@ public class KeyShrine : MonoBehaviour
 {
     [SerializeField] Transform mansionKey;
     GameObject trailParticles;
+    GameObject commandBox;
     Right2Manager right2Manager;
+
+    bool isGetKey = false;
 
     private void Start()
     {
         right2Manager = FindObjectOfType<Right2Manager>();
         trailParticles = transform.GetChild(8).gameObject;
+        commandBox = transform.GetChild(9).gameObject;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") || right2Manager.isKeyUnlock || !isGetKey)
+        {
+            //Display [E]
+            commandBox.SetActive(true);
+        }
     }
 
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player") || right2Manager.isKeyUnlock)
         {
-            //Display [E]
-
-
             //Is player input button lock neccesary?
             if (Input.GetKeyDown(KeyCode.E))
             {
+                isGetKey = true;
+                commandBox.SetActive(false);
                 StartCoroutine(KeyShrineUp_co());
             }
         }
-        
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player") || right2Manager.isKeyUnlock || !isGetKey)
+        {
+            commandBox.SetActive(false);
+        }
     }
 
     IEnumerator KeyShrineUp_co()
