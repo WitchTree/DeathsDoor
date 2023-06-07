@@ -17,6 +17,7 @@ public class IntroScene : MonoBehaviour
     public GameObject thirdPointObject;
     public GameObject targetObject;
     public GameObject introDoor;
+    public GameObject shortCutdoor;
 
     public bool isEntered;
     public bool isCorner;
@@ -37,10 +38,19 @@ public class IntroScene : MonoBehaviour
     public int index;
     public float wordSpeed;
     public GameObject introScene;
+    public GameObject cursor;
+    public GameObject HUDUI;
+    public Animator HUDAnimator;
+
+    AudioSource audio;
+    [SerializeField] AudioClip[] audioClips;
 
 
-
-
+    private void Awake()
+    {
+        audio = GetComponent<AudioSource>();
+        
+    }
 
     private void Start()
     {
@@ -151,7 +161,7 @@ public class IntroScene : MonoBehaviour
             {
                 zeroText();
                 Invoke(nameof(ResetCamera), 0.3f);
-                Invoke(nameof(ResetPlayer), 0.5f);
+                Invoke(nameof(ResetPlayer), 0.8f);
                 introScene.SetActive(false);
             }
         }
@@ -170,6 +180,8 @@ public class IntroScene : MonoBehaviour
             playerAnimator.SetBool("Run", false);
             playerAnimator.SetBool("Idle", false);
             playerAnimator.SetBool("FakeRun", true);
+            cursor.SetActive(false);
+            HUDAnimator.SetBool("isEnter",true);
             //playerController.isRoll=true;    
 
         }
@@ -184,6 +196,7 @@ public class IntroScene : MonoBehaviour
         isCorner = true;
         vcam[0].gameObject.SetActive(false);
         vcam[1].gameObject.SetActive(true);
+        HUDUI.SetActive(false);
 
     }
 
@@ -228,6 +241,7 @@ public class IntroScene : MonoBehaviour
     {
         foreach (char letter in Dialogue[index].ToCharArray())
         {
+            audio.PlayOneShot(audioClips[0]);
             Txt_Dialogue.text += letter;
             yield return new WaitForSeconds(wordSpeed);
         }
@@ -310,6 +324,7 @@ public class IntroScene : MonoBehaviour
 
     private void ChendlerCameraCloseUp()
     {
+        audio.PlayOneShot(audioClips[1]);
         vcam[4].gameObject.SetActive(false);
         vcam[5].gameObject.SetActive(true);
     }
@@ -327,11 +342,14 @@ public class IntroScene : MonoBehaviour
     }
     private void ActivateDoor()
     {
+        audio.PlayOneShot(audioClips[2]);
         introDoor.SetActive(true);
     }
 
     private void ResetPlayer()
     {
+        introDoor.SetActive(false);
+        shortCutdoor.SetActive(true);
         isEntered = false;
         isLookat = false;
         isEnd = false;
@@ -339,6 +357,8 @@ public class IntroScene : MonoBehaviour
         playerController.speed = 4;
         index = 0;
         DialogueUI.SetActive(false);
+        cursor.SetActive(true);
+        HUDUI.SetActive(true);
     }
 
 

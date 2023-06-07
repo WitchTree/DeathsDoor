@@ -20,9 +20,17 @@ public class NPCDialogue : MonoBehaviour
     private bool talking = false; 
     private int num;
     [SerializeField] private GameObject commandBox;
+    AudioSource audio;
+    [SerializeField] AudioClip[] audioClips;
 
 
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        audio = GetComponent<AudioSource>();
+        
+    }
     void Start()
     {
         num = 0;                
@@ -123,6 +131,7 @@ public class NPCDialogue : MonoBehaviour
     {
         foreach (char letter in Dialogue[index].ToCharArray())
         {
+            audio.PlayOneShot(audioClips[0]);
             Txt_Dialogue.text += letter;
             yield return new WaitForSeconds(wordSpeed);
         }

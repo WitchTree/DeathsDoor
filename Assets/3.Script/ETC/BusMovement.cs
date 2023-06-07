@@ -124,6 +124,7 @@ public class BusMovement : MonoBehaviour
     {
         foreach (char letter in Dialogue[0].ToCharArray())
         {
+            audio.PlayOneShot(audioClips[2]);
             Txt_Dialogue.text += letter;
             yield return new WaitForSeconds(0.07f);
         }
@@ -133,6 +134,7 @@ public class BusMovement : MonoBehaviour
     {
         foreach (char letter in Dialogue[1].ToCharArray())
         {
+            audio.PlayOneShot(audioClips[2]);
             Txt_Dialogue.text += letter;
             yield return new WaitForSeconds(0.07f);
         }

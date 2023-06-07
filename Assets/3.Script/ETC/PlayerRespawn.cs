@@ -49,7 +49,7 @@ public class PlayerRespawn : MonoBehaviour
         if(isFall==true)
         {
             parent.position=followPosition; 
-            parent.transform.position = new Vector3(followPosition.x, followPosition.y + 0.3f, followPosition.z);           
+            parent.transform.position = new Vector3(followPosition.x, followPosition.y + 0.5f, followPosition.z);           
         }
     }
 }

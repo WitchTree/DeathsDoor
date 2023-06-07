@@ -36,7 +36,7 @@ public class PlayerState : MonoBehaviour
     //    if (other.CompareTag("Enemy") && !isSuffer)
     //    {
     //        //life--;
-    //        Debug.Log("¸ñ¼û");
+    //        Debug.Log("ï¿½ï¿½ï¿½");
     //        Debug.Log(life);
 
     //        if (life <= 0)
@@ -50,7 +50,7 @@ public class PlayerState : MonoBehaviour
     //    }
     //}
 
-    //private IEnumerator Suffer_co()//ÀÌµ¿ ÀÔ·Â ¹ÞÁö ¾Ê°Ô ÇÒ ¿¹Á¤ ±Ùµ¥ Á¤È®È÷ ¹«½¼ ÄÚµå¸¦ ½á¾ßÇÒ Áö ¸ô¶ó¼­ ÀÏ´Ü ¿òÁ÷ÀÓ ½ºÅ©¸³Æ®¿¡¼­ Á¦ÇÑÇÏ°í ³ªÁß¿¡ ¹æ¹ý Ã£À¸¸é ¼öÁ¤
+    //private IEnumerator Suffer_co()//ï¿½Ìµï¿½ ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ùµï¿½ ï¿½ï¿½È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Úµå¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     //{
     //    ani.SetTrigger("Suffer");
     //    isSuffer = true;
@@ -70,6 +70,6 @@ public class PlayerState : MonoBehaviour
         {
             skill = 4;
         }
-        Debug.Log("½ºÅ³ ÇÃ·¯½º" + skill);
+        
     }
 }

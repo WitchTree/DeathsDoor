@@ -29,6 +29,16 @@ public class EnterDoor : MonoBehaviour
     public bool isPressed;
     public bool isStart;
 
+    AudioSource audio;
+    [SerializeField] AudioClip[] audioClips;
+
+
+    private void Awake()
+    {
+        audio = GetComponent<AudioSource>();
+        
+    }
+
     private void Start()
     {
         firstPoint = firstPointObject.transform.position;
@@ -92,6 +102,7 @@ public class EnterDoor : MonoBehaviour
         isLookat = true;
         Invoke(nameof(DoorSetting), 0.3f);
         Invoke(nameof(PlayerSetting), 1.5f);
+        audio.PlayOneShot(audioClips[0]);
 
     }
 

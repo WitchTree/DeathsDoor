@@ -10,6 +10,8 @@ public class RollState : StateMachineBehaviour
     PlayerController playerController;
     Rigidbody player_R;
     Vector3 velocity;
+    //public AudioSource audio;
+    //public AudioClip Roll;
 
     public bool isClick = false;
 
@@ -25,6 +27,7 @@ public class RollState : StateMachineBehaviour
         Vector3 roll_Dir = playerTransform.forward;
         player_R.velocity = Vector3.zero;
         player_R.AddForce(roll_Dir * playerController.roll_Dis, ForceMode.VelocityChange);
+        //audio.PlayOneShot(Roll);
     }
 
 

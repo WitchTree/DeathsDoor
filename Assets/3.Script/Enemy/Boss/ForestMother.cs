@@ -244,12 +244,12 @@ public class ForestMother : Enemy
         playerController.ReChangeLayersRecursively();
         nextSceneDoor.SetActive(true);
         vcam[2].gameObject.SetActive(false);
-        vcam[4].gameObject.SetActive(true);     
+        vcam[4].gameObject.SetActive(true);   
         Invoke(nameof(PlayerMovement),6.5f);          
         Invoke(nameof(CameraMovement2),3.5f);  
         
     }
-
+   
     private void CameraMovement2()
     {               
         vcam[4].gameObject.SetActive(false);

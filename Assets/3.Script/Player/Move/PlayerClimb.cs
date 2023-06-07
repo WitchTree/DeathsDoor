@@ -40,8 +40,7 @@ public class PlayerClimb : MonoBehaviour
             climbCheck = false;
             ani.SetBool("Climb_Down", isClimb);
             Physics.gravity = new Vector3(0, 0, 0);
-            playerinput.isLock = false;
-            Debug.Log("¹Ù´Ú¿¡ ´ê¾Ò´Âµ¥ ¿Ö ¾ÈµÇ´Â °Å¾ß Â¯³ª°Ô");
+            playerinput.isLock = false;            
         }
     }
     private void OnTriggerStay(Collider other)

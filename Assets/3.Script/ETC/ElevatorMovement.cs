@@ -13,6 +13,18 @@ public class ElevatorMovement : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private Animator elevatorAnimator;
     private int playerFlag=0;
+
+    AudioSource audio;
+    [SerializeField] AudioClip[] audioClips;
+
+
+    // Start is called before the first frame update
+
+    private void Awake()
+    {
+        audio = GetComponent<AudioSource>();
+        
+    }
     void Start()
     {
         topPoint=elevatorTop.transform.position;
@@ -26,12 +38,14 @@ public class ElevatorMovement : MonoBehaviour
         {
             if(player.transform.position.y>153.9f)
             {
+                audio.PlayOneShot(audioClips[0]);
                 playerFlag=1;    
                 elevatorAnimator.SetTrigger("isTop");            
             }
 
             if(player.transform.position.y<150)
             {
+                audio.PlayOneShot(audioClips[0]);
                 playerFlag=2;   
                 elevatorAnimator.SetTrigger("isBottom");             
             }

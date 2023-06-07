@@ -154,8 +154,7 @@ public class Player_skill : MonoBehaviour
         {
             playerState.skill--;
         }
-        
-        Debug.Log("스킬" + playerState.skill);
+                
 
     }
 }
