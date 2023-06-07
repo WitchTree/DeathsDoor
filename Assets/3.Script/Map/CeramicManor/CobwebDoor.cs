@@ -5,10 +5,14 @@ using UnityEngine;
 public class CobwebDoor : MonoBehaviour
 {
     Collider doorCollider;
+    GameObject openEffect;
+
+    [SerializeField] Animator cobwebFlatAni;
 
     private void Start()
     {
         doorCollider = GetComponent<Collider>();
+        openEffect = transform.GetChild(0).gameObject;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -18,6 +22,9 @@ public class CobwebDoor : MonoBehaviour
             if(other.GetComponent<Weapon_Bow>().fireCheck)
             {
                 doorCollider.enabled = false;
+                openEffect.SetActive(true);
+
+                cobwebFlatAni.SetTrigger("Open");
             }
         }
     }
