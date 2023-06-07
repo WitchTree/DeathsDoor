@@ -8,7 +8,8 @@ public class FirstATk : StateMachineBehaviour
     Sword sword;
     PlayerInput playerInput;
     PlayerController playercontroller;
-    Rigidbody player_R;
+    public AudioSource audio;
+    public AudioClip LightAtk;
     public float atkDash = 1.0f;
     int dashCnt = 0;
     public int dashLimit = 0;
@@ -21,7 +22,7 @@ public class FirstATk : StateMachineBehaviour
         animator.TryGetComponent(out sword);
         animator.TryGetComponent(out playerInput);
         animator.TryGetComponent(out playercontroller);
-        animator.TryGetComponent(out player_R);
+        animator.TryGetComponent(out audio);
         animator.SetBool("Run", false);
         sword.swordBack.SetActive(false);
         sword.swordRighthand.SetActive(true);
@@ -29,6 +30,7 @@ public class FirstATk : StateMachineBehaviour
         sword.LightSlash_L.SetActive(true);
         playercontroller.Lookat();
         dashCnt = 0;
+        audio.PlayOneShot(LightAtk);
     }
 
 

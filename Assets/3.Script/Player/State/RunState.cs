@@ -9,16 +9,21 @@ public class RunState : StateMachineBehaviour
     Transform playerTransform;
     PlayerInput playerInput;
     PlayerController playerController;
-    public bool isClick = false;
+    public bool isCharge_L = false;
+    public bool isCharge_R = false;
+    public bool isLight = false;
     public bool isRun = true;
     public bool isRoll = false;
     public bool stopBotton = false;
-
+    public bool isStrong = false;
 
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        isClick = false;
+        isCharge_L = false;
+        isCharge_R = false;
+        isStrong = false;
+        isLight = false;
         isRun = true;
         isRoll = false;
         stopBotton = false;
@@ -35,12 +40,42 @@ public class RunState : StateMachineBehaviour
         playerController.Lookat();
         if (playerInput.isLight)
         {
-            isClick = true;
+            isLight = true;
         }
-        if (isClick)
+
+        if (isLight)
         {
             sword.SetHand();
             animator.SetInteger("Combo", 1);
+        }
+        if (playerInput.isRollATk)
+        {
+            isStrong = true;
+        }
+        if(isStrong)
+        {
+            sword.SetHand();
+            if (sword.hand == Sword.Hand.RightHand)
+            {
+                isCharge_L = false;
+                isCharge_R = true;
+                sword.swordBack.SetActive(false);
+                sword.swordRighthand.SetActive(false);
+                sword.swordLefthand.SetActive(true);
+                animator.SetBool("ChargeStart_R", isCharge_R);
+                isCharge_R = false;
+
+            }
+            if (sword.hand == Sword.Hand.LeftHand)
+            {
+                isCharge_R = false;
+                isCharge_L = true;
+                sword.swordBack.SetActive(false);
+                sword.swordRighthand.SetActive(true);
+                sword.swordLefthand.SetActive(false);
+                animator.SetBool("ChargeStart_L", isCharge_L);
+                isCharge_L = false;
+            }
         }
         if (playerInput.isRoll)
         {
@@ -65,3 +100,4 @@ public class RunState : StateMachineBehaviour
         }
     }
 }
+
