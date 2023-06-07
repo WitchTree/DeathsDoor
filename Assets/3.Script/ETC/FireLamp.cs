@@ -43,8 +43,6 @@ public class FireLamp : MonoBehaviour
                     fire.SetActive(true);
                     isFire = true;
 
-                    Debug.Log("불 붙었다!!");
-
                     return;
                 }
 
@@ -54,8 +52,6 @@ public class FireLamp : MonoBehaviour
             {
                 fire.SetActive(true);
                 isFire = true;
-
-                Debug.Log("불 붙었다!!");
             }
         }
     }

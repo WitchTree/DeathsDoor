@@ -20,10 +20,8 @@ public class Mage : Enemy
     MageOnDamage mageOnDamage;
 
     //Attack
-    float attackBetTime = 5f;
+    float attackBetTime = 8f;
     float attackTime = 4f;
-    float shootTime = 3f;
-    bool isAttacked = false;
     Vector3 playerPos;
 
     //bullet
@@ -35,10 +33,6 @@ public class Mage : Enemy
     [SerializeField] GameObject spiritPrefab;
 
     bool isTeleportLock = false;
-    bool isAttackLock = false;
-
-    //DMG effect
-    SkinnedMeshRenderer[] skinnedMeshRenderer = new SkinnedMeshRenderer[3];
 
     //Audio
     [Header("Audio")]
@@ -63,10 +57,10 @@ public class Mage : Enemy
         this.hp = 7;
         this.maxHp = 7;
         this.spirit = 2;
+        this.isDead = false;
 
         mageAni = GetComponent<Animator>();
         mageOnDamage = GetComponentInChildren<MageOnDamage>();
-        skinnedMeshRenderer = GetComponentsInChildren<SkinnedMeshRenderer>();
         audio = GetComponent<AudioSource>();
     }
 
@@ -118,7 +112,8 @@ public class Mage : Enemy
     {
         if (!isAttacking && !isTeleporting)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(player.position - transform.position);
+            Quaternion targetRotation = Quaternion.LookRotation(player.position);
+            //Quaternion targetRotation = Quaternion.LookRotation(player.position - transform.position);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 180f * Time.deltaTime);
         }
     }
@@ -167,6 +162,7 @@ public class Mage : Enemy
 
     public void HitPot(Vector3 position)
     {
-        hp -= 100;
+        
+        Death();
     }
 }
