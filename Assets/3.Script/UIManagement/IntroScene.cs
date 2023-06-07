@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class IntroScene : MonoBehaviour
 {
     [SerializeField] GameObject player;
-    [SerializeField] GameObject Arrow;
     public Vector3 firstPoint;
     public Vector3 secondPoint;
     public Vector3 thirdPoint;
@@ -18,7 +17,6 @@ public class IntroScene : MonoBehaviour
     public GameObject thirdPointObject;
     public GameObject targetObject;
     public GameObject introDoor;
-    public GameObject shortDoor;
 
     public bool isEntered;
     public bool isCorner;
@@ -31,7 +29,7 @@ public class IntroScene : MonoBehaviour
     public Animator playerAnimator;
     public Animator DialogueAnimator;
     public PlayerInput playerInput;
-    public PlayerController playerController;   
+    public PlayerController playerController;
     public CinemachineVirtualCamera[] vcam;
     public GameObject DialogueUI;
     public Text Txt_Dialogue;
@@ -40,55 +38,49 @@ public class IntroScene : MonoBehaviour
     public float wordSpeed;
     public GameObject introScene;
 
-    AudioSource audio;
-    [SerializeField] AudioClip[] audioClips;
-
-    [SerializeField] GameObject HudUI;
-    [SerializeField] Animator HudUIAnimator;
 
 
 
 
     private void Start()
     {
-        audio = GetComponent<AudioSource>();
-        firstPoint =firstPointObject.transform.position;
-        secondPoint=secondPointObject.transform.position;
+        firstPoint = firstPointObject.transform.position;
+        secondPoint = secondPointObject.transform.position;
         thirdPoint = thirdPointObject.transform.position;
-        targetPoint=targetObject.transform.position;
+        targetPoint = targetObject.transform.position;
     }
 
     private void Update()
     {
-        if(isEntered==true)
-        {            
-            player.gameObject.transform.position = Vector3.MoveTowards(player.gameObject.transform.position, firstPoint, 1.5f* Time.deltaTime);
-            playerAnimator.SetBool("Run",false);
-            playerAnimator.SetBool("Idle",false);
-            playerAnimator.SetBool("FakeRun",true);
-            playerController.speed = 0;     
+        if (isEntered == true)
+        {
+            player.gameObject.transform.position = Vector3.MoveTowards(player.gameObject.transform.position, firstPoint, 1.5f * Time.deltaTime);
+            playerAnimator.SetBool("Run", false);
+            playerAnimator.SetBool("Idle", false);
+            playerAnimator.SetBool("FakeRun", true);
+            playerController.speed = 0;
             //playerController.isRoll=true;           
 
-            if (player.gameObject.transform.position==firstPoint)
+            if (player.gameObject.transform.position == firstPoint)
             {
-                TurCorner();                
+                TurCorner();
             }
         }
 
-        if(isCorner==true)
+        if (isCorner == true)
         {
-            player.gameObject.transform.position = Vector3.MoveTowards(player.gameObject.transform.position, secondPoint, 2* Time.deltaTime);
-            playerAnimator.SetBool("Run",false);
-            playerAnimator.SetBool("Idle",false);
-            playerAnimator.SetBool("FakeRun",true);
+            player.gameObject.transform.position = Vector3.MoveTowards(player.gameObject.transform.position, secondPoint, 2 * Time.deltaTime);
+            playerAnimator.SetBool("Run", false);
+            playerAnimator.SetBool("Idle", false);
+            playerAnimator.SetBool("FakeRun", true);
             //playerController.isRoll=true;    
 
             if (player.gameObject.transform.position == secondPoint)
-            {                
+            {
                 FinishMove();
                 Invoke(nameof(StartDialogue), 0.4f);
             }
-           
+
         }
 
         if (isFinish == true)
@@ -96,30 +88,30 @@ public class IntroScene : MonoBehaviour
             playerInput.isLock = true;
             player.gameObject.transform.position = Vector3.MoveTowards(player.gameObject.transform.position, thirdPoint, 2 * Time.deltaTime);
             playerAnimator.SetBool("Run", false);
-            playerAnimator.SetBool("Idle",false);
-            playerAnimator.SetBool("FakeRun",true);
+            playerAnimator.SetBool("Idle", false);
+            playerAnimator.SetBool("FakeRun", true);
             //playerController.isRoll=true;    
 
             if (player.gameObject.transform.position == thirdPoint)
             {
-                ResetMove();                
-                
+                ResetMove();
+
             }
-                       
+
         }
 
         if (isEnd == true)
         {
             playerAnimator.SetBool("Run", false);
-            playerAnimator.SetBool("FakeRun",false);
+            playerAnimator.SetBool("FakeRun", false);
         }
 
-        if(isLookat==true)
+        if (isLookat == true)
         {
             player.gameObject.transform.LookAt(targetPoint);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space)&& isStart)
+        if (Input.GetKeyDown(KeyCode.Space) && isStart)
         {
             if (index < Dialogue.Length - 1)
             {
@@ -132,63 +124,55 @@ public class IntroScene : MonoBehaviour
             {
                 zeroText();
                 DialogueUI.SetActive(false);
-                talking = false;                
+                talking = false;
             }
         }
 
-        if(index==7||index==10||index==13||index==18)
+        if (index == 7 || index == 10 || index == 13 || index == 18)
         {
             DialogueAnimator.SetBool("isDoor", true);
-            Invoke(nameof(PauseDialogue), 0.8f);    
-            if(index==7)
+            Invoke(nameof(PauseDialogue), 0.8f);
+            if (index == 7)
             {
-                index=8;       
-            } 
-
-            else if(index==10)
-            {
-                index=11;    
+                index = 8;
             }
 
-            else if(index==13)
+            else if (index == 10)
             {
-                index=14;    
+                index = 11;
             }
 
-            else if(index==18)
+            else if (index == 13)
             {
-                zeroText();                
-                Invoke(nameof(ResetCamera),0.3f);
-                Invoke(nameof(ResetPlayer),0.5f);                
+                index = 14;
+            }
+
+            else if (index == 18)
+            {
+                zeroText();
+                Invoke(nameof(ResetCamera), 0.3f);
+                Invoke(nameof(ResetPlayer), 0.5f);
                 introScene.SetActive(false);
             }
         }
 
-       
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            isEntered=true;
+            isEntered = true;
             isLookat = true;
             playerInput.isLock = true;
-            isStart = true;          
+            isStart = true;
             playerAnimator.SetBool("Run", false);
-            playerAnimator.SetBool("Idle",false);
-            playerAnimator.SetBool("FakeRun",true);
-            Arrow.SetActive(false);
-            HudUIAnimator.SetBool("isExit", true);
-            Invoke(nameof(ResetHud), 1.2f);
+            playerAnimator.SetBool("Idle", false);
+            playerAnimator.SetBool("FakeRun", true);
             //playerController.isRoll=true;    
 
-        }        
-    }
-
-    private void ResetHud()
-    {
-        HudUI.SetActive(false);
+        }
     }
 
 
@@ -196,31 +180,30 @@ public class IntroScene : MonoBehaviour
 
     private void TurCorner()
     {
-        isEntered=false;
-        isCorner=true;    
+        isEntered = false;
+        isCorner = true;
         vcam[0].gameObject.SetActive(false);
-        vcam[1].gameObject.SetActive(true);       
+        vcam[1].gameObject.SetActive(true);
 
     }
 
     private void FinishMove()
     {
         isCorner = false;
-        isFinish = true;        
+        isFinish = true;
 
     }
 
     private void ResetMove()
     {
         isFinish = false;
-        isEnd = true;        
-        
+        isEnd = true;
+
     }
 
 
     public void NextLine()
     {
-
         //num++;
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -235,14 +218,14 @@ public class IntroScene : MonoBehaviour
             {
                 zeroText();
                 DialogueUI.SetActive(false);
-                talking = false;                
+                talking = false;
             }
         }
 
     }
 
     IEnumerator Typing()
-    {       
+    {
         foreach (char letter in Dialogue[index].ToCharArray())
         {
             Txt_Dialogue.text += letter;
@@ -251,10 +234,10 @@ public class IntroScene : MonoBehaviour
     }
 
 
-    public void zeroText() 
+    public void zeroText()
     {
         Txt_Dialogue.text = "";
-        index = 0;        
+        index = 0;
     }
 
 
@@ -282,31 +265,31 @@ public class IntroScene : MonoBehaviour
     }
 
     private void PauseDialogue()
-    {        
-        if(index==8)
+    {
+        if (index == 8)
         {
             DialogueUI.SetActive(false);
             vcam[1].gameObject.SetActive(false);
             vcam[2].gameObject.SetActive(true);
-            Invoke(nameof(ActivateDoor),2.95f);
-            Invoke(nameof(CameraCloseUp),2.2f);
+            Invoke(nameof(ActivateDoor), 2.95f);
+            Invoke(nameof(CameraCloseUp), 2.2f);
         }
-        
-        if(index==11)
+
+        if (index == 11)
         {
             DialogueUI.SetActive(false);
             vcam[2].gameObject.SetActive(false);
             vcam[4].gameObject.SetActive(true);
-            Invoke(nameof(ResumeDialogue),1.4f);    
-            Invoke(nameof(ChendlerCameraCloseUp),0.6f);    
+            Invoke(nameof(ResumeDialogue), 1.4f);
+            Invoke(nameof(ChendlerCameraCloseUp), 0.6f);
         }
 
-        if(index==14)
+        if (index == 14)
         {
             DialogueUI.SetActive(false);
             vcam[5].gameObject.SetActive(false);
             vcam[1].gameObject.SetActive(true);
-            Invoke(nameof(ResumeDialogue),1.4f);               
+            Invoke(nameof(ResumeDialogue), 1.4f);
         }
     }
 
@@ -314,27 +297,27 @@ public class IntroScene : MonoBehaviour
     {
         vcam[2].gameObject.SetActive(false);
         vcam[3].gameObject.SetActive(true);
-        
-        Invoke(nameof(CameraCloseDown),3.4f);
+
+        Invoke(nameof(CameraCloseDown), 3.4f);
     }
 
     private void CameraCloseDown()
-    {        
+    {
         vcam[3].gameObject.SetActive(false);
-        vcam[1].gameObject.SetActive(true);  
-        Invoke(nameof(ResumeDialogue),1.4f);      
+        vcam[1].gameObject.SetActive(true);
+        Invoke(nameof(ResumeDialogue), 1.4f);
     }
 
     private void ChendlerCameraCloseUp()
     {
         vcam[4].gameObject.SetActive(false);
-        vcam[5].gameObject.SetActive(true);        
+        vcam[5].gameObject.SetActive(true);
     }
 
     private void ResetCamera()
     {
         vcam[1].gameObject.SetActive(false);
-        vcam[0].gameObject.SetActive(true);    
+        vcam[0].gameObject.SetActive(true);
     }
 
     private void ResumeDialogue()
@@ -343,25 +326,19 @@ public class IntroScene : MonoBehaviour
         StartCoroutine(Typing());
     }
     private void ActivateDoor()
-    {        
+    {
         introDoor.SetActive(true);
-        audio.PlayOneShot(audioClips[0]);
-  
     }
 
     private void ResetPlayer()
     {
-        HudUI.SetActive(true);
-        isEntered =false;
+        isEntered = false;
         isLookat = false;
-        isEnd=false;
+        isEnd = false;
         playerInput.isLock = false;
-        playerController.speed = 4;   
-        index=0;
-        introDoor.SetActive(false);
-        shortDoor.SetActive(true);
+        playerController.speed = 4;
+        index = 0;
         DialogueUI.SetActive(false);
-        Arrow.SetActive(true);
     }
 
 

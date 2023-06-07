@@ -2,50 +2,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 public class MainMenuUIManagement : MonoBehaviour
 {
+    [Header("SFX")]
+    [SerializeField] private AudioSource menuAudio;
+    [SerializeField] private AudioClip menuOpen;
+    [SerializeField] private AudioClip menuClose;
+    [SerializeField] private AudioClip menuNavigation;
+    [Space]
 
-    [Header("header �迭")]
-    public Button[] Buttons; //header �迭
-    //private GameObject firstButton;
+    [Header("header �迭")]
+    public Button[] Buttons; 
 
-    [Header("���õ� header")]
+    [Header("���õ� header")]
     [SerializeField] int headerSelectedButton = 0;
     [Space]
     public GameObject[] Headerselected;
 
-    [Header("panel �迭")]
-    public GameObject[] MenuPanel; //pnanel �迭
+    [Header("panel �迭")]
+    public GameObject[] MenuPanel; 
     [Space]
-
-    //[Header("panel �迭")]
-    //[SerializeField] int panelSelectedButton = 0;
-
-    //Vector3 btn_pos;
-    //float[] horizontalDifference;
-    //float[] verticallDifference;
 
     private bool buttonPressed = false;
     private bool isMenuAct = false;
     private float timeScale;
 
     GameObject MainUI;
-    GameObject Hud;
-    GameObject Arrow;
-
+    public GameObject Hud;
+    public GameObject Cursor;
 
     private void Awake()
     {
         MainUI = transform.GetChild(0).gameObject;
-        Hud = GameObject.FindWithTag("HudUI");
-        Arrow = GameObject.Find("Arrow");
+        //Hud = GameObject.FindWithTag("HudUI");
+        //Arrow = GameObject.Find("Arrow");
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        //Headerselected[0].SetActive(true);
+        Headerselected[0].SetActive(true);
     }
 
     // Update is called once per frame
@@ -60,7 +56,8 @@ public class MainMenuUIManagement : MonoBehaviour
                     isMenuAct = false;
                     MainUI.SetActive(false);
                     Hud.SetActive(true);
-                    Arrow.SetActive(true);
+                    Cursor.SetActive(true);
+                    menuAudio.PlayOneShot(menuClose);
                     break;
 
                 case false:
@@ -68,8 +65,9 @@ public class MainMenuUIManagement : MonoBehaviour
                     isMenuAct = true;
                     MainUI.SetActive(true);
                     Hud.SetActive(false);
-                    Arrow.SetActive(false);
+                    Cursor.SetActive(false);
                     MainUIHeaderKeyboardInput();
+                    menuAudio.PlayOneShot(menuOpen);
                     break;
             }
         }
@@ -80,62 +78,15 @@ public class MainMenuUIManagement : MonoBehaviour
         }
     }
 
-    //ù��° Select �Ǿ��ִ� ��ư
-    /*
-    private void SetMenuUI()
-    {
-        if (Buttons.Length > 0)
-        {
-            //panel�� Ȱ��ȭ �Ǿ��ִ� �� Ȯ���ϰ�, ����Ǿ��� ��� ù��° ��ư Ȱ��ȭ
-            if (firstButton != Buttons[0])
-            {
-                headerSelectedButton = 0;
-            }
-            firstButton = Buttons[0];
-        }
-
-        //Ȱ��ȭ �� ��ư�� ��ġ ��������
-        btn_pos = Buttons[headerSelectedButton].GetComponent<RectTransform>().position;
-
-        //��ư ��ġ ���̸� ��Ÿ���� �迭
-        horizontalDifference = new float[Buttons.Length];
-        verticallDifference = new float[Buttons.Length];
-
-        //��ư ��ġ ���̸� ���
-        for (int i = 0; i < Buttons.Length; i++)
-        {
-            if (i != headerSelectedButton)
-            {
-                Vector3 btn_pos2 = Buttons[i].GetComponent<RectTransform>().position;
-                horizontalDifference[i] = btn_pos.x - btn_pos2.x;
-                verticallDifference[i] = btn_pos.y - btn_pos2.y;
-            }
-        }
-        //EventSystem.current.SetSelectedGameObject(Buttons[headerSelectedButton]);
-    }
-    */
-
-
 
     private void MainUIHeaderKeyboardInput()
     {
         if (Input.GetKeyDown(KeyCode.Z) && !buttonPressed)
         {
-            Debug.Log("ZŰ ����");
+            menuAudio.PlayOneShot(menuNavigation);
             buttonPressed = true;
             headerSelectedButton--;
-            /*
-            if (headerSelectedButton == 0)
-            {
-                headerSelectedButton = Buttons.Length - 1;
-                EventSystem.current.SetSelectedGameObject(Buttons[headerSelectedButton]);
-            }
-            else
-            {
-                headerSelectedButton--;
-                EventSystem.current.SetSelectedGameObject(Buttons[headerSelectedButton]);
-            }
-            */
+
             if (headerSelectedButton == 0)
             {
                 Buttons[0].Select();
@@ -143,13 +94,13 @@ public class MainMenuUIManagement : MonoBehaviour
                 MenuPanel[0].SetActive(true);
                 MenuPanel[1].SetActive(false);
                 MenuPanel[2].SetActive(false);
+                MenuPanel[3].SetActive(false);
 
                 Headerselected[0].SetActive(true);
                 Headerselected[1].SetActive(false);
                 Headerselected[2].SetActive(false);
                 Headerselected[3].SetActive(false);
                 Headerselected[4].SetActive(false);
-                Debug.Log("�κ��丮 ����");
 
             }
 
@@ -160,13 +111,14 @@ public class MainMenuUIManagement : MonoBehaviour
                 MenuPanel[0].SetActive(false);
                 MenuPanel[1].SetActive(true);
                 MenuPanel[2].SetActive(false);
+                MenuPanel[3].SetActive(false);
 
                 Headerselected[0].SetActive(false);
                 Headerselected[1].SetActive(true);
                 Headerselected[2].SetActive(false);
                 Headerselected[3].SetActive(false);
                 Headerselected[4].SetActive(false);
-                Debug.Log("���� ����");
+
 
             }
 
@@ -177,26 +129,30 @@ public class MainMenuUIManagement : MonoBehaviour
                 MenuPanel[0].SetActive(false);
                 MenuPanel[1].SetActive(false);
                 MenuPanel[2].SetActive(true);
+                MenuPanel[3].SetActive(false);
 
                 Headerselected[0].SetActive(false);
                 Headerselected[1].SetActive(false);
                 Headerselected[2].SetActive(true);
                 Headerselected[3].SetActive(false);
                 Headerselected[4].SetActive(false);
-                Debug.Log("�����¹��� ����");
+
             }
 
             if (headerSelectedButton == 3)
             {
                 Buttons[3].Select();
 
+                MenuPanel[0].SetActive(false);
+                MenuPanel[1].SetActive(false);
+                MenuPanel[2].SetActive(false);
+                MenuPanel[3].SetActive(true);
+
                 Headerselected[0].SetActive(false);
                 Headerselected[1].SetActive(false);
                 Headerselected[2].SetActive(false);
                 Headerselected[3].SetActive(true);
                 Headerselected[4].SetActive(false);
-                Debug.Log("��Ʈ�ѷ� ����");
-
             }
             
             if (headerSelectedButton == 4)
@@ -208,28 +164,15 @@ public class MainMenuUIManagement : MonoBehaviour
                 Headerselected[2].SetActive(false);
                 Headerselected[3].SetActive(false);
                 Headerselected[4].SetActive(true);
-                Debug.Log("�ɼ� ����");
             }
         }
 
         if (Input.GetKeyDown(KeyCode.X) && !buttonPressed)
         {
-            Debug.Log("XŰ ����");
+            menuAudio.PlayOneShot(menuNavigation);
             buttonPressed = true;
             headerSelectedButton++;
-            /*
-            if (headerSelectedButton == Buttons.Length - 1)
-            {
-                headerSelectedButton -= Buttons.Length - 1;
-                EventSystem.current.SetSelectedGameObject(Buttons[headerSelectedButton]);
-            }
-            else
-            {
-                headerSelectedButton++;
-                EventSystem.current.SetSelectedGameObject(Buttons[headerSelectedButton]);
-                Debug.Log(Buttons[headerSelectedButton].name);
-            }
-            */
+
             if (headerSelectedButton == 0)
             {
                 Buttons[0].Select();
@@ -237,13 +180,13 @@ public class MainMenuUIManagement : MonoBehaviour
                 MenuPanel[0].SetActive(true);
                 MenuPanel[1].SetActive(false);
                 MenuPanel[2].SetActive(false);
+                MenuPanel[3].SetActive(false);
 
                 Headerselected[0].SetActive(true);
                 Headerselected[1].SetActive(false);
                 Headerselected[2].SetActive(false);
                 Headerselected[3].SetActive(false);
                 Headerselected[4].SetActive(false);
-                Debug.Log("�κ��丮 ����");
 
             }
 
@@ -254,14 +197,13 @@ public class MainMenuUIManagement : MonoBehaviour
                 MenuPanel[0].SetActive(false);
                 MenuPanel[1].SetActive(true);
                 MenuPanel[2].SetActive(false);
+                MenuPanel[3].SetActive(false);
 
                 Headerselected[0].SetActive(false);
                 Headerselected[1].SetActive(true);
                 Headerselected[2].SetActive(false);
                 Headerselected[3].SetActive(false);
                 Headerselected[4].SetActive(false);
-                Debug.Log("���� ����");
-
             }
 
             if (headerSelectedButton == 2)
@@ -271,26 +213,29 @@ public class MainMenuUIManagement : MonoBehaviour
                 MenuPanel[0].SetActive(false);
                 MenuPanel[1].SetActive(false);
                 MenuPanel[2].SetActive(true);
+                MenuPanel[3].SetActive(false);
 
                 Headerselected[0].SetActive(false);
                 Headerselected[1].SetActive(false);
                 Headerselected[2].SetActive(true);
                 Headerselected[3].SetActive(false);
                 Headerselected[4].SetActive(false);
-                Debug.Log("�����¹��� ����");
             }
 
             if (headerSelectedButton == 3)
             {
                 Buttons[3].Select();
 
+                MenuPanel[0].SetActive(false);
+                MenuPanel[1].SetActive(false);
+                MenuPanel[2].SetActive(false);
+                MenuPanel[3].SetActive(true);
+
                 Headerselected[0].SetActive(false);
                 Headerselected[1].SetActive(false);
                 Headerselected[2].SetActive(false);
                 Headerselected[3].SetActive(true);
                 Headerselected[4].SetActive(false);
-                Debug.Log("��Ʈ�ѷ� ����");
-
             }
 
             if (headerSelectedButton == 4)
@@ -302,7 +247,6 @@ public class MainMenuUIManagement : MonoBehaviour
                 Headerselected[2].SetActive(false);
                 Headerselected[3].SetActive(false);
                 Headerselected[4].SetActive(true);
-                Debug.Log("�ɼ� ����");
             }
         }
 

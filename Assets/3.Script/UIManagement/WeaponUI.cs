@@ -6,14 +6,18 @@ using UnityEngine.EventSystems;
 
 public class WeaponUI : MonoBehaviour //weapon panel
 {
+
+    [Header("SFX")]
+    [SerializeField] private AudioSource weaponAudio;
+    [SerializeField] private AudioClip weaponNavigation;
+    [Space]
     public GameObject[] WeaponBtn;
 
     [SerializeField] int selectedButton = 0;
 
     bool buttonPressed = false;
 
-
-    private void Start()
+    private void OnEnable()
     {
         EventSystem.current.SetSelectedGameObject(WeaponBtn[0]);
     }
@@ -29,7 +33,7 @@ public class WeaponUI : MonoBehaviour //weapon panel
     {
         if (Input.GetKeyDown(KeyCode.W) && !buttonPressed)
         {
-            Debug.Log("W키 누름 ↑");
+            weaponAudio.PlayOneShot(weaponNavigation);
             buttonPressed = true;
 
             switch (selectedButton)
@@ -48,7 +52,7 @@ public class WeaponUI : MonoBehaviour //weapon panel
 
         if (Input.GetKeyDown(KeyCode.A) && !buttonPressed)
         {
-            Debug.Log("A키 누름 ←");
+            weaponAudio.PlayOneShot(weaponNavigation);
             buttonPressed = true;
 
             switch (selectedButton)
@@ -72,7 +76,7 @@ public class WeaponUI : MonoBehaviour //weapon panel
 
         if (Input.GetKeyDown(KeyCode.S) && !buttonPressed)
         {
-            Debug.Log("S키 누름 ↓");
+            weaponAudio.PlayOneShot(weaponNavigation);
             buttonPressed = true;
 
             switch (selectedButton)
@@ -91,7 +95,7 @@ public class WeaponUI : MonoBehaviour //weapon panel
 
         if (Input.GetKeyDown(KeyCode.D) && !buttonPressed)
         {
-            Debug.Log("D키 누름 →");
+            weaponAudio.PlayOneShot(weaponNavigation);
             buttonPressed = true;
 
 
@@ -116,7 +120,6 @@ public class WeaponUI : MonoBehaviour //weapon panel
         if (Input.GetKeyDown(KeyCode.E))
         {
             Debug.Log("E키 선택!");
-
         }
 
         if (buttonPressed)

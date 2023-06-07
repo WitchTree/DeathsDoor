@@ -6,10 +6,17 @@ using UnityEngine.EventSystems;
 
 public class TitleUIManagement : MonoBehaviour
 {
+
+    public Animator[] BtnAni;
+
     public GameObject[] Buttons;
     private GameObject firstButton;
 
     [SerializeField] int selectedButton = 0;
+
+    [SerializeField] private AudioSource menuAudio;
+    [SerializeField] private AudioClip menuNavigation;
+    [SerializeField] private AudioClip buttonSelectedSFX;
 
     Vector3 btn_pos;
     float[] horizontalDifference;
@@ -67,7 +74,7 @@ public class TitleUIManagement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.W) && !buttonPressed)
         {
-            Debug.Log("W");
+            menuAudio.PlayOneShot(menuNavigation);
             buttonPressed = true;
 
             if (selectedButton == 0)
@@ -85,9 +92,8 @@ public class TitleUIManagement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.S) && !buttonPressed)
         {
-            Debug.Log("S");
+            menuAudio.PlayOneShot(menuNavigation);
             buttonPressed = true;
-
 
             if (selectedButton == Buttons.Length - 1)
             {
@@ -102,24 +108,32 @@ public class TitleUIManagement : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && !buttonPressed)
         {
-            Debug.Log("E키 선택!");
+            buttonPressed = true;
 
-            if (Buttons[0])
+            if (selectedButton==0)
             {
-                //start버튼 선택했을 때 sceneChange=> 01.HOD 장면으로 넘어가주세용~  from.0602
+                BtnAni[0].SetTrigger("ButtonPressed");
+                menuAudio.PlayOneShot(buttonSelectedSFX);
                 fadeImage.FadeOut();
+                Debug.Log("Start");
             }
 
-            if (Buttons[1])
+            else if (selectedButton == 1)
             {
+                BtnAni[1].SetTrigger("ButtonPressed");
+                menuAudio.PlayOneShot(buttonSelectedSFX);
                 //option 버튼... 시간 남을때 하렴...ㅎㅎ-민아가 민아에게-
+                Debug.Log("Option");
             }
 
-            if (Buttons[2])
+            else if (selectedButton == 2)
             {
-                //quit 버튼 게임 종료
+                BtnAni[2].SetTrigger("ButtonPressed");
+                menuAudio.PlayOneShot(buttonSelectedSFX);
+                Application.Quit();
+                Debug.Log("Quit");
             }
         }
 
@@ -128,4 +142,5 @@ public class TitleUIManagement : MonoBehaviour
             buttonPressed = false;
         }
     }
+
 }

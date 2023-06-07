@@ -6,6 +6,12 @@ using UnityEngine.EventSystems;
 
 public class AbilityUpgradeUIManagement : MonoBehaviour
 {
+
+    [Header("SFX")]
+    [SerializeField] private AudioSource UpgradeAudio;
+    [SerializeField] private AudioClip UpgradeNavigation;
+    [Space]
+
     public GameObject[] Buttons;
     private GameObject firstButton;
     [SerializeField] int selectedButton = 0;
@@ -19,15 +25,15 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
     private float timeScale;
 
     GameObject UpgradeUI;
-    GameObject Hud;
-    GameObject Arrow;
+    public GameObject  Hud;
+    public GameObject Cursor;
 
 
     private void Start()
     {
         UpgradeUI = transform.GetChild(1).gameObject; 
-        Hud = GameObject.FindWithTag("HudUI");
-        Arrow = GameObject.Find("Arrow");
+        //Hud = GameObject.FindWithTag("HudUI");
+        //Arrow = GameObject.Find("Arrow");
     }
 
     // Update is called once per frame
@@ -35,6 +41,7 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R)) 
         {
+            UpgradeAudio.PlayOneShot(UpgradeNavigation);
             switch (isMenuAct)
             {
                 case true:
@@ -42,7 +49,7 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
                     isMenuAct = false;
                     UpgradeUI.SetActive(false);
                     Hud.SetActive(true);
-                    Arrow.SetActive(true);
+                    Cursor.SetActive(true);
                     break;
 
                 case false:
@@ -50,7 +57,7 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
                     isMenuAct = true;
                     UpgradeUI.SetActive(true);
                     Hud.SetActive(false);
-                    Arrow.SetActive(false);
+                    Cursor.SetActive(false);
                     SetMenuUI();
                     break;
             }
@@ -97,7 +104,7 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.W) && !buttonPressed)
         {
-            Debug.Log("W");
+            UpgradeAudio.PlayOneShot(UpgradeNavigation);
             buttonPressed = true;
 
             if (selectedButton == 0)
@@ -115,7 +122,7 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.S) && !buttonPressed)
         {
-            Debug.Log("S");
+            UpgradeAudio.PlayOneShot(UpgradeNavigation);
             buttonPressed = true;
 
 
