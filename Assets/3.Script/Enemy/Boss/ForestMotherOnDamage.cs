@@ -20,7 +20,7 @@ public class ForestMotherOnDamage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Skill"))
+        if (other.CompareTag("Skill") || other.CompareTag("Weapon"))
         {
             Destroy(other.gameObject);
             forestMother.hp -= playerSkill.skillDamage;

@@ -33,7 +33,7 @@ public class MageOnDamage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Skill"))
+        if (other.CompareTag("Skill") || other.CompareTag("Weapon"))
         {
             mage.Damaged();
             Destroy(other.gameObject);

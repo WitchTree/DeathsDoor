@@ -47,14 +47,13 @@ public class POT_HEAL_Generic : MonoBehaviour
 
     void OnTriggerEnter(Collider other) 
     {
-        if (other.CompareTag("Skill"))
+        if (other.CompareTag("Skill") || other.CompareTag("Weapon"))
         {
             //Audio
             audio.PlayOneShot(potBreak);
 
             //Broken pot direction
             attackPos = transform.position - other.gameObject.transform.position;
-            Destroy(other.gameObject);
 
             StartCoroutine(Pot_co());
         }

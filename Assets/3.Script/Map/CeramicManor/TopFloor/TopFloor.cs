@@ -41,8 +41,8 @@ public class TopFloor : MonoBehaviour
 
     IEnumerator OpenDoor_co()
     {
-        audio.PlayOneShot(doorButton);
         yield return new WaitForSeconds(2f);
+        audio.PlayOneShot(doorButton);
         while (leftDoor.localPosition.x > -0.0045f)
         {
             leftDoor.localPosition -= new Vector3(openSpeed * Time.deltaTime, 0f, 0f);

@@ -36,7 +36,7 @@ public class PotKey : MonoBehaviour
 
     void OnTriggerEnter(Collider other) 
     {
-        if (other.CompareTag("Skill")) 
+        if (other.CompareTag("Skill") || other.CompareTag("Weapon")) 
         {
             //Broken pot audio
             audio.PlayOneShot(potDamage, 0.5f);
