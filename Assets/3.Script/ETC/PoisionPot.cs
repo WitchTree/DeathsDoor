@@ -10,6 +10,14 @@ public class PoisionPot : MonoBehaviour
     public ParticleSystem particleObject;
     private int count = 1;
 
+    public AudioSource audio;
+    public AudioClip explosion;
+
+    private void Awake()
+    {
+        audio = GetComponent<AudioSource>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Skill") && count == 1)
@@ -27,7 +35,7 @@ public class PoisionPot : MonoBehaviour
     private IEnumerator Explosion()
     {
         yield return new WaitForSeconds(0.1f);
-        Debug.Log("독항아리 터진다!!");
+        audio.PlayOneShot(explosion);
 
         int layerMask = -1; // 모든 레이어를 검출
 
@@ -49,8 +57,6 @@ public class PoisionPot : MonoBehaviour
                 {
                     playerComponent.HitPot(transform.position);
                 }
-
-              
             }
         }
         Pot_Purple.SetActive(false);
@@ -58,6 +64,5 @@ public class PoisionPot : MonoBehaviour
 
         particleObject.Play();
         count--;
-        //Destroy(gameObject);
     }
 }
