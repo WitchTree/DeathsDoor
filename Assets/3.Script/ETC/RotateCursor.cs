@@ -10,7 +10,7 @@ public class RotateCursor : MonoBehaviour
     private void Update()
     {
         transform.LookAt(target);
-        transform.eulerAngles += new Vector3(90, 0, 0);
+        //transform.eulerAngles += new Vector3(90, 0, 0);
         
     }
 }
