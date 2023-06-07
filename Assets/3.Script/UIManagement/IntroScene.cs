@@ -40,12 +40,18 @@ public class IntroScene : MonoBehaviour
     public float wordSpeed;
     public GameObject introScene;
 
+    AudioSource audio;
+    [SerializeField] AudioClip[] audioClips;
+
+    [SerializeField] GameObject HudUI;
+    [SerializeField] Animator HudUIAnimator;
 
 
 
 
     private void Start()
-    {        
+    {
+        audio = GetComponent<AudioSource>();
         firstPoint =firstPointObject.transform.position;
         secondPoint=secondPointObject.transform.position;
         thirdPoint = thirdPointObject.transform.position;
@@ -173,13 +179,20 @@ public class IntroScene : MonoBehaviour
             playerAnimator.SetBool("Idle",false);
             playerAnimator.SetBool("FakeRun",true);
             Arrow.SetActive(false);
+            HudUIAnimator.SetBool("isExit", true);
+            Invoke(nameof(ResetHud), 1.2f);
             //playerController.isRoll=true;    
 
         }        
     }
 
-    
-   
+    private void ResetHud()
+    {
+        HudUI.SetActive(false);
+    }
+
+
+
 
     private void TurCorner()
     {
@@ -332,11 +345,14 @@ public class IntroScene : MonoBehaviour
     private void ActivateDoor()
     {        
         introDoor.SetActive(true);
+        audio.PlayOneShot(audioClips[0]);
+  
     }
 
     private void ResetPlayer()
     {
-        isEntered=false;
+        HudUI.SetActive(true);
+        isEntered =false;
         isLookat = false;
         isEnd=false;
         playerInput.isLock = false;
