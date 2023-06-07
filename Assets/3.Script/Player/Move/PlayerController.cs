@@ -85,10 +85,14 @@ public class PlayerController : MonoBehaviour
             {
                 Vector3 targetDir=h.point-transform.position;
                 targetDir.y=0f;
-                Quaternion targetRotation=Quaternion.LookRotation(targetDir);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+                if(Input.GetMouseButtonDown(2))
+                {
+                    Quaternion targetRotation=Quaternion.LookRotation(targetDir);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                }
                 hitpoint = h.point;
-                cursor.transform.position = new Vector3(hitpoint.x, hitpoint.y, hitpoint.z);                
+                cursor.transform.position = new Vector3(hitpoint.x, hitpoint.y, hitpoint.z);
                                 
             }
             
