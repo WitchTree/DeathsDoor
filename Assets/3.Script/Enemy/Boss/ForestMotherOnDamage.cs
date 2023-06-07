@@ -5,6 +5,7 @@ using UnityEngine;
 public class ForestMotherOnDamage : MonoBehaviour
 {
     Player_skill playerSkill;
+    PlayerState playerState;
     ForestMother forestMother;
     Animator fMAni;
 
@@ -15,6 +16,7 @@ public class ForestMotherOnDamage : MonoBehaviour
     private void Start()
     {
         playerSkill = FindObjectOfType<Player_skill>();
+        playerState = FindObjectOfType<PlayerState>();
         forestMother = FindObjectOfType<ForestMother>();
     }
 
@@ -34,6 +36,12 @@ public class ForestMotherOnDamage : MonoBehaviour
             {
                 //Damage Material Change
                 forestMother.DamagedEffect();
+            }
+
+            if (other.CompareTag("Weapon"))
+            {
+                //player skill count up
+                playerState.SkillCountUp();
             }
 
             VineAttacked();

@@ -13,10 +13,15 @@ public class MageOnDamage : MonoBehaviour
     public float dissolveRate = 0.0125f;
     public float refreshRate = 0.025f;
 
+    //Player
+    PlayerState playerState;
+
     private void Start()
     {
         mage = GetComponentInParent<Mage>();
         skinnedMeshRenderer = mage.gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+        playerState = FindObjectOfType<PlayerState>();
+
         for (int i = 0; i < skinnedMeshRenderer.Length; i++)
         {
             currMaterial[i] = skinnedMeshRenderer[i].materials;
@@ -28,6 +33,13 @@ public class MageOnDamage : MonoBehaviour
         if (other.CompareTag("Skill") || other.CompareTag("Weapon"))
         {
             mage.Damaged();
+
+            if (other.CompareTag("Weapon"))
+            {
+                //player skill count up
+                playerState.SkillCountUp();
+            }
+
             StartCoroutine(DmgEffect_co());
         }
     }

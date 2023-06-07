@@ -13,6 +13,9 @@ public class Weapon_Bow : MonoBehaviour
     public Enemy enemy;
     public ParticleSystem particleObject;
 
+    bool isHit = false;
+    Vector3 hitPos;
+
     private static Weapon_Bow Instance;
     public static Weapon_Bow instance
     {
@@ -46,6 +49,13 @@ public class Weapon_Bow : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if (isHit)
+        {
+            transform.GetChild(2).position = hitPos;
+        }
+
+
     }
 
     private void Shoot()
@@ -70,8 +80,20 @@ public class Weapon_Bow : MonoBehaviour
 
         if (!other.CompareTag("Player") )
         {
-            //Destroy(gameObject);
+            transform.GetChild(0).gameObject.SetActive(false);
+            transform.GetChild(2).gameObject.SetActive(true);
+
+            isHit = true;
+            hitPos = transform.GetChild(2).position;
+
+            StartCoroutine(DestoryBow_co());
         }    
+    }
+
+    IEnumerator DestoryBow_co()
+    {
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
     }
 
     private bool IsVisibleByCamera()//카메라 밖에서 사라짐

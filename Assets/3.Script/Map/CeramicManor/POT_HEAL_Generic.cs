@@ -23,11 +23,15 @@ public class POT_HEAL_Generic : MonoBehaviour
     [SerializeField] AudioClip potBreak;
     [SerializeField] AudioClip potReset;
 
+    //Player
+    PlayerState playerState;
+
 
     private void Start()
     {
         collider = GetComponent<Collider>();
         audio = GetComponent<AudioSource>();
+        playerState = FindObjectOfType<PlayerState>();
 
         smashed = transform.GetChild(1).GetComponentsInChildren<Rigidbody>();
 
@@ -54,6 +58,12 @@ public class POT_HEAL_Generic : MonoBehaviour
 
             //Broken pot direction
             attackPos = transform.position - other.gameObject.transform.position;
+
+            if (other.CompareTag("Weapon"))
+            {
+                //player skill count up
+                playerState.SkillCountUp();
+            }
 
             StartCoroutine(Pot_co());
         }
