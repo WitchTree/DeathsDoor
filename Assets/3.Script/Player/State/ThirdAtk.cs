@@ -41,4 +41,9 @@ public class ThirdAtk : StateMachineBehaviour
             playerTransform.LookAt(playerTransform.position + dash_Dir);
         }
     }
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        sword.Normalize();
+        animator.SetInteger("Combo", 0);
+    }
 }

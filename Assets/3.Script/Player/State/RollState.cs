@@ -37,6 +37,7 @@ public class RollState : StateMachineBehaviour
         }
         if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9f)
         {
+            player_R.velocity = Vector3.zero;
             if (isClick)
             {
                 sword.swordBack.SetActive(false);

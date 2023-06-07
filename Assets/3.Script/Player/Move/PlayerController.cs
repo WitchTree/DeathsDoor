@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     public bool isAtk = false;
 
 
-    private float closeDistance = 0.25f;
+    private float closeDistance = 0.5f;
 
     [SerializeField] PlayerInput playerinput;
     [SerializeField] Camera main;
@@ -87,6 +87,7 @@ public class PlayerController : MonoBehaviour
             {
                 Vector3 targetDir=h.point-transform.position;
                 targetDir.y=0f;
+
                 if(Input.GetMouseButtonDown(2))
                 {
                     Quaternion targetRotation=Quaternion.LookRotation(targetDir);
