@@ -25,12 +25,15 @@ public class NextScene : MonoBehaviour
     public Volume globalVolume;
     public Bloom globalBloom;
     public GameObject outroImage;
+
+    SceneChange sceneChange;
     // Start is called before the first frame update
     void Start()
     {
         firstPoint =firstPointObject.transform.position;
         secondPoint=secondPointObject.transform.position;       
-        globalVolume.profile.TryGet(out globalBloom); 
+        globalVolume.profile.TryGet(out globalBloom);
+        sceneChange = FindObjectOfType<SceneChange>();
     }
 
     // Update is called once per frame
@@ -93,7 +96,8 @@ public class NextScene : MonoBehaviour
         playerAnimator.SetBool("FakeRun",false);
         playerController.speed = 4;   
         playerInput.isLock=false;
-        SceneManager.LoadScene("1.Scene/03.Ceramic_Manor");
+        //SceneManager.LoadScene("1.Scene/03.Ceramic_Manor");
+        sceneChange.ChangeScene();
     }
 
 
