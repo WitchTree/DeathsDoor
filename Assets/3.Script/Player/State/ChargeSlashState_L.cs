@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ChargeSlashState_L : StateMachineBehaviour
 {
-    Rigidbody player_R;
     Transform playerTransform;
     PlayerController playercontroller;
-    ChargeStartState_L chargeL;
     Sword sword;
+    public AudioSource audio;
+    public AudioClip StrongAtk;
     public float atkDash = 1.0f;
     int dashCnt = 0;
     public int dashLimit=0;
@@ -18,8 +18,11 @@ public class ChargeSlashState_L : StateMachineBehaviour
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         animator.TryGetComponent(out sword);
         animator.TryGetComponent(out playercontroller);
+        animator.TryGetComponent(out audio);
         sword.StrongSlash_L.SetActive(true);
         dashCnt = 0;
+        audio.PlayOneShot(StrongAtk);
+
 
     }
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

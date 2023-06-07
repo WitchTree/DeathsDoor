@@ -5,10 +5,11 @@ using UnityEngine;
 public class SecAtk : StateMachineBehaviour
 {
     Transform playerTransform;
-    Rigidbody player_R;
     Sword sword;
     PlayerInput playerInput;
     PlayerController playercontroller;
+    public AudioSource audio;
+    public AudioClip LightAtk;
     public bool isClick = false;
     public float atkDash = 1.0f;
     int dashCnt = 0;
@@ -18,7 +19,7 @@ public class SecAtk : StateMachineBehaviour
     {
         isClick = false;
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        animator.TryGetComponent(out player_R);
+        animator.TryGetComponent(out audio);
         animator.TryGetComponent(out sword);
         animator.TryGetComponent(out playerInput);
         animator.TryGetComponent(out playercontroller);
@@ -28,6 +29,8 @@ public class SecAtk : StateMachineBehaviour
         sword.LightSlash_R.SetActive(true);
         playercontroller.Lookat();
         dashCnt = 0;
+        audio.PlayOneShot(LightAtk);
+
     }
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
