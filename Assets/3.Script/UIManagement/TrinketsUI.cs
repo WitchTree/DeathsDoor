@@ -6,14 +6,17 @@ using UnityEngine.EventSystems;
 
 public class TrinketsUI : MonoBehaviour //Trinkets panel
 {
+    [Header("SFX")]
+    [SerializeField] private AudioSource trinketsAudio;
+    [SerializeField] private AudioClip trinketsNavigation;
+    [Space]
     public GameObject[] TrinketsBtn;
 
     [SerializeField] int selectedButton = 0;
 
     bool buttonPressed = false;
 
-
-    private void Start()
+    private void OnEnable()
     {
         EventSystem.current.SetSelectedGameObject(TrinketsBtn[0]);
     }
@@ -29,7 +32,7 @@ public class TrinketsUI : MonoBehaviour //Trinkets panel
     {
         if (Input.GetKeyDown(KeyCode.W) && !buttonPressed)
         {
-            Debug.Log("W키 누름 ↑");
+            trinketsAudio.PlayOneShot(trinketsNavigation);
             buttonPressed = true;
 
             if (selectedButton >= 6)
@@ -46,12 +49,11 @@ public class TrinketsUI : MonoBehaviour //Trinkets panel
                     EventSystem.current.SetSelectedGameObject(TrinketsBtn[selectedButton]);
                 }
             }
-            //if (TrinketsBtn[0] || TrinketsBtn[1] || TrinketsBtn[2] || TrinketsBtn[3] || TrinketsBtn[4] || TrinketsBtn[5])
         }
 
         if (Input.GetKeyDown(KeyCode.A) && !buttonPressed)
         {
-            Debug.Log("A키 누름 ←");
+            trinketsAudio.PlayOneShot(trinketsNavigation);
             buttonPressed = true;
 
             if ((selectedButton % 6).Equals(0))
@@ -69,7 +71,7 @@ public class TrinketsUI : MonoBehaviour //Trinkets panel
 
         if (Input.GetKeyDown(KeyCode.S) && !buttonPressed)
         {
-            Debug.Log("S키 누름 ↓");
+            trinketsAudio.PlayOneShot(trinketsNavigation);
             buttonPressed = true;
 
             if (selectedButton <= 17)
@@ -90,7 +92,7 @@ public class TrinketsUI : MonoBehaviour //Trinkets panel
 
         if (Input.GetKeyDown(KeyCode.D) && !buttonPressed)
         {
-            Debug.Log("D키 누름 →");
+            trinketsAudio.PlayOneShot(trinketsNavigation);
             buttonPressed = true;
 
             if ((selectedButton % 6).Equals(5))
@@ -104,7 +106,6 @@ public class TrinketsUI : MonoBehaviour //Trinkets panel
                 EventSystem.current.SetSelectedGameObject(TrinketsBtn[selectedButton]);
             }
         }
-
 
         if (Input.GetKeyDown(KeyCode.E))
         {
