@@ -10,6 +10,7 @@ public class Hit_RecoverState : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         playerOnDamage = animator.GetComponent<PlayerOnDamage>();
+
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
