@@ -23,15 +23,6 @@ public class MageOnDamage : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (mage.hp <= 0)
-        {
-            mage.isDead = true;
-            Debug.Log(mage.isDead);
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Skill") || other.CompareTag("Weapon"))

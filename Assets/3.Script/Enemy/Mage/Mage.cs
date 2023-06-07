@@ -68,14 +68,20 @@ public class Mage : Enemy
     {
         hp--;
         audio.PlayOneShot(takeDamage);
-        if (hp <= 0)
+
+        Death();
+    }
+
+    public void Death()
+    {
+        if (hp <= 0f)
         {
             isDead = true;
             mageAni.SetTrigger("Death");
         }
     }
 
-    public void Death()
+    public void DeathMaterial()
     {
         mageOnDamage.ChangeMaterialDead();
 
@@ -121,7 +127,7 @@ public class Mage : Enemy
     void Attack()
     {
         //Mage -> shoot
-        if (attackTime >= attackBetTime && !isAttacking && !isTeleporting)
+        if (attackTime >= attackBetTime && !isAttacking && !isTeleporting && !isDead)
         {
             isAttacking = true;
             playerPos = player.position;
@@ -162,7 +168,7 @@ public class Mage : Enemy
 
     public void HitPot(Vector3 position)
     {
-        
+        hp -= maxHp;
         Death();
     }
 }
