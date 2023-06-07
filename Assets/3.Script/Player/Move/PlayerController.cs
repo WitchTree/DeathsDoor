@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
 
     public float rotationSpeed=5f;
     public GameObject cursor;
+
+    public GameObject[] weaponLayer;
     void Start()
     {
         player_R = GetComponent<Rigidbody>();
@@ -49,7 +51,10 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        
+        for(int i=0;i<weaponLayer.Length;i++)
+        {
+            weaponLayer[i].gameObject.layer = 6;
+        }
     }
 
     public void ReChangeLayersRecursively()
@@ -85,8 +90,11 @@ public class PlayerController : MonoBehaviour
             {
                 Vector3 targetDir=h.point-transform.position;
                 targetDir.y=0f;
-                Quaternion targetRotation=Quaternion.LookRotation(targetDir);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                if(Input.GetMouseButtonDown(2))
+                {
+                    Quaternion targetRotation=Quaternion.LookRotation(targetDir);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                }
                 hitpoint = h.point;
                 cursor.transform.position = new Vector3(hitpoint.x, hitpoint.y, hitpoint.z);
                 
