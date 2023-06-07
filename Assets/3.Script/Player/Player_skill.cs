@@ -12,6 +12,13 @@ public class Player_skill : MonoBehaviour
     public GameObject[] skill;
     GameObject preSkill;
 
+    public AudioSource audio;
+    public AudioClip bow;
+    public AudioClip fireBall;
+    public AudioClip bowShot;
+    public AudioClip fireballShot;
+
+
     public Transform weaponPivot; //�ٸ� Ŭ�������� �ҷ��� �� ����
     public Transform weaponPivot_Fireball;//��ġ
     public GameObject arrow_prefab;//�������� ȭ��
@@ -34,6 +41,7 @@ public class Player_skill : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         playerState = GetComponent<PlayerState>();
         playerController = GetComponent<PlayerController>();
+        audio = GetComponent<AudioSource>();
     }
     private void Update()
     {
@@ -88,10 +96,12 @@ public class Player_skill : MonoBehaviour
                 {
                    arrowhead.SetActive(false);
                 }
+                audio.PlayOneShot(bow);
             }
             if (skillIndex == 1)
             {
                 ani.SetBool("Fireball", isSkill);
+                audio.PlayOneShot(fireBall);
             }
 
             StartCoroutine("Wait_co");
@@ -110,10 +120,12 @@ public class Player_skill : MonoBehaviour
             if (skillIndex == 0)
             {
                 ani.SetBool("Bow", isSkill);
+                audio.PlayOneShot(bowShot);
             }
             if (skillIndex == 1)
             {
                 ani.SetBool("Fireball", isSkill);
+                audio.PlayOneShot(fireballShot);
             }
             
             StopCoroutine("Wait_co");

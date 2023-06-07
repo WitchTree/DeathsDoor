@@ -11,7 +11,7 @@ public class CorridorRightManager : MonoBehaviour
 
     private void Update()
     {
-        if (mage.isDead && !isSpikedoorLock)
+        if (mage.hp <= 0 && !isSpikedoorLock)
         {
             isSpikedoorLock = true;
             spikeDoor.OpenSpikeDoor();

@@ -21,9 +21,7 @@ public class PlayerController : MonoBehaviour
     public bool isRoll = false;
     public bool isIdle = false;
     public bool isAtk = false;
-    public bool isClimb = false;
-    public bool isClimbing = false;
-    public bool climbCheck = false;
+
 
     private float closeDistance = 0.25f;
 
@@ -32,6 +30,8 @@ public class PlayerController : MonoBehaviour
 
     public float rotationSpeed=5f;
     public GameObject cursor;
+
+    public GameObject[] weaponLayer;
     void Start()
     {
         player_R = GetComponent<Rigidbody>();
@@ -49,7 +49,10 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        
+        for(int i=0;i<weaponLayer.Length;i++)
+        {
+            weaponLayer[i].gameObject.layer = 6;
+        }
     }
 
     public void ReChangeLayersRecursively()
@@ -67,7 +70,6 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         Lookat();
-        Climb_MoveKey();
     }
     public void Lookat()
     {
@@ -85,8 +87,11 @@ public class PlayerController : MonoBehaviour
             {
                 Vector3 targetDir=h.point-transform.position;
                 targetDir.y=0f;
-                Quaternion targetRotation=Quaternion.LookRotation(targetDir);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                if(Input.GetMouseButtonDown(2))
+                {
+                    Quaternion targetRotation=Quaternion.LookRotation(targetDir);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                }
                 hitpoint = h.point;
                 cursor.transform.position = new Vector3(hitpoint.x, hitpoint.y, hitpoint.z);
                 
@@ -113,76 +118,5 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Ladder_Top") && isClimb)
-        {
-            ani.SetTrigger("Climb_Top");
-            ani.SetBool("Climb_Up", isClimb);
-            this.transform.Translate(0, 0.9f, 0.02f);
-            isClimb = false;
-            climbCheck = false;
-            playerinput.isLock = false;
-            this.transform.Translate(0, 0.02f, 0.02f);
-        }
-
-        if (other.CompareTag("Ladder_Bottom") && isClimb)
-        {
-            ani.SetTrigger("Climb_Bottom");
-            isClimb = false;
-            player_R.velocity = Vector3.zero;
-            climbCheck = false;
-            playerinput.isLock = false;            
-        }
-    }
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Ladder") && playerinput.isInteraction && !isClimb)
-        {
-            if (!climbCheck)
-            {
-                transform.position = other.gameObject.GetComponentsInParent<Transform>()[1].position;
-                transform.rotation = other.gameObject.GetComponentsInParent<Transform>()[1].rotation;
-                this.transform.Translate(0, 0.05f, 0);
-            }
-            playerinput.isLock = false;
-            isClimb = true;
-            ani.SetTrigger("Climb");
-            climbCheck = true;
-        }
-    }
-    private void Climb_MoveKey()
-    {
-        if (isClimb)
-        {
-            isClimbing = false;
-            ani.SetBool("Climb_Up", isClimbing);
-            ani.SetBool("Climb_Down", isClimbing);
-            Physics.gravity = new Vector3(0, 0, 0);
-            if (Input.GetKey(KeyCode.W))
-            {
-                isClimbing = true;
-                this.transform.Translate(0, 2 * Time.deltaTime, 0);
-                ani.SetBool("Climb_Up", isClimbing);
-                
-
-            }
-            if (Input.GetKey(KeyCode.S))
-            {
-                isClimbing = true;
-                this.transform.Translate(0, -2 * Time.deltaTime, 0);
-                ani.SetBool("Climb_Down", isClimbing);
-
-            }
-            else
-            {
-                ani.SetTrigger("Climb");
-            }
-        }
-
-        else
-        {
-            Physics.gravity = new Vector3(Physics.gravity.x, -9.81f, Physics.gravity.z);
-        }
-    }
+    
 }

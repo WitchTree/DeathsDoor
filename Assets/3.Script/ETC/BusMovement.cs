@@ -20,12 +20,22 @@ public class BusMovement : MonoBehaviour
     [SerializeField] GameObject moveGlow;
     [SerializeField] Animator moveGlowAnimator;
     [SerializeField] GameObject HudUi;
- 
+
+    AudioSource audio;
+    [SerializeField] AudioClip[] audioClips;
+    [SerializeField] GameObject audioManager01;
+
+    private void Awake()
+    {
+        audio = GetComponent<AudioSource>();
+        
+    }
 
     void Start()
     {         
         Invoke(nameof(SetDialogue), 2.2f);
         playerInput.isLock = true;
+        audio.PlayOneShot(audioClips[0]);
         //Cursor.visible = false;
 
     }
@@ -49,8 +59,10 @@ public class BusMovement : MonoBehaviour
                 player.SetActive(true);
                 DialogueUI.SetActive(false);
                 Invoke(nameof(ResetLock), 3.5f);
+                Invoke(nameof(BusActive), 6.5f);
                 Invoke(nameof(ChangeLayer), 4.5f);
                 busAnimator.SetBool("isEnd", true);
+                audio.PlayOneShot(audioClips[1]);
                 Invoke(nameof(SetMoveGlow), 2.7f);                
             }
         }
@@ -75,10 +87,16 @@ public class BusMovement : MonoBehaviour
 
     private void ResetLock()
     {
-        playerInput.isLock = false;
-        bus.SetActive(false);
+        playerInput.isLock = false;        
         arrow.SetActive(true);
+        audioManager01.SetActive(true);
 
+    }
+
+    private void BusActive()
+    {       
+        bus.SetActive(false);
+        
     }
 
     private void ChangeLayer()
