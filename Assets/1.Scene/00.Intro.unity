@@ -7951,6 +7951,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1f21f543b6a6404e8458cb8e2e4885a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BtnAni: []
   Buttons:
   - {fileID: 7599486642368585699}
   - {fileID: 7599486641534070204}
@@ -18365,7 +18366,7 @@ Animator:
   m_GameObject: {fileID: 660080491042821551}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a4fcb8246cfc8484dae7c348ac6d814d, type: 2}
+  m_Controller: {fileID: 9100000, guid: ecf03fe1d9ae4784ca7f9c2a18149f20, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -18842,6 +18843,7 @@ GameObject:
   - component: {fileID: 660080492146042866}
   - component: {fileID: 660080492146042829}
   - component: {fileID: 660080492146042867}
+  - component: {fileID: 660080492146042865}
   m_Layer: 5
   m_Name: BtnOption
   m_TagString: Button
@@ -18849,6 +18851,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &660080492146042865
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660080492146042864}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ecf03fe1d9ae4784ca7f9c2a18149f20, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &660080492146042866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19024,6 +19045,7 @@ GameObject:
   - component: {fileID: 660080492346773203}
   - component: {fileID: 660080492346773202}
   - component: {fileID: 660080492346773200}
+  - component: {fileID: 660080492346773204}
   m_Layer: 5
   m_Name: BtnExit
   m_TagString: Button
@@ -19080,6 +19102,25 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: EXIT
+--- !u!95 &660080492346773204
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660080492346773201}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ecf03fe1d9ae4784ca7f9c2a18149f20, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!222 &660080492376005049
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -96035,6 +96076,7 @@ GameObject:
   - component: {fileID: 6944514769001676379}
   - component: {fileID: 6944514769001676378}
   - component: {fileID: 6944514769001676377}
+  - component: {fileID: 6944514769001676380}
   m_Layer: 5
   m_Name: TitleUI (1)
   m_TagString: Untagged
@@ -96054,6 +96096,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1f21f543b6a6404e8458cb8e2e4885a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BtnAni:
+  - {fileID: 660080491042821552}
+  - {fileID: 660080492146042865}
+  - {fileID: 660080492346773204}
   Buttons:
   - {fileID: 660080491042821551}
   - {fileID: 660080492146042864}
@@ -96100,6 +96146,25 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
+--- !u!95 &6944514769001676380
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6944514769001676376}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ecf03fe1d9ae4784ca7f9c2a18149f20, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &6945852761081237924
 Transform:
   m_ObjectHideFlags: 0

@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 
 public class TitleUIManagement : MonoBehaviour
 {
+
+    public Animator[] BtnAni;
     public GameObject[] Buttons;
     private GameObject firstButton;
 
@@ -21,6 +23,7 @@ public class TitleUIManagement : MonoBehaviour
 
     private void Start()
     {
+        //BtnAni = GetComponent<Animator>();
         SetMenuUI();
     }
 
@@ -107,21 +110,25 @@ public class TitleUIManagement : MonoBehaviour
             Debug.Log("E키 선택!");
             buttonPressed = true;
 
-            if (Buttons[0])
+            if (selectedButton==0)
             {
+                BtnAni[0].SetTrigger("ButtonPressed");
                 //start버튼 선택했을 때 sceneChange=> 01.HOD 장면으로 넘어가주세용~  from.0602
                 fadeImage.FadeOut();
                 Debug.Log("Start");
             }
 
-            if (Buttons[1])
+            else if (selectedButton == 1)
             {
+                BtnAni[1].SetTrigger("ButtonPressed");
                 //option 버튼... 시간 남을때 하렴...ㅎㅎ-민아가 민아에게-
                 Debug.Log("Option");
             }
 
-            if (Buttons[2])
+            else if (selectedButton == 2)
             {
+                BtnAni[2].SetTrigger("ButtonPressed");
+                Application.Quit();
                 //quit 버튼 게임 종료
                 Debug.Log("Quit");
             }

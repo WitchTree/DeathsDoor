@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class HudUIManagement : MonoBehaviour
 {
-
+    public Animator BtnAni;
     public PlayerState playerState;
 
     [Header("½ºÅ³")]
@@ -188,9 +188,6 @@ public class HudUIManagement : MonoBehaviour
                 playerSkillFill[1].SetActive(true);
                 playerSkillFill[2].SetActive(true);
                 playerSkillFill[3].SetActive(true);
-
-                
-
                 break;
         }
     }
