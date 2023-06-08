@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class MainMenuUIManagement : MonoBehaviour
 {
+
+    public PlayerState playerState;
+
     [Header("SFX")]
     [SerializeField] private AudioSource menuAudio;
     [SerializeField] private AudioClip menuOpen;
@@ -31,6 +34,10 @@ public class MainMenuUIManagement : MonoBehaviour
     GameObject MainUI;
     public GameObject Hud;
     public GameObject Cursor;
+
+
+    [SerializeField] Text seed_Conut;
+    [SerializeField] Text soul_Conut;
 
     private void Awake()
     {
@@ -76,6 +83,9 @@ public class MainMenuUIManagement : MonoBehaviour
         {
             MainUIHeaderKeyboardInput();
         }
+
+        SeedCnt();
+        SoulCnt();
     }
 
 
@@ -255,5 +265,16 @@ public class MainMenuUIManagement : MonoBehaviour
             buttonPressed = false;
         }
     }
+
+    private void SeedCnt()
+    {
+        seed_Conut.text = ("x " + playerState.seed);
+    }
+
+    private void SoulCnt()
+    {
+        soul_Conut.text = ("x " + playerState.getSpirit);
+    }
+
 
 }

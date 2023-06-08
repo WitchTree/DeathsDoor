@@ -132,8 +132,7 @@ public class TitleUIManagement : MonoBehaviour
             {
                 BtnAni[2].SetTrigger("ButtonPressed");
                 menuAudio.PlayOneShot(buttonSelectedSFX);
-                Application.Quit();
-                Debug.Log("Quit");
+                GameExit();
             }
         }
 
@@ -141,6 +140,15 @@ public class TitleUIManagement : MonoBehaviour
         {
             buttonPressed = false;
         }
+    }
+
+    void GameExit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 
 }

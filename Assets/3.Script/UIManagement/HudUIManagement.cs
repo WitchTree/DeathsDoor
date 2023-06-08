@@ -34,17 +34,22 @@ public class HudUIManagement : MonoBehaviour
     float[] horizontalDifference;
     float[] verticallDifference;
 
+    [SerializeField] Text seedConut;
+    [SerializeField] Text soulConut;
+
 
     // Update is called once per frame
     void Update()
     {
         SetMenuUI();
         HudSkillSelectKeyboardInput();
+        SeedCount();
     }
 
     private void FixedUpdate()
     {
         PlayerHealthCondition();
+        PlayerSkillFillcondition();
     }
 
 
@@ -106,7 +111,6 @@ public class HudUIManagement : MonoBehaviour
             Debug.Log("스킬 선택 해제");
         }
     }
-
 
     public void PlayerHealthCondition() 
     {
@@ -191,5 +195,16 @@ public class HudUIManagement : MonoBehaviour
                 break;
         }
     }
+
+    public void SeedCount()
+    {
+        seedConut.text= ("X " + playerState.seed);
+    }
+
+    public void SoulCount()
+    {
+        soulConut.text = ("X " + playerState.getSpirit);
+    }
+
 
 }

@@ -6,6 +6,7 @@ public class Seed : MonoBehaviour
 {
     public PlayerInput playerInput;
     public PlayerState playerState;
+
     void Start()
     {
         playerState = FindObjectOfType<PlayerState>();
