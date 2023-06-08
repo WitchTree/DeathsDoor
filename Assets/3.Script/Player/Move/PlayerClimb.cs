@@ -75,19 +75,19 @@ public class PlayerClimb : MonoBehaviour
             {
                 isClimbing = true;
                 this.transform.Translate(0, 2 * Time.deltaTime, 0);
-                ani.SetBool("Climb_Up", isClimbing);
+                ani.SetBool("Climb_Up", true);
             }
-            if (Input.GetKey(KeyCode.S))
+            else if (Input.GetKey(KeyCode.S))
             {
                 isClimbing = true;
                 this.transform.Translate(0, -2 * Time.deltaTime, 0);
-                ani.SetBool("Climb_Down", isClimbing);
+                ani.SetBool("Climb_Down", true);
             }
             else
             {
                 isClimbing = false;
-                ani.SetBool("Climb_Up", isClimbing);
-                ani.SetBool("Climb_Down", isClimbing);
+                ani.SetBool("Climb_Up", false);
+                ani.SetBool("Climb_Down", false);
             }
             
         }

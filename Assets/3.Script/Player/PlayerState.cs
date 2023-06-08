@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerState : MonoBehaviour
 {
-     public int skill = 4; // Skill count has to be changed !!
+    [HideInInspector] public int skill = 4; // Skill count has to be changed !!
     [HideInInspector] public int life = 4;
     [HideInInspector] public int seed = 0;
     [HideInInspector] public int getSpirit = 0;
@@ -23,6 +23,10 @@ public class PlayerState : MonoBehaviour
     private void Awake()
     {
         playerInput = FindObjectOfType<PlayerInput>();
+
+        skill = 4;
+        life = 4;
+        getSpirit = 0;
     }
 
     private void Start()

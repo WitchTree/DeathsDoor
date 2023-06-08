@@ -7,6 +7,7 @@ public class CeramicManorManager : MonoBehaviour
 {
     [SerializeField] Transform playerSpawnPoint;
     [SerializeField] Transform player;
+    PlayerState playerState;
 
     [Header("Fade In")]
     float fadeInTime = 1f;
@@ -15,8 +16,13 @@ public class CeramicManorManager : MonoBehaviour
 
     private void Start()
     {
+        playerState = FindObjectOfType<PlayerState>();
+        LoadData();
+
         player.position = playerSpawnPoint.position;
         StartCoroutine(FadeIn());
+
+
     }
 
     IEnumerator FadeIn()
@@ -33,5 +39,12 @@ public class CeramicManorManager : MonoBehaviour
             yield return null;
         }
         fadeInImg.enabled = false;
+    }
+
+    void LoadData()
+    {
+        playerState.skill = PlayerPrefs.GetInt("Skill");
+        playerState.life = PlayerPrefs.GetInt("Life");
+        playerState.getSpirit = PlayerPrefs.GetInt("Spirit");
     }
 }

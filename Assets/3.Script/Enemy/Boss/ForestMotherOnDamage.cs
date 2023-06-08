@@ -24,7 +24,10 @@ public class ForestMotherOnDamage : MonoBehaviour
     {
         if (other.CompareTag("Skill") || other.CompareTag("Weapon"))
         {
-            Destroy(other.gameObject);
+            if (other.CompareTag("Skill"))
+            {
+                Destroy(other.gameObject);
+            }
             forestMother.hp -= playerSkill.skillDamage;
             forestMother.PlayHitSound();
 
@@ -45,7 +48,7 @@ public class ForestMotherOnDamage : MonoBehaviour
             }
 
             VineAttacked();
-            
+
         }
     }
 
@@ -67,7 +70,7 @@ public class ForestMotherOnDamage : MonoBehaviour
             if (liftAttackFinish)
             {
                 forestMother.Fall();
-            }    
+            }
         }
         else
         {
@@ -90,7 +93,7 @@ public class ForestMotherOnDamage : MonoBehaviour
     {
         int sum = forestMother.countAttacked[0] + forestMother.countAttacked[1];
 
-        if (sum.Equals(5))
+        if (sum.Equals(6))
         {
             return true;
         }

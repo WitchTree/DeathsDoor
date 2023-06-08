@@ -50,6 +50,9 @@ public class ForestMother : Enemy
     [SerializeField] AudioClip[] audioClips;
     TheGroveOfSpirits theGroveOfSpirits;
 
+    //Player
+    PlayerState playerState;
+
     public CinemachineVirtualCamera[] vcam;
     public GameObject nextSceneDoor;
     public GameObject nextSceneDoorGlow;
@@ -63,6 +66,7 @@ public class ForestMother : Enemy
         fMAni = GetComponent<Animator>();
         audio = GetComponent<AudioSource>();
         theGroveOfSpirits = FindObjectOfType<TheGroveOfSpirits>();
+        playerState = FindObjectOfType<PlayerState>();
 
         //skinnedMeshRenderer save
         for (int i = 0; i < skinnedMeshRenderers.Length; i++)
@@ -76,7 +80,7 @@ public class ForestMother : Enemy
   
     void SetFM()
     {
-        this.hp = 1f;
+        this.hp = 20f;
         this.maxHp = 20f;
         this.spirit = 100;
     }
@@ -93,8 +97,11 @@ public class ForestMother : Enemy
     public void Dead()
     {
         isDead = true;
+        playerState.getSpirit += spirit;
         fMAni.SetTrigger("Dead");
         audio.PlayOneShot(audioClips[4]);
+
+
         StartCoroutine(CreateSpirit_co());
     }
 

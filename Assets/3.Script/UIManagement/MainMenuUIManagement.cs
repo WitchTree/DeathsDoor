@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class MainMenuUIManagement : MonoBehaviour
 {
+
+    PlayerState playerState;
+
     [Header("SFX")]
     [SerializeField] private AudioSource menuAudio;
     [SerializeField] private AudioClip menuOpen;
@@ -30,13 +33,18 @@ public class MainMenuUIManagement : MonoBehaviour
 
     GameObject MainUI;
     public GameObject Hud;
-    public GameObject Cursor;
+    public GameObject cursor;
+
+    [SerializeField] Text seed_Count;
+    [SerializeField] Text soul_Count;
+
 
     private void Awake()
     {
         MainUI = transform.GetChild(0).gameObject;
-        //Hud = GameObject.FindWithTag("HudUI");
-        //Arrow = GameObject.Find("Arrow");
+        playerState = FindObjectOfType<PlayerState>();
+        Cursor.visible = false;
+   
     }
 
     private void OnEnable()
@@ -56,7 +64,7 @@ public class MainMenuUIManagement : MonoBehaviour
                     isMenuAct = false;
                     MainUI.SetActive(false);
                     Hud.SetActive(true);
-                    Cursor.SetActive(true);
+                    cursor.SetActive(true);
                     menuAudio.PlayOneShot(menuClose);
                     break;
 
@@ -65,7 +73,7 @@ public class MainMenuUIManagement : MonoBehaviour
                     isMenuAct = true;
                     MainUI.SetActive(true);
                     Hud.SetActive(false);
-                    Cursor.SetActive(false);
+                    cursor.SetActive(false);
                     MainUIHeaderKeyboardInput();
                     menuAudio.PlayOneShot(menuOpen);
                     break;
@@ -76,6 +84,9 @@ public class MainMenuUIManagement : MonoBehaviour
         {
             MainUIHeaderKeyboardInput();
         }
+
+        SeedCount();
+        SoulCount();
     }
 
 
@@ -254,6 +265,16 @@ public class MainMenuUIManagement : MonoBehaviour
         {
             buttonPressed = false;
         }
+    }
+
+    private void SeedCount()
+    {
+        seed_Count.text = ("x " + playerState.seed);
+    }
+    
+    private void SoulCount()
+    {
+        soul_Count.text = ("x " + playerState.getSpirit);
     }
 
 }

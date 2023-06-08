@@ -10,8 +10,8 @@ public class RollState : StateMachineBehaviour
     PlayerController playerController;
     Rigidbody player_R;
     Vector3 velocity;
-    //public AudioSource audio;
-    //public AudioClip Roll;
+    public AudioSource audio;
+    public AudioClip Roll;
 
     public bool isClick = false;
 
@@ -23,11 +23,12 @@ public class RollState : StateMachineBehaviour
         animator.TryGetComponent(out playerInput);
         animator.TryGetComponent(out playerController);
         animator.TryGetComponent(out player_R);
+        animator.TryGetComponent(out audio);
         sword.Normalize();
         Vector3 roll_Dir = playerTransform.forward;
         player_R.velocity = Vector3.zero;
         player_R.AddForce(roll_Dir * playerController.roll_Dis, ForceMode.VelocityChange);
-        //audio.PlayOneShot(Roll);
+        audio.PlayOneShot(Roll);
     }
 
 

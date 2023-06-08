@@ -25,6 +25,8 @@ public class NextScene : MonoBehaviour
     public Volume globalVolume;
     public Bloom globalBloom;
     public GameObject outroImage;
+
+    PlayerState playerState;
    
 
     SceneChange sceneChange;
@@ -35,6 +37,7 @@ public class NextScene : MonoBehaviour
         secondPoint=secondPointObject.transform.position;       
         globalVolume.profile.TryGet(out globalBloom);
         sceneChange = FindObjectOfType<SceneChange>();
+        playerState = FindObjectOfType<PlayerState>();
     }
 
     // Update is called once per frame
@@ -98,7 +101,15 @@ public class NextScene : MonoBehaviour
         playerController.speed = 4;   
         playerInput.isLock=false;
         //SceneManager.LoadScene("1.Scene/03.Ceramic_Manor");
+        SaveData();
         sceneChange.ChangeScene();
+    }
+
+    public void SaveData()
+    {
+        PlayerPrefs.SetInt("Spirit", playerState.getSpirit);
+        PlayerPrefs.SetInt("Skill", playerState.skill);
+        PlayerPrefs.SetInt("Life", playerState.life);
     }
 
 

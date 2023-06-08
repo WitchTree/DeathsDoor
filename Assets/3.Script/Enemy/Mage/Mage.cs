@@ -41,6 +41,9 @@ public class Mage : Enemy
     [SerializeField] AudioClip shoot;
     [SerializeField] AudioClip disappear;
 
+    //Player
+    PlayerState playerState;
+
     void Start()
     {
         SetMage();
@@ -62,13 +65,14 @@ public class Mage : Enemy
         mageAni = GetComponent<Animator>();
         mageOnDamage = GetComponentInChildren<MageOnDamage>();
         audio = GetComponent<AudioSource>();
+        playerState = FindObjectOfType<PlayerState>();
     }
 
     public void Damaged()
     {
         hp--;
         audio.PlayOneShot(takeDamage);
-
+        
         Death();
     }
 
@@ -77,6 +81,7 @@ public class Mage : Enemy
         if (hp <= 0f)
         {
             isDead = true;
+            playerState.getSpirit += spirit;
             mageAni.SetTrigger("Death");
         }
     }
@@ -94,6 +99,7 @@ public class Mage : Enemy
         GameObject spirit = Instantiate(spiritPrefab, transform.position, Quaternion.identity);
     }
 
+    /*
     //If player comes inside the trigger, mage attracted.
     //outside the trigger, mage teleport.
     private void OnTriggerEnter(Collider other)
@@ -113,6 +119,7 @@ public class Mage : Enemy
             mageAni.SetBool("isTeleporting", isTeleporting);
         }
     }
+    */
 
     void LookPlayer() 
     {
@@ -122,6 +129,12 @@ public class Mage : Enemy
             //Quaternion targetRotation = Quaternion.LookRotation(player.position - transform.position);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 180f * Time.deltaTime);
         }
+    }
+
+    void Teleport()
+    {
+        isTeleporting = true;
+        mageAni.SetBool("isTeleporting", isTeleporting);
     }
 
     void Attack()

@@ -35,6 +35,8 @@ public class SceneChange : MonoBehaviour
         StartCoroutine(FadeIn());
         StartCoroutine(PlayerAppear());
         shortcutDoor.InitOpen();
+
+
     }
 
     public void ChangeScene()

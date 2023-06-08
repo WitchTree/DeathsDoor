@@ -19,12 +19,17 @@ public class HudUIManagement : MonoBehaviour
     [Header("HP")]
     public GameObject[] playerHealthEmpty;
     public GameObject[] playerHpFill;
+    public Image[] playerHpFillImage;
     [SerializeField] int healthCnt= 4;
 
     [Header("MP")]
     public GameObject[] playerSkillEmpty;
     public GameObject[] playerSkillFill;
     [SerializeField] int skillCnt= 4;
+
+    [Header("Dead")]
+    public GameObject DeadUI;
+    [Space]
 
     bool buttonPressed = false;
 
@@ -34,17 +39,24 @@ public class HudUIManagement : MonoBehaviour
     float[] horizontalDifference;
     float[] verticallDifference;
 
+    [Header("Seed&Soul Count")]
+    [SerializeField] Text seedCount;
+    [SerializeField] Text soulCount;
+
 
     // Update is called once per frame
     void Update()
     {
         SetMenuUI();
         HudSkillSelectKeyboardInput();
+        SeedCount();
+        SoulCount();
     }
 
     private void FixedUpdate()
     {
         PlayerHealthCondition();
+        PlayerSkillFillcondition();
     }
 
 
@@ -80,7 +92,7 @@ public class HudUIManagement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1) && !buttonPressed)
         {
-            Debug.Log("1키 누름");
+           
             buttonPressed = true;
 
             skillBox[0].SetActive(true);
@@ -91,7 +103,7 @@ public class HudUIManagement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha2) && !buttonPressed)
         {
-            Debug.Log("2키 누름");
+            
             buttonPressed = true;
 
             skillBox[0].SetActive(false);
@@ -103,13 +115,17 @@ public class HudUIManagement : MonoBehaviour
         if (buttonPressed)
         {
             buttonPressed = false;
-            Debug.Log("스킬 선택 해제");
+            
         }
     }
 
 
     public void PlayerHealthCondition() 
     {
+        for(int i=0;i<4;i++)
+        {
+            playerHpFillImage[i] = playerHpFill[i].GetComponent<Image>();
+        }
         switch (playerState.life)
         {
             case 0:
@@ -117,6 +133,8 @@ public class HudUIManagement : MonoBehaviour
                 playerHpFill[1].SetActive(false);
                 playerHpFill[2].SetActive(false);
                 playerHpFill[3].SetActive(false);
+                
+                DeadUI.SetActive(true);
                 //dead
                 break;
 
@@ -125,6 +143,9 @@ public class HudUIManagement : MonoBehaviour
                 playerHpFill[1].SetActive(false);
                 playerHpFill[2].SetActive(false);
                 playerHpFill[3].SetActive(false);
+
+                playerHpFillImage[0].color = new Color32(238, 71, 76, 255);
+                
                 break;
 
             case 2:
@@ -132,6 +153,10 @@ public class HudUIManagement : MonoBehaviour
                 playerHpFill[1].SetActive(true);
                 playerHpFill[2].SetActive(false);
                 playerHpFill[3].SetActive(false);
+
+                playerHpFillImage[0].color = new Color32(174, 141, 62, 255);
+                playerHpFillImage[1].color = new Color32(237, 193, 87, 255);
+                
                 break;
 
             case 3:
@@ -139,6 +164,11 @@ public class HudUIManagement : MonoBehaviour
                 playerHpFill[1].SetActive(true);
                 playerHpFill[2].SetActive(true);
                 playerHpFill[3].SetActive(false);
+
+                playerHpFillImage[0].color = new Color32(131, 174, 63, 255);
+                playerHpFillImage[1].color = new Color32(136, 175, 63, 255);
+                playerHpFillImage[2].color = new Color32(188, 236, 88, 255);
+                
                 break;
 
             case 4:
@@ -146,6 +176,11 @@ public class HudUIManagement : MonoBehaviour
                 playerHpFill[1].SetActive(true);
                 playerHpFill[2].SetActive(true);
                 playerHpFill[3].SetActive(true);
+
+                playerHpFillImage[0].color = new Color32(131, 174,63, 255);
+                playerHpFillImage[1].color = new Color32(139, 174, 63, 255);
+                playerHpFillImage[2].color = new Color32(137, 175, 62, 255);
+                playerHpFillImage[3].color = new Color32(187, 236, 91, 255);
                 break;
         }
 
@@ -190,6 +225,16 @@ public class HudUIManagement : MonoBehaviour
                 playerSkillFill[3].SetActive(true);
                 break;
         }
+    }
+
+    public void SeedCount()
+    {
+        seedCount.text = ("x " + playerState.seed);
+    }
+
+    public void SoulCount()
+    {
+        soulCount.text = ("x " + playerState.getSpirit);
     }
 
 }

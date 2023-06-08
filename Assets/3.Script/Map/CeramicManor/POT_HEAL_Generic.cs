@@ -59,12 +59,6 @@ public class POT_HEAL_Generic : MonoBehaviour
             //Broken pot direction
             attackPos = transform.position - other.gameObject.transform.position;
 
-            if (other.CompareTag("Weapon"))
-            {
-                //player skill count up
-                playerState.SkillCountUp();
-            }
-
             StartCoroutine(Pot_co());
         }
     }
@@ -74,11 +68,13 @@ public class POT_HEAL_Generic : MonoBehaviour
         //pot body disactive
         transform.GetChild(0).gameObject.SetActive(false);
 
+        playerState.SkillCountUp();
+
         //pot break
         for (int i = 0; i < smashed.Length; i++)
         {
             smashed[i].isKinematic = false;
-            smashed[i].AddForce(attackPos * 200f);
+            //smashed[i].AddForce(attackPos * 200f);
         }
 
         //Collider disabled

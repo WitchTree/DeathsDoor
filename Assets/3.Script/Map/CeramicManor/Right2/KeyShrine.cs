@@ -9,6 +9,8 @@ public class KeyShrine : MonoBehaviour
     GameObject commandBox;
     Right2Manager right2Manager;
 
+    [SerializeField] GameObject KeyUI;
+
     bool isGetKey = false;
 
     private void Start()
@@ -36,6 +38,8 @@ public class KeyShrine : MonoBehaviour
             {
                 isGetKey = true;
                 commandBox.SetActive(false);
+                KeyUI.SetActive(true);
+
                 StartCoroutine(KeyShrineUp_co());
             }
         }

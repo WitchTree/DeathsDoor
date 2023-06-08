@@ -25,6 +25,9 @@ public class POT_Mimic_Melee : Enemy
     AudioSource audio;
     [SerializeField] AudioClip[] audioClips = new AudioClip[2];
 
+    //PlayerState
+    PlayerState playerState;
+
     bool isMove = false;
 
     void Start()
@@ -40,6 +43,7 @@ public class POT_Mimic_Melee : Enemy
 
         potAni = GetComponent<Animator>();
         audio = GetComponent<AudioSource>();
+        playerState = FindObjectOfType<PlayerState>();
     }
 
     void OnTriggerEnter(Collider other)
@@ -140,6 +144,8 @@ public class POT_Mimic_Melee : Enemy
     public void Dead()
     {
         isDead = true;
+
+        playerState.getSpirit += spirit;
 
         bodyParts[2].SetActive(false);
 

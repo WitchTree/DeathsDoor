@@ -28,7 +28,8 @@ public class TitleUIManagement : MonoBehaviour
 
     private void Start()
     {
-        SetMenuUI();
+        EventSystem.current.SetSelectedGameObject(Buttons[0]);
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -117,23 +118,19 @@ public class TitleUIManagement : MonoBehaviour
                 BtnAni[0].SetTrigger("ButtonPressed");
                 menuAudio.PlayOneShot(buttonSelectedSFX);
                 fadeImage.FadeOut();
-                Debug.Log("Start");
             }
 
             else if (selectedButton == 1)
             {
                 BtnAni[1].SetTrigger("ButtonPressed");
                 menuAudio.PlayOneShot(buttonSelectedSFX);
-                //option 버튼... 시간 남을때 하렴...ㅎㅎ-민아가 민아에게-
-                Debug.Log("Option");
             }
 
             else if (selectedButton == 2)
             {
                 BtnAni[2].SetTrigger("ButtonPressed");
                 menuAudio.PlayOneShot(buttonSelectedSFX);
-                Application.Quit();
-                Debug.Log("Quit");
+                GameExit();
             }
         }
 
@@ -143,4 +140,13 @@ public class TitleUIManagement : MonoBehaviour
         }
     }
 
+
+    void GameExit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+    Application.Quit();
+#endif
+    }
 }
