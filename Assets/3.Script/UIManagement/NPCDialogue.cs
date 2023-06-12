@@ -29,7 +29,6 @@ public class NPCDialogue : MonoBehaviour
     private void Awake()
     {
         audio = GetComponent<AudioSource>();
-        
     }
     void Start()
     {
@@ -54,10 +53,11 @@ public class NPCDialogue : MonoBehaviour
 
             else
             {
+                Debug.Log("말하는중");
+                playerInput.isLock = true;
                 talking = true;
                 DialogueUI.SetActive(true);
                 Hud.SetActive(false);
-                playerInput.isLock = true;
                 StartCoroutine(Typing());
             }
         }
@@ -71,7 +71,7 @@ public class NPCDialogue : MonoBehaviour
 
     public void NextLine()
     {
-      
+
         //num++;
         if (Input.GetKeyDown(KeyCode.Space))
         {

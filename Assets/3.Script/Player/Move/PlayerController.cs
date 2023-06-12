@@ -25,13 +25,14 @@ public class PlayerController : MonoBehaviour
     public bool isClimbing = false;
     public bool climbCheck = false;
 
-    private float closeDistance = 0.25f;
+    private float closeDistance = 1f;
 
     [SerializeField] PlayerInput playerinput;
     [SerializeField] Camera main;
 
     public float rotationSpeed=5f;
     public GameObject cursor;
+    public GameObject[] weapons;
     void Start()
     {
         player_R = GetComponent<Rigidbody>();
@@ -47,6 +48,11 @@ public class PlayerController : MonoBehaviour
             {
                 child.gameObject.layer = 0;
             }
+        }
+
+        for(int i=0;i<weapons.Length;i++)
+        {
+            weapons[i].gameObject.layer = 6;
         }
 
         

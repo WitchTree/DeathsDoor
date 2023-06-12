@@ -158,7 +158,7 @@ public class ArrowPosition : MonoBehaviour
     {
         vcam[6].gameObject.SetActive(true);
         vcam[0].gameObject.SetActive(false);
-        vcam[6].m_Lens.NearClipPlane = -7.65f;
+        vcam[6].m_Lens.NearClipPlane = -13.65f;
     }
 
     private void SettingCamera7()

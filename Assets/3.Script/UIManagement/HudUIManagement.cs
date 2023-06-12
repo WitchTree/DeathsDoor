@@ -51,6 +51,7 @@ public class HudUIManagement : MonoBehaviour
         HudSkillSelectKeyboardInput();
         SeedCount();
         SoulCount();
+
     }
 
     private void FixedUpdate()

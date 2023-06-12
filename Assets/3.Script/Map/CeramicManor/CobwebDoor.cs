@@ -21,6 +21,7 @@ public class CobwebDoor : MonoBehaviour
         {
             if(other.GetComponent<Weapon_Bow>().fireCheck)
             {
+                Debug.Log("ekg");
                 doorCollider.enabled = false;
                 openEffect.SetActive(true);
 

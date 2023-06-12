@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class MainMenuUIManagement : MonoBehaviour
 {
 
-    PlayerState playerState;
+    [SerializeField] PlayerState playerState;
 
     [Header("SFX")]
     [SerializeField] private AudioSource menuAudio;
@@ -42,14 +42,15 @@ public class MainMenuUIManagement : MonoBehaviour
     private void Awake()
     {
         MainUI = transform.GetChild(0).gameObject;
-        playerState = FindObjectOfType<PlayerState>();
+        //playerState = FindObjectOfType<PlayerState>();
         Cursor.visible = false;
-   
     }
 
     private void OnEnable()
     {
         Headerselected[0].SetActive(true);
+        SeedCount();
+        SoulCount();
     }
 
     // Update is called once per frame
@@ -84,9 +85,6 @@ public class MainMenuUIManagement : MonoBehaviour
         {
             MainUIHeaderKeyboardInput();
         }
-
-        SeedCount();
-        SoulCount();
     }
 
 

@@ -6,10 +6,9 @@ using UnityEngine.EventSystems;
 
 public class AbilityUpgradeUIManagement : MonoBehaviour
 {
-
     [Header("SFX")]
-    [SerializeField] private AudioSource UpgradeAudio;
-    [SerializeField] private AudioClip UpgradeNavigation;
+    [SerializeField] public AudioSource UpgradeAudio;
+    [SerializeField] public AudioClip UpgradeNavigation;
     [Space]
 
     public GameObject[] Buttons;
@@ -21,55 +20,75 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
     float[] verticallDifference;
 
     bool buttonPressed = false;
-    private bool isMenuAct = false;
-    private float timeScale;
+    public bool isMenuAct = false;
+    public float timeScale;
 
-    GameObject UpgradeUI;
+    //GameObject UpgradeUI;
     public GameObject  Hud;
-    public GameObject Cursor;
+    public GameObject cursor;
 
 
     private void Start()
     {
-        UpgradeUI = transform.GetChild(1).gameObject; 
+        //UpgradeUI = transform.GetChild(1).gameObject; 
         //Hud = GameObject.FindWithTag("HudUI");
-        //Arrow = GameObject.Find("Arrow");
+        //cursor = GameObject.Find("Arrow");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R)) 
+        //if (Input.GetKeyDown(KeyCode.R)) 
+        //{
+        //    UpgradeAudio.PlayOneShot(UpgradeNavigation);
+        //    switch (isMenuAct)
+        //    {
+        //        case true:
+        //            Time.timeScale = 1f;
+        //            isMenuAct = false;
+        //            //UpgradeUI.SetActive(false);
+        //            Hud.SetActive(true);
+        //            Cursor.SetActive(true);
+        //            break;
+        //
+        //        case false:
+        //            Time.timeScale = timeScale;
+        //            isMenuAct = true;
+        //            //UpgradeUI.SetActive(true);
+        //            Hud.SetActive(false);
+        //            Cursor.SetActive(false);
+        //            SetMenuUI();
+        //            break;
+        //    }
+        //}
+        //
+        //if (isMenuAct)
+        //{
+        //    UIKeyboardInput();
+        //}
+
+        if (Input.GetKeyDown(KeyCode.R) && isMenuAct)
+        {
+            //UpgradeAudio.PlayOneShot(UpgradeNavigation);
+
+            isMenuAct = false;
+            //UpgradeUI.SetActive(false);
+            Hud.SetActive(true);
+            cursor.SetActive(true);
+        }
+        if (!isMenuAct)
         {
             UpgradeAudio.PlayOneShot(UpgradeNavigation);
-            switch (isMenuAct)
-            {
-                case true:
-                    Time.timeScale = 1f;
-                    isMenuAct = false;
-                    UpgradeUI.SetActive(false);
-                    Hud.SetActive(true);
-                    Cursor.SetActive(true);
-                    break;
+            isMenuAct = true;
 
-                case false:
-                    Time.timeScale = timeScale;
-                    isMenuAct = true;
-                    UpgradeUI.SetActive(true);
-                    Hud.SetActive(false);
-                    Cursor.SetActive(false);
-                    SetMenuUI();
-                    break;
-            }
-        }
-
-        if (isMenuAct)
-        {
+            //UpgradeUI.SetActive(true);
+            Hud.SetActive(false);
+            cursor.SetActive(false);
+            SetMenuUI();
             UIKeyboardInput();
         }
     }
-
-    private void SetMenuUI()
+    public void SetMenuUI()
     {
         Buttons = GameObject.FindGameObjectsWithTag("Button");
 
@@ -99,7 +118,7 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
     }
 
-    private void UIKeyboardInput()
+    public void UIKeyboardInput()
     {
 
         if (Input.GetKeyDown(KeyCode.W) && !buttonPressed)
@@ -137,7 +156,7 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
                 EventSystem.current.SetSelectedGameObject(Buttons[selectedButton]);
             }
         }
-
+        /*
         if (Input.GetKeyDown(KeyCode.E))
         {
             Debug.Log("E키 선택!");
@@ -158,7 +177,7 @@ public class AbilityUpgradeUIManagement : MonoBehaviour
                 //어빌4 업그레이드
             }
         }
-
+        */
         if (buttonPressed)
         {
             buttonPressed = false;
