@@ -94,6 +94,7 @@ public class BankerDialogue : MonoBehaviour
                 talking = true;
                 DialogueUI.SetActive(true);
                 Hud.SetActive(false);
+                cursor.SetActive(false);
                 playerInput.isLock = true;
                 playerController.speed = 0;
                 StartCoroutine(Typing());
@@ -115,6 +116,8 @@ public class BankerDialogue : MonoBehaviour
             {
                 index++;
                 Txt_Dialogue.text = "";
+                cursor.SetActive(false);
+
                 StartCoroutine(Typing());               
             }
 
@@ -124,7 +127,6 @@ public class BankerDialogue : MonoBehaviour
                 DialogueUI.SetActive(false);
                 talking = false;
                 upgradeUI.SetActive(true);
-
 
                 Invoke(nameof(ResetisLock),0.8f);
             }

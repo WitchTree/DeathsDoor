@@ -11,6 +11,7 @@ public class NPCDialogue : MonoBehaviour
     public Text Txt_Dialogue;
 
     public GameObject Hud;
+    public GameObject cursor;
 
     public string[] Dialogue;
     private int index; 
@@ -57,6 +58,7 @@ public class NPCDialogue : MonoBehaviour
                 talking = true;
                 DialogueUI.SetActive(true);
                 Hud.SetActive(false);
+                cursor.SetActive(false);
                 StartCoroutine(Typing());
             }
         }
@@ -86,6 +88,7 @@ public class NPCDialogue : MonoBehaviour
                 zeroText();
                 DialogueUI.SetActive(false);
                 talking = false;
+                cursor.SetActive(true);
                 Invoke(nameof(ResetisLock),0.8f);
             }
         }
@@ -95,6 +98,7 @@ public class NPCDialogue : MonoBehaviour
     private void ResetisLock()
     {
         playerInput.isLock = false;
+
     }
 
     public void zeroText() 
