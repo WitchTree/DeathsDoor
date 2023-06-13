@@ -53,7 +53,6 @@ public class NPCDialogue : MonoBehaviour
 
             else
             {
-                Debug.Log("말하는중");
                 playerInput.isLock = true;
                 talking = true;
                 DialogueUI.SetActive(true);

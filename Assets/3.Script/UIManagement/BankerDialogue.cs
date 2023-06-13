@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class BankerDialogue : MonoBehaviour
 {
-
-    public AbilityUpgradeUIManagement abliltyUpgradeUI;
+    public AbilityUpgradeUIManagement abilityUpgradeUI;
 
     public GameObject upgradeUI;
     public PlayerInput playerInput;
@@ -16,6 +15,7 @@ public class BankerDialogue : MonoBehaviour
     public Text Txt_Dialogue;
 
     public GameObject Hud;
+    public GameObject cursor;
 
     public string[] Dialogue;
     private int index; 
@@ -25,25 +25,20 @@ public class BankerDialogue : MonoBehaviour
     public bool isUpgrade=false;
     private bool talking = false; 
     private int num;
+
     [SerializeField] private GameObject commandBox;
     AudioSource audio;
     [SerializeField] AudioClip[] audioClips;
 
 
     // Start is called before the first frame update
-
     private void Awake()
     {
         audio = GetComponent<AudioSource>();
-        //upgradeUI = GameObject.Find("AbilityUpgradeUI");
     }
     void Start()
     {
         num = 0;                
-    }
-    private void OnEnable()
-    {
-      
     }
 
     // Update is called once per frame
@@ -53,35 +48,27 @@ public class BankerDialogue : MonoBehaviour
 
         if (upgradeUI.activeSelf == true)
         {
-            SetPlayerState();            
+
+            SetPlayerState();
             isUpgrade = true;
-            abliltyUpgradeUI.isMenuAct = true;
             Hud.SetActive(false);
-            abliltyUpgradeUI.cursor.SetActive(false);
-            //abliltyUpgradeUI.SetMenuUI();
-            abliltyUpgradeUI.UIKeyboardInput();
-            //playerInput.isLock = true;
+            cursor.SetActive(false);
+            abilityUpgradeUI.SetMenuUI();
+            abilityUpgradeUI.UIKeyboardInput();
+
             if (Input.GetKeyDown(KeyCode.R))
-            {                
+            {
                 isUpgrade = false;
-                Debug.Log("업그레이드UI 꺼져라얍");
                 ResetPlayerState();
-                //UpgradeAudio.PlayOneShot(abliltyUpgradeUI.UpgradeNavigation);
-                abliltyUpgradeUI.isMenuAct = false;
                 Hud.SetActive(true);
-                abliltyUpgradeUI.cursor.SetActive(true);
+                cursor.SetActive(true);
                 upgradeUI.SetActive(false);
             }
-            
-                       
         }
-                
-
     }
 
     private void SetPlayerState()
     {
-        //abliltyUpgradeUI.UpgradeAudio.PlayOneShot(abliltyUpgradeUI.UpgradeNavigation);
         playerInput.isLock = true;
         playerController.speed = 0;
     }
@@ -122,14 +109,6 @@ public class BankerDialogue : MonoBehaviour
 
     public void NextLine()
     {
-        //if (Dialogue[Dialogue.Length - 1] == "전투 능력을 향상시키고 싶나?" && num == 1)
-        //{
-        //    upgradeUI.SetActive(true);
-        //    num = 0;
-        //    return;
-        //}
-
-        //num++;
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (index < Dialogue.Length - 1)
